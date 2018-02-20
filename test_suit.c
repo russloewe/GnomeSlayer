@@ -26,14 +26,12 @@ int test1(){
 int test2(){
     printf("Testing display.c->Load_image() - ");
     
-    SDL_Surface* image = NULL;
     if(load_image("./img/player.bmp") == NULL){
         printf("Failed\n");
         SDL_GetError();
         return -1;
     }else{
         printf("Pass\n");
-        SDL_FreeSurface(image);  //only free if load_image is successful or segfault
     }
     return 1;
 }
