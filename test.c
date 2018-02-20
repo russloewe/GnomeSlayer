@@ -13,10 +13,6 @@
  *          with the testing code. Main in test.c will replace main.c.
  *          The exceutable 'test' will be made. 
  * 
- *          build and then run the test automaically:
- * 
- *              make runtest
- * 
  *          build test, upload it to the PCC linux server, then run the
  *          test remotly, displying result on local terminal
  * 
@@ -30,15 +26,14 @@
 #include <assert.h>
 #include <stdlib.h>
 #include "SDL/SDL.h"
-#include "./headers/init.h"
-#include "./headers/input.h"
+#include "./headers/test_suit.h"
 
-extern int (*test_suit[])();   //array of function points to he tests
-extern const int test_len;     //number of tests in the array
+extern const int test_len;
+extern int (*test_suit[])();
+
 int run_tests();
 
-
-int main(){
+int main(void){
     
     printf("running tests now\n");
     run_tests();
