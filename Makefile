@@ -17,7 +17,7 @@ runtest: test
 	
 uptest: test
 	scp ./test russell.loewe@syccuxas01.pcc.edu:~/project/
-	ssh -X russell.loewe@syccuxas01.pcc.edu "~/project/test"
+	ssh -X russell.loewe@syccuxas01.pcc.edu "cd ~/project && ./test"
 	
 upmain: main
 	scp ./main russell.loewe@syccuxas01.pcc.edu:~/project/
