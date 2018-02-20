@@ -1,26 +1,19 @@
-all: main.o init.o input.o
-	gcc  main.o init.o input.o -o main `sdl-config --libs` -lSDL
+CC=gcc
+CFLAGS= -g
+LIBS= `sdl-config --libs` -lSDL
+OBJ=  init.o input.o display.o
 
+%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+all: $(OBJ) main.o
+	gcc -o main $^ $(CFLAGS) $(LIBS)
+	
+test: $(OBJ) test.o test_suit.o
+	gcc -o test $^ $(CFLAGS) $(LIBS)
+	
 runtest: test
 	./test
-	
-test: test.o test_suit.o init.o input.o
-	gcc init.o input.o test.o test_suit.o -o test `sdl-config --libs` -lSDL
-	
-test.o: test.c
-	gcc -c test.c
-	
-test_suit.o: test_suit.c
-	gcc -c test_suit.c
-	
-main.o: main.c
-	gcc -c main.c
-	
-init.o: init.c
-	gcc -c init.c
-	
-input.o: input.c
-	gcc -c input.c
 	
 uptest: test
 	scp ./test russell.loewe@syccuxas01.pcc.edu:~/project/
