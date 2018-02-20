@@ -7,11 +7,24 @@
  *          the test functions defined in test_suit.h .
  *          To invoke the test, run
  * 
- *               make clean test
+ *               make test
  * 
  *          This is compile all of the included source files except main.c
  *          with the testing code. Main in test.c will replace main.c.
- *          The exceutable 'test' will be made and then immeidatly ran
+ *          The exceutable 'test' will be made. 
+ * 
+ *          build and then run the test automaically:
+ * 
+ *              make runtest
+ * 
+ *          build test, upload it to the PCC linux server, then run the
+ *          test remotly, displying result on local terminal
+ * 
+ *              make uptest
+ * 
+ *          Good idea to run clean with all of these test commands
+ * 
+ *              make clean uptest
  */
 #include <stdio.h>
 #include <assert.h>
