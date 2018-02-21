@@ -1,5 +1,7 @@
 #include "./headers/display.h"
 
+extern SDL_Surface * screen;
+
 SDL_Surface * load_image(char * filename)
 {
     /*
@@ -28,4 +30,21 @@ SDL_Surface * load_image(char * filename)
     SDL_FreeSurface(temp);            
 
     return image;
+}
+
+int render_objects( gamepiece * pieces[]){
+    //const int obj_count = sizeof(pieces) / sizeof(pieces[0]);
+    
+    for(int i = 0; i < 1; i++){
+        if(SDL_BlitSurface(pieces[i]->img, NULL, screen, pieces[i]->rect) != 0){
+            printf("display.c->render_objects.c->SDL_BlitSurface()");
+            return 1;
+        }
+    }
+    if(SDL_Flip(screen) != 0 ){
+        printf("display.c->render_objects.c->SDL_Flip()");
+        return 1;
+    }
+
+    return 0;
 }
