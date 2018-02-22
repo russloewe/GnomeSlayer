@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 #include "./headers/init.h"
 #include "./headers/input.h"
 #include "./headers/display.h"
@@ -15,7 +15,6 @@
 
 int main(void){
     
-    SDL_Surface* image = NULL;   //image for player 
     
     init_video();      //open the screen
 
@@ -24,8 +23,7 @@ int main(void){
      */
     gamepiece * player;
     SDL_Surface * img;
-    img = load_image("./img/player2.bmp");
-    player = create_piece(50, 50, img, PLAYER_TYPE);
+    player = create_piece(50, 50, load_image("./img/player2.bmp"), PLAYER_TYPE);
     gamepiece * objects[] = {player};
     
     //main loop 
