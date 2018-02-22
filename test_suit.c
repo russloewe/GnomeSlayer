@@ -20,6 +20,9 @@ int cleantest(){
 }
 
 int test1(){
+    /*
+     * Check that the graphics will initalize
+     */
     printf("testing init.c->init_video() - ");
     if(init_video() != 0 ){
         printf("Fail\n");
@@ -31,6 +34,11 @@ int test1(){
 }
 
 int test2(){
+    /*
+     * Check that we can open one of the images
+     * Later I'll probably have it loop though all images for 
+     * the game
+     */
     printf("Testing display.c->Load_image() - ");
     
     if(load_image("./img/player.bmp") == NULL){
@@ -44,6 +52,11 @@ int test2(){
 }
 
 int test3(){
+    /*
+     * Test if game piece is correctly initialized 
+     * a gamepiece can have a null pointer for img, it means it doesn't 
+     * have an associated image
+     */
     printf("Testing gameobjects.c -> createpiece() - ");
     
     gamepiece * player;
@@ -68,13 +81,23 @@ int test3(){
 
 
 int test4(){
-    printf("Testing display.c->render_objects - ");
+    /*
+     * create a couple of test pieces and see if the object renderer handles them
+     * also make sure bad file name and missing image don't jam it up
+     */
+    printf("Testing display.c->render_objects - (this error message is expected for this test -->)");
     
     gamepiece * player;
+    gamepiece * player2;
+    gamepiece * player3;
     
     player = create_piece(50, 50, load_image("./img/player.bmp"), PLAYER_TYPE);
+    player2 = create_piece(50, 50, load_image("badfilename"), PLAYER_TYPE); //make sure it handle bad filename
+    player2 = create_piece(50, 50, NULL, PLAYER_TYPE); //no img
 
-    gamepiece * objects[] = {player};
+    gamepiece * objects[10] = {NULL};  // init array of null pointers
+    objects[0] = player;               //add player to array
+    objects[0] = player2;               //add player to array
     
     if(render_objects(objects) != 0){
         printf("Failed\n");
@@ -143,3 +166,4 @@ int test7(){
         return 1;
     }
 }
+
