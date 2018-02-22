@@ -22,9 +22,9 @@ int main(void){
      * Create a player piece add it to array
      */
     gamepiece * player;
-    SDL_Surface * img;
     player = create_piece(50, 50, load_image("./img/player2.bmp"), PLAYER_TYPE);
-    gamepiece * objects[] = {player};
+    gamepiece * objects[10] = {NULL};
+    objects[0] = player;
     
     //main loop 
     while(1){
