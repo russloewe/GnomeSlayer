@@ -32,7 +32,7 @@ int init_video(void){
                           SDL_WINDOWPOS_UNDEFINED,
                           SDL_WINDOWPOS_UNDEFINED,
                           640, 480,
-                          SDL_WINDOW_INPUT_GRABBED | SDL_WINDOW_OPENGL);
+                          SDL_WINDOW_OPENGL);
                           
     if(Main_Screen == NULL){
         printf("ERROR: init.c -> init_video -> SDL_CreateWindow : %s\n", SDL_GetError());
