@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS= -g
-LIBS= `sdl-config --libs` -lSDL
+LIBS=  -lSDL2
 OBJ=  init.o input.o display.o gameobjects.o
 
 %.o: %.c $(DEPS)

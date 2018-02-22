@@ -54,8 +54,10 @@ int main(void){
                 break;
         }
         
-        //render the objects to screen
-    
+        //render the background
+        render_background();
+        
+        //render the objects to screen    
         if(render_objects(objects) != 0){
             printf("Failed\n");
             return -1;

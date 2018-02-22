@@ -7,7 +7,8 @@
  */
 #include "./headers/init.h"
 
-SDL_Surface *screen;
+SDL_Window * Main_Screen = NULL;
+SDL_Renderer * Main_Renderer  = NULL;
 
 int init_video(void){
     
@@ -27,10 +28,25 @@ int init_video(void){
      * Open a screen 640 by 480, with the double buffer feature 
      * to speed rendering.
      */
-    screen = SDL_SetVideoMode(640, 480, 0, SDL_HWPALETTE|SDL_DOUBLEBUF);
+    Main_Screen = SDL_CreateWindow("PCC CS133 Final",
+                          SDL_WINDOWPOS_UNDEFINED,
+                          SDL_WINDOWPOS_UNDEFINED,
+                          640, 480,
+                          SDL_WINDOW_INPUT_GRABBED | SDL_WINDOW_OPENGL);
+                          
+    if(Main_Screen == NULL){
+        printf("ERROR: init.c -> init_video -> SDL_CreateWindow : %s\n", SDL_GetError());
+        SDL_GetError();
+        return 1;
+    }
     
-    if(screen == NULL){
-        printf("ERROR: init.c -> init_video -> SDL_SetVideoMode : %s\n", SDL_GetError());
+    /*
+     * inti the renderer
+     */
+     Main_Renderer = SDL_CreateRenderer(Main_Screen, -1, 0);
+    
+    if(Main_Renderer == NULL){
+        printf("ERROR: init.c -> init_video -> SDL_CreateRenderer : %s\n", SDL_GetError());
         SDL_GetError();
         return 1;
     }
@@ -43,5 +59,7 @@ void cleanup(){
     /*
      * Close down whatever SDL is doing or you might get a runaway screen
      */
+    SDL_DestroyRenderer(Main_Renderer);
+    SDL_DestroyWindow(Main_Screen);
     SDL_Quit();
 }

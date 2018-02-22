@@ -7,8 +7,14 @@
  */
  
 #include "./headers/gameobjects.h"
+#define GAMESQUARE 16
 
-gamepiece * create_piece(int x, int y, SDL_Surface * img, enum piecetype type){
+gamepiece * create_piece(int x, int y, SDL_Texture * img, enum piecetype type){
+    
+    if(img == NULL){
+        printf("Error: gameobjects.c->creat_piece()-> img is NULL\n");
+        return NULL;
+    }
     gamepiece * newpiece = (gamepiece *)malloc(sizeof(gamepiece));
     SDL_Rect  * newrect = (SDL_Rect *)malloc(sizeof(SDL_Rect));
     
@@ -24,19 +30,26 @@ gamepiece * create_piece(int x, int y, SDL_Surface * img, enum piecetype type){
     return newpiece;
 }
 
+int destroy_piece(gamepiece * piece){
+    free(piece->rect);
+    SDL_DestroyTexture(piece->img);
+    free(piece);
+    return 0;
+}
+ 
 int move_piece(gamepiece * piece, enum direction direc){
     switch(direc){
         case MVUP:
-            (piece->rect->y)--;
+            (piece->rect->y) -= GAMESQUARE;
             break;
         case MVDOWN:
-            (piece->rect->y)++;
+            (piece->rect->y) += GAMESQUARE;
             break;
         case MVLEFT:
-            (piece->rect->x)--;
+            (piece->rect->x) -= GAMESQUARE;
             break;
         case MVRIGHT:
-            (piece->rect->x)++;
+            (piece->rect->x) += GAMESQUARE;
             break;
             
         }

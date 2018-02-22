@@ -8,8 +8,9 @@
  *         array of tests.
  */
 #include "./headers/test_suit.h"
+#define GAMESQUARE 16
 
-int (*test_suit[])() = {test1, test2, test3, test4, test5, cleantest};                   //cleantest must be at the end of this array
+int (*test_suit[])() = {test1, test2, test3, test4, test5, test6, test7, cleantest};                   //cleantest must be at the end of this array
 const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);      //global variable to tell test runner how many tests there are
 
 int cleantest(){
@@ -46,11 +47,8 @@ int test3(){
     printf("Testing gameobjects.c -> createpiece() - ");
     
     gamepiece * player;
-    SDL_Surface * img;
-    
-    img = load_image("./img/player.bmp");
-    
-    player = create_piece(50, 50, img, PLAYER_TYPE);
+
+    player = create_piece(50, 50, load_image("./img/player.bmp"), PLAYER_TYPE);
     
     if( player->type != PLAYER_TYPE ){
         printf("Failed 1\n");
@@ -73,10 +71,8 @@ int test4(){
     printf("Testing display.c->render_objects - ");
     
     gamepiece * player;
-    SDL_Surface * img;
     
-    img = load_image("./img/player.bmp");
-    player = create_piece(50, 50, img, PLAYER_TYPE);
+    player = create_piece(50, 50, load_image("./img/player.bmp"), PLAYER_TYPE);
 
     gamepiece * objects[] = {player};
     
@@ -93,18 +89,16 @@ int test5(){
     printf("Testing gameobjects.c -> move_piece() - ");
     
     gamepiece * player;
-    SDL_Surface * img;
-    
-    img = load_image("./img/player.bmp");
-    player = create_piece(50, 50, img, PLAYER_TYPE);
+
+    player = create_piece(50, 50, load_image("./img/player.bmp"), PLAYER_TYPE);
     
     move_piece(player, MVUP);
     move_piece(player, MVLEFT);
     
-    if(player->rect->y != 49){
+    if(player->rect->y != (50 - GAMESQUARE) ){
         printf("Fail 1\n");
         return -1;
-    }else if(player->rect->x != 49){
+    }else if(player->rect->x != (50 - GAMESQUARE) ){
         printf("Fail 2\n");
         return -1;
     }
@@ -114,10 +108,10 @@ int test5(){
     move_piece(player, MVDOWN);
     move_piece(player, MVRIGHT);
     
-    if(player->rect->y != 51){
+    if(player->rect->y != (50 + GAMESQUARE)){
         printf("Fail 1\n");
         return -1;
-    }else if(player->rect->x != 51){
+    }else if(player->rect->x != (50 + GAMESQUARE)){
         printf("Fail 2\n");
         return -1;
     }
@@ -125,4 +119,27 @@ int test5(){
     printf("Pass\n");
     return 1;
 }
+
+int test6(){
+    printf("Testing gameobjects -> destroy_piece() - ");
     
+    gamepiece * player;
+    
+    player = create_piece(50, 50, load_image("./img/player.bmp"), PLAYER_TYPE);
+    
+    destroy_piece(player);
+    
+    printf("Pass \n");    
+    return 1;
+}
+    
+int test7(){
+    printf("Testing display->render_background() - ");
+    if(render_background() == 1){
+        printf("Fail \n");
+        return -1;
+    }else{
+        printf("Pass\n");
+        return 1;
+    }
+}

@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 #include "./headers/test_suit.h"
 
 extern const int test_len;

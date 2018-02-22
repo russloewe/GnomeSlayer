@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "SDL/SDL.h"
+#include "SDL2/SDL.h"
 
 int init_video(void);
 void cleanup();
