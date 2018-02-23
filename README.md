@@ -53,6 +53,6 @@ This is a single player game. Both the player and the monsters will have health 
     move player, jeck for boarders check for collision
 
 
-### game interface
+### program flow
 
 
