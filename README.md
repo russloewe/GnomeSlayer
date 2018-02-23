@@ -29,7 +29,15 @@ Objects:
 - walls
 - doors
 
-Actions:
+Player actions:
+- move
+- pick up
+- fight
+
+Monster actions:
+- wander around
+- fight
+
 
 Game Flow:
 
