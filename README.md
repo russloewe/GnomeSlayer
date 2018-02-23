@@ -38,6 +38,10 @@ Monster actions:
 - wander around
 - fight
 
+Mechanics:
+- initial conditions
+- win condition
+- lose condition
 
 Game Flow:
 
