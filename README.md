@@ -47,7 +47,7 @@ Game Flow:
 
      move charecter, fight monster, save .. etc
      computer controls the monster
-     game flow
+     game flow (how we'll add modules together to create the program)
 
 ## Components needed
 
