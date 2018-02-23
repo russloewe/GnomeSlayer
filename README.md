@@ -11,6 +11,10 @@ This is for the final project in CS133U.
 
 ### game interface
 
+This game will be similar to Dungeons and Dragons. A map will display on the screen for the user, there will be an area for player stats (e.g. health), and another area for the narrative output (e.g. "manster hit you -3hp"). A box with the commands the player can use should be displayed on the screen as well.
+
+For this game, the user will use only their keyboard (no mouse). The player will have to use letter keys and arrow keys to navigate through the game and to access the functions (functions like pickup or attack).
+
     2d graphic / text based?
     keyboard, no mouse.
 
