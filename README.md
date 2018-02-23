@@ -22,6 +22,12 @@ For this game, the user will use only their keyboard (no mouse). The player will
 
 This is a single player game. Both the player and the monsters will have health and when the health runs out, the character/monster is dead. The player can only carry one item at a time and that item will be either a sword or a shield. The player will have the opportunity to swap for the other weapon if they wish. There is a third item, which is a potion. This will increase the player's health. This has to be used immediately. These three items will have a description and an integer value. 
 
+Items:
+
+Actions:
+
+Game Flow:
+
      move charecter, fight monster, save .. etc
      computer controls the monster
      game flow
