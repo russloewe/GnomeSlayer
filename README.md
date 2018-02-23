@@ -24,6 +24,7 @@ This is a single player game. Both the player and the monsters will have health 
 
      move charecter, fight monster, save .. etc
      computer controls the monster
+     game flow
 
 ## Components needed
 
@@ -53,6 +54,5 @@ This is a single player game. Both the player and the monsters will have health 
     move player, jeck for boarders check for collision
 
 
-### program flow
 
 
