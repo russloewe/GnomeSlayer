@@ -70,10 +70,26 @@ struct room{int a; char b; struct room * next_room;}
 ### modules
 
 draw();
+get_input();
+
+ai();
+Called by main(). Will decide move for monster to make then pass that back to main(). 
+
+action();
+Called by main(). Will receive whether to move or fight from main(). Will then call move() or fight();
+
 move(parameter values);
+Can be used by player and monster
+
+fight();
+Can be used by player and monster
+
 check_health();
 generate_room();
 create_maps();
+
+win();
+checking conditions: win condition, if a player is next to a monters/wall/door, whether health is dead
 
 Loop through these functions:
 1: draw board 
