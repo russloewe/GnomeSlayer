@@ -7,12 +7,71 @@
  *         and have their function name put in the function pointer
  *         array of tests.
  */
-#include "./headers/test_suit.h"
+
+#include <stdio.h>
+#include <assert.h>
+#include <stdlib.h>
+#include "SDL2/SDL.h"
+#include "./headers/init.h"
+#include "./headers/input.h"
+#include "./headers/display.h"
+#include "./headers/gameobjects.h"
 #define GAMESQUARE 16
 
-int (*test_suit[])() = {test1, test2, test3, test4, test5, test6, test7, cleantest};                   //cleantest must be at the end of this array
-const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);      //global variable to tell test runner how many tests there are
+int run_tests();
+int cleantest();
+int test1();
+int test2();
+int test3();
+int test4();
+int test5();
+int test6();
+int test7();
 
+
+
+int main(void){
+    
+    printf("running tests now\n");
+    run_tests();
+    
+    return 0;
+}
+
+int run_tests(){
+    
+    int (*test_suit[])() = {test1, test2, test3, test4, test5, test6, test7, cleantest};    //cleantest must be at the end of this array
+    const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);                          //variable to tell test runner how many tests there are
+
+    
+    int success = 0;
+    int failure = 0;
+    
+    for(int i = 0; i < test_len; i++){
+        int response;
+        
+        response = test_suit[i]();
+        
+        switch(response){
+            
+            case 0:
+                printf("Finished Runnig all tests. Success: %i\n", success);
+                printf("                           Failure: %i\n", failure);
+                return 0;
+            
+            case 1:
+                success++;
+                break;
+            
+            default:
+                failure++;
+                break;
+        }
+    }
+    printf("Error: test.c -> run_tests() -> not cleanup at end\n");
+    return 1;
+}
+/***************************** Begin Test Functions ********************/
 int cleantest(){
     printf("cleaning up tests\n");
     cleanup();

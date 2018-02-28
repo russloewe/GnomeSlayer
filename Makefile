@@ -1,19 +1,16 @@
 CC=gcc
-CFLAGS= -g -I/home/student/russell.loewe/libs/include
-LIBS=   -L/home/student/russell.loewe/libs/lib64/ `/home/student/russell.loewe/libs/bin/sdl2-config --libs`  -l:libSDL2.a    
+CFLAGS= -g --std=c99
+LIBS=    `sdl2-config --libs`  -l:libSDL2.a    
 OBJ=  init.o input.o display.o gameobjects.o
 
-%.o: %.c $(DEPS)
+%.o: %.c 
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 all: $(OBJ) main.o
 	gcc -o main $^ -g $(LIBS)
 	
-test: $(OBJ) test.o test_suit.o
-	gcc -o test $^ -g $(LIBS)
-	
-runtest: test
-	./test
+test-graphics: $(OBJ) test_graphics.o
+	gcc -o test_graphics $^ -g $(LIBS)
 	
 uptest: test
 	scp ./test russell.loewe@syccuxas01.pcc.edu:~/project/
