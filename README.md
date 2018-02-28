@@ -137,4 +137,6 @@ Begins the program and calls several functions including ai() and action(). Will
      generate_room();  
      Generates the room. Calls create_maps() or will deal with creating maps directly.
 
+##### Game Objects
 
+     define game objects like player structs, item structs and their interfaces
