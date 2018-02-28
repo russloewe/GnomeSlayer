@@ -61,8 +61,17 @@ Game Flow:
 ##### item struct
 
      type of item, value, name
+     
+##### room struct
+struct room{int a; char b; struct room * next_room;}
 
 ### modules
+
+draw();
+move(parameter values);
+check_health();
+generate_room();
+create_maps();
 
 ##### graphics
  
