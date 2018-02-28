@@ -99,7 +99,7 @@ Check if the game is won or the player is dead
 win();
 checking conditions: win condition, if a player is next to a monters/wall/door, whether health is dead
 
-Loop through these functions:
+Loop through these actions:
 1: draw board 
 2: get input 
 3: perform player action 
