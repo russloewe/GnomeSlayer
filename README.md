@@ -77,7 +77,7 @@ create_maps();
 
 Loop through these functions:
 1: draw board 
-2:get input 
+2: get input 
 3: perform player action 
 4: perform monster action(AI) 
 5: check health of monster and player
