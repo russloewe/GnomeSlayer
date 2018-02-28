@@ -66,12 +66,30 @@ Game Flow:
 
 ##### game piece struct
  
-    holds player pos, name and health
-     used for main player and monsters
+    holds player pos, name, health, weapon
+     used for main player and monsters. Some monsters will have no weapon.
+     
+  struct player{
+  char name[50];
+  int x;
+  int y;
+  struct item sword;
+  struct item shield;
+}
 
 ##### item struct
 
      type of item, value, name
+     
+enum ItemType{sword, potion, shield, treasure};
+
+struct item{
+  char name[50];
+  enum ItemType type;
+  int val;
+  int x;
+  int y;
+}
      
 ##### room struct
 
