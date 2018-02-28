@@ -107,8 +107,7 @@ struct room{
 
 ##### door struct
 
-     name, the last room, the next room, walls, bounty, monsters, doors
-     rooms will be stored in a linked list
+     position, two doors in room
      
 struct door{
   int x;
