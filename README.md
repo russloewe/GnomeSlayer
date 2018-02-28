@@ -93,8 +93,29 @@ struct item{
      
 ##### room struct
 
-     the room, the next room
+     name, the last room, the next room, walls, bounty, monsters, doors
      rooms will be stored in a linked list
+     
+struct room{
+  char name[50];
+  item monsters[5];
+  item bounty[10];
+  item walls[1000];
+  struct door * lastroom;
+  struct door * nextroom;
+}
+
+##### door struct
+
+     name, the last room, the next room, walls, bounty, monsters, doors
+     rooms will be stored in a linked list
+     
+struct door{
+  int x;
+  int y;
+  struct room * room1;
+  struct room * room2;
+}
 
 ### modules
 
