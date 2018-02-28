@@ -70,13 +70,16 @@ struct room{int a; char b; struct room * next_room;}
 ### modules
 
 draw();
+Call functions to draw the room and stuff in the room.
+
 get_input();
+Will generate a move. Like if the player wants to go right, the input() function will return MOVE_RIGHT, then that is passed to the action module as (PLAYER, MOVE_RIGHT), from there it will call the subfunctions such as move_right().
 
 ai();
-Called by main(). Will decide move for monster to make then pass that back to main(). 
+Called by main(). Will decide action for monster to make then pass that back to main(). Ai() will need to get a list of the monsters and player and room data to make a decision for each of the monsters in the room. Will generate an action and return (monster1, move_left). We're still trying to figure out a way to pass these but we have ideas.
 
 action();
-Called by main(). Will receive whether to move or fight from main(). Will then call move() or fight();
+Called by main(). Will receive whether to move or fight from main(). Will then call move() or fight().
 
 move(parameter values);
 Can be used by player and monster
@@ -84,9 +87,14 @@ Can be used by player and monster
 fight();
 Can be used by player and monster
 
-check_health();
+
 generate_room();
-create_maps();
+Calls create_maps() or will deal with creating maps directly;
+
+check_health();
+
+check_state();
+Check if the game is won or the player is dead
 
 win();
 checking conditions: win condition, if a player is next to a monters/wall/door, whether health is dead
