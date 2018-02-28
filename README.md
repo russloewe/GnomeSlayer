@@ -50,6 +50,15 @@ Game Flow:
      move charecter, fight monster, save .. etc
      computer controls the monster
      game flow (how we'll add modules together to create the program)
+     
+     
+     Loop through these steps:  
+     1: draw board  
+     2: get input  
+     3: perform player action  
+     4: perform monster action(AI)  
+     5: check health of monster and player  
+     6: check win condition  
 
 ## Components needed
 
@@ -76,62 +85,56 @@ The module parameters will be added later.
 main();  
 Begins the program and calls several functions including ai() and action(). Will contain variables that will be passed in and out of the called functions.
 
-draw();  
-Call functions to draw the room and stuff in the room.
-
-generate_room();  
-Generates the room. Calls create_maps() or will deal with creating maps directly.
-
-get_input();  
-Will generate a move for the player. Like if the player wants to go right, the input() function will return MOVE_RIGHT, then that is passed to the action module as (PLAYER, MOVE_RIGHT), from there it will call the subfunctions such as move_right(). The player will also be able to fight if there is something there to fight.
-
-ai();  
-Called by main(). Will decide action for monster to make then pass that back to main(). Ai() will need to get a list of the monsters and player and room data to make a decision for each of the monsters in the room. Will generate an action and return (monster1, move_left). We're still trying to figure out a way to pass these but we have ideas.
-
-action();  
-Called by main(). Will receive whether to move or fight from main(). Will then call move() or fight(). This is responsible for the both the player's and the monster's actions. 
-
-move();  
-Makes the player and the monsters move.
-
-fight();  
-Makes the player and the monsters fight.
-
-check_health();  
-Checks the health of the player and monsters.
-
-check_state();  
-Check if the game is won or the player is dead.
-
-check_cond();  
-Checking conditions: win condition, if a player is next to a monters/wall/door, whether health is "dead". The win condition is slaying the goblin king and taking his treasure.
-
-win();  
-If the win condition is true, print that the player won.
-
-end_game();  
-Finish up the game. Prints any last comments to be made.
-
-Loop through these steps:  
-1: draw board  
-2: get input  
-3: perform player action  
-4: perform monster action(AI)  
-5: check health of monster and player  
-6: check win condition  
 
 ##### graphics
  
     draw room, player's character, and maybe doors, items, and monsters.
+    
+    draw();  
+    Call functions to draw the room and stuff in the room.
   
 ##### input
 
      handle key events
+     get_input();  
+     Will generate a move for the player. Like if the player wants to go right, the input() function will return MOVE_RIGHT, then that is passed to the action module as (PLAYER, MOVE_RIGHT), from there it will call the subfunctions such as move_right(). The player will also be able to fight if there is something there to fight.
 
 
-##### player movement 
+
+
+##### player/ monster action
     move player, check for boarders, and check for collision
+    action();  
+     Called by main(). Will receive whether to move or fight from main(). Will then call move() or fight(). This is responsible for the both the player's and the monster's actions. 
+
+     move();  
+     Makes the player and the monsters move.
+
+     fight();  
+     Makes the player and the monsters fight.
+     
+##### AI
+     
+     ai();  
+     Called by main(). Will decide action for monster to make then pass that back to main(). Ai() will need to get a list of the monsters and player and room data to make a decision for each of the monsters in the room. Will generate an action and return (monster1, move_left). We're still trying to figure out a way to pass these but we have ideas.
 
 
+##### Endgame
+
+     check_state();  
+     Check if the game is won or the player is dead.
+     check_cond();  
+     Checking conditions: win condition, if a player is next to a monters/wall/door, whether health is "dead". The win  condition is slaying the goblin king and taking his treasure.
+
+     win();  
+     If the win condition is true, print that the player won.
+
+     end_game();  
+     Finish up the game. Prints any last comments to be made.
+
+##### Maps
+
+     generate_room();  
+     Generates the room. Calls create_maps() or will deal with creating maps directly.
 
 
