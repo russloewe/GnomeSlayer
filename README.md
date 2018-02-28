@@ -130,7 +130,7 @@ Loop through these steps:
 
 
 ##### player movement 
-    move player, jeck for boarders check for collision
+    move player, check for boarders, and check for collision
 
 
 
