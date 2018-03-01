@@ -84,7 +84,7 @@ Begins the program and calls several functions including ai() and action(). Will
 
      
      get_input();  
-Will generate a move for the player. Like if the player wants to go right, the input() function will 
+Will generate a move for the player. Like if the player wants to go right, the get_input() function will 
 return MOVE_RIGHT, then that is passed to the action module as (PLAYER, MOVE_RIGHT), from there it
 will call the subfunctions such as move_right(). The player will also be able to fight if there is 
 something there to fight.
