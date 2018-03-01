@@ -93,16 +93,22 @@ something there to fight.
 
 
 ##### player/ monster 
-
+        enum PieceType{sword, potion, shield, treasure, wall, player, monster};
+        
+  type of piece
+     
        struct player{
        char name[50];
+       enum PieceTpye type;
        int x;
        int y;
+       int val;
        struct item sword;
        struct item shield;
      }
 
-This struct contains all the attributes for a player or a monster.
+This struct contains all the attributes for a player or a monster or item. Val is health for monster or player, 
+hp or def for sword and shield and healing power for potion.
 
    
     action();  
@@ -115,6 +121,15 @@ This struct contains all the attributes for a player or a monster.
 
      fight();  
    Makes the player and the monsters fight.
+   
+     get_piece_x();
+  return x position
+  
+     get_piece_y();
+  return y position
+  
+     get_piece_image():
+  return pointer to SDL_texture
      
 ##### AI
      
@@ -164,18 +179,4 @@ This struct contains all the attributes for a player or a monster.
      generate_room();  
   Generates the room. Calls create_maps() or will deal with creating maps directly.
 
-##### Items
-     enum ItemType{sword, potion, shield, treasure, wall};
-
-Enum to specify the item type
-
-     struct item{
-       char name[50];
-       enum ItemType type;
-       int val;
-       int x;
-       int y;
-     }
-     
-  Struct for item attributes.
   
