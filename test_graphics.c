@@ -3,9 +3,8 @@
  * file:   test_suit.c
  * Purpose:
  *         This file contains all of the tests to run in this suit.
- *         each of these tests needs to be prototyped in the header
- *         and have their function name put in the function pointer
- *         array of tests.
+ *         each of these tests needs to  have their function name put 
+ *         in the function pointer array of tests.
  */
 
 #include <stdio.h>
