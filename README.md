@@ -72,19 +72,22 @@ Begins the program and calls several functions including ai() and action(). Will
 
 ##### graphics
  
-    draw room, player's character, and maybe doors, items, and monsters.
+     init();
+
+   start the graphics engine. 
     
-    draw();  
-    Call functions to draw the room and stuff in the room.
+    draw(struct room * currentroom);  
+    
+   Call functions to draw the room and stuff in the room.
   
 ##### input
 
-     handle key events
+     
      get_input();  
-     Will generate a move for the player. Like if the player wants to go right, the input() function will 
-     return MOVE_RIGHT, then that is passed to the action module as (PLAYER, MOVE_RIGHT), from there it
-     will call the subfunctions such as move_right(). The player will also be able to fight if there is 
-     something there to fight.
+Will generate a move for the player. Like if the player wants to go right, the input() function will 
+return MOVE_RIGHT, then that is passed to the action module as (PLAYER, MOVE_RIGHT), from there it
+will call the subfunctions such as move_right(). The player will also be able to fight if there is 
+something there to fight.
 
 
 
@@ -99,35 +102,42 @@ Begins the program and calls several functions including ai() and action(). Will
        struct item shield;
      }
 
-    move player, check for boarders, and check for collision
+This struct contains all the attributes for a player or a monster.
+
+   
     action();  
-     Called by main(). Will receive whether to move or fight from main(). Will then call move() or fight(). 
-     This is responsible for the both the player's and the monster's actions. 
+   
+   Called by main(). Will receive whether to move or fight from main(). Will then call move() or fight(). 
+   This is responsible for the both the player's and the monster's actions. 
 
      move();  
-     Makes the player and the monsters move.
+   Makes the player and the monsters move.
 
      fight();  
-     Makes the player and the monsters fight.
+   Makes the player and the monsters fight.
      
 ##### AI
      
      ai();  
-     Called by main(). Will decide action for monster to make then pass that back to main(). Ai() will need to get a list of the monsters and player and room data to make a decision for each of the monsters in the room. Will generate an action and return (monster1, move_left). We're still trying to figure out a way to pass these but we have ideas.
+   
+   Called by main(). Will decide action for monster to make then pass that back to main(). Ai() will need to get a list of the monsters and player and room data to make a decision for each of the monsters in the room. Will generate an action and return (monster1, move_left). We're still trying to figure out a way to pass these but we have ideas.
 
 
 ##### Endgame
 
      check_state();  
-     Check if the game is won or the player is dead.
+   Check if the game is won or the player is dead.
+     
      check_cond();  
-     Checking conditions: win condition, if a player is next to a monters/wall/door, whether health is "dead". The win  condition is slaying the goblin king and taking his treasure.
+   Checking conditions: win condition, if a player is next to a monters/wall/door, whether health is "dead". The win  condition is slaying the goblin king and taking his treasure.
 
      win();  
-     If the win condition is true, print that the player won.
+     
+   If the win condition is true, print that the player won.
 
      end_game();  
-     Finish up the game. Prints any last comments to be made.
+     
+   Finish up the game. Prints any last comments to be made.
 
 ##### Maps
 
@@ -139,17 +149,25 @@ Begins the program and calls several functions including ai() and action(). Will
        struct door * lastroom;
        s truct door * nextroom;
      }
+   
+   This struct contains info about the room. The monsters and items and walls are contained in arrays.
+   
      struct door{
        int x;
        int y;
        struct room * room1;
        struct room * room2;
      }
+     
+  This struct shows the position of the door and points to the two rooms that it connects.
+  
      generate_room();  
-     Generates the room. Calls create_maps() or will deal with creating maps directly.
+  Generates the room. Calls create_maps() or will deal with creating maps directly.
 
 ##### Items
-     enum ItemType{sword, potion, shield, treasure};
+     enum ItemType{sword, potion, shield, treasure, wall};
+
+Enum to specify the item type
 
      struct item{
        char name[50];
@@ -158,4 +176,6 @@ Begins the program and calls several functions including ai() and action(). Will
        int x;
        int y;
      }
+     
+  Struct for item attributes.
   
