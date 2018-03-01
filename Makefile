@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS= -g --std=c99
 LIBS=    `sdl2-config --libs`  -l:libSDL2.a    
-OBJ=  init.o input.o display.o gameobjects.o
+OBJ=  input.o graphics.o gameobjects.o
 
 %.o: %.c 
 	$(CC) -c -o $@ $< $(CFLAGS)
