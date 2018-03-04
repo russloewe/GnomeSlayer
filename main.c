@@ -8,9 +8,8 @@
 #include <assert.h>
 #include <stdlib.h>
 #include "SDL2/SDL.h"
-#include "./headers/init.h"
 #include "./headers/input.h"
-#include "./headers/display.h"
+#include "./headers/graphics.h"
 
 
 int main(void){
