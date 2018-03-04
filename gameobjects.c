@@ -60,8 +60,12 @@ SDL_Texture * get_piece_image(gamepiece *p){
     return NULL;
 }
 
-int get_piece_x(gamepiece *p){
-    return 1;
+int get_piece_x(gamepiece *piece){
+
+    //interface to return a game piece's x position.
+    int a = piece->x;
+
+    return a;
 }
 
 int get_piece_y(gamepiece *p){

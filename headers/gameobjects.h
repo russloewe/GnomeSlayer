@@ -25,7 +25,7 @@ int move_piece(gamepiece * piece, enum direction direc);
 int destroy_piece(gamepiece * piece);
 
 SDL_Texture * get_piece_image(gamepiece *p);
-int get_piece_x(gamepiece *p);
+int get_piece_x(gamepiece *piece);
 int get_piece_y(gamepiece *p);
 
 #endif
