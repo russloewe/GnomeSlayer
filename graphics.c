@@ -66,23 +66,24 @@ SDL_Texture * load_image(char * filename)
      * SDL_Surface containing loaded bitmap
      */
     SDL_Surface* image = NULL;
+    SDL_Texture * texture = NULL;
     image = SDL_LoadBMP(filename);
     if (image == NULL)
     {
+        //if the image doesn't load, draw a 
         printf("ERROR: display.c -> load_image -> SDL_loadBMP(): %s\n", SDL_GetError());
-        return NULL;
+        texture = make_colored_texture(16, 16, 255, 255, 255);
+    }else{
+        //copy image surface to a texture
+        texture = SDL_CreateTextureFromSurface(Main_Renderer, image);
+        //free the surface
+         SDL_FreeSurface(image); 
     }
-
-   //copy image surface to a texture
-   SDL_Texture * texture = SDL_CreateTextureFromSurface(Main_Renderer, image);
    
    if (texture == NULL){
        printf("Error: display.c->load_image()-> SDL_CreateTextureFromSurface()\n");
        return NULL;
    }
-    
-    SDL_FreeSurface(image);            
-
     return texture;
 }
 
@@ -91,18 +92,25 @@ int render_objects( gamepiece * pieces[]){
      * This function takes an array of pointers to game pieces and
      * loops through, rendering each one that isn't NULL.
      */
+    SDL_Texture * image;        //holder for image
+    SDL_Rect  rect;             //holder for rect
+    rect.w = 16;                //height and width can be defiend now
+    rect.h = 16;
     
     for(int i = 0; i < 10; i++){ 
-        if(pieces[i] != NULL){
-            if( pieces[i]->img == NULL){ 
+        //if(pieces[i] != NULL){
+            image = get_piece_image(pieces[i]);
+            rect.x = get_piece_x(pieces[i]);
+            rect.y == get_piece_y(pieces[i]);
+            if( image == NULL){ 
                 //if the piece doesn't have an image with it give it a blank square
-                pieces[i]->img = make_colored_texture(16, 16, 255, 0, 0); 
+                image = make_colored_texture(16, 16, 255, 0, 0); 
             }
-            if(SDL_RenderCopy(Main_Renderer, pieces[i]->img, NULL, pieces[i]->rect) != 0){
+            if(SDL_RenderCopy(Main_Renderer, image, NULL, &rect) != 0){
                 printf("display.c->render_objects()->SDL_RenderCopy()\n");
                 return 1;
             }
-        }
+        //}
     }
     
     SDL_RenderPresent(Main_Renderer);

@@ -11,8 +11,8 @@
 #include <assert.h>
 #include <stdlib.h>
 #include "SDL2/SDL.h"
-#include "./headers/init.h"
-#include "./headers/display.h"
+#include "./headers/graphics.h"
+#include "./headers/gameobjects.h"
 #define GAMESQUARE 16
 
 int run_tests();
@@ -38,7 +38,8 @@ int main(void){
 int run_tests(){
     
     int (*test_suit[])() = {test1, test2, 
-                            test3, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
+                            test3, test4, 
+                            test5, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
     const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
 
     
@@ -120,4 +121,34 @@ int test3(){
         return 1;
     }
 }
+    
+int test4(){
+    /*Check if the function that renders a colored square works */
+    printf("Testing display->make_colored_texture(): ");
+    
+    SDL_Texture * blank_square;
+    
+    blank_square = make_colored_texture(16, 16, 255, 255, 255);
+    
+    if(blank_square == NULL){
+        printf("Fail 1\n");
+        return -1;
+    }
+    
+    return 1;
+}
 
+int test5(){
+    /*Test the render objects function
+     */
+     printf("Testing graphics->render_objects(): ");
+    gamepiece * player;
+    player = create_piece(50, 50, load_image("./img/player2.bmp"), PLAYER_TYPE);
+    gamepiece * objects[10] = {NULL};
+    objects[0] = player;
+    
+    render_objects(objects);
+    printf("Pass\n");
+    
+    return 1;
+}

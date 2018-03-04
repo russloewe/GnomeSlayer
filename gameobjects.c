@@ -55,3 +55,15 @@ int move_piece(gamepiece * piece, enum direction direc){
         }
     return 0;
 }
+
+SDL_Texture * get_piece_image(gamepiece *p){
+    return NULL;
+}
+
+int get_piece_x(gamepiece *p){
+    return 1;
+}
+
+int get_piece_y(gamepiece *p){
+    return 1;
+}
