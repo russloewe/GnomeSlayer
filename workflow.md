@@ -39,8 +39,10 @@ Sixth, when you finish the task you are working on, push the code to github:
     git push origin AI
     
 #### Step 7    
-Seven, go to github and make a pull request by cliking on the green pull request button, make sure to give a good description
-of what is different in the branch you are merging.
+Seven, go to github and make a pull request by cliking on the green pull request button, make sure to give a good description of what is different in the branch you are merging. 
+
+more about pull requests:
+https://help.github.com/articles/creating-a-pull-request/
 
 #### Step 8
 Eighth, after the pull request has been merged, you are done. make sure you pull the fresh code with 
