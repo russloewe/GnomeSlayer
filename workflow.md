@@ -126,6 +126,12 @@ First open up the right test suit for the module you are working on. The test su
                             test3, test4, 
                             test5, cleantest};  
                             
+  The cleantest() function returns 0, which tells the test runner the tests are done. Without it the test runner
+  will try to call some random memeory address and probably crash the program. Also if there is a function after
+  cleantest(), it won't get called.
+  
+  *note, there are no () in the array of test functions above
+                            
   #### Step 5
   Lastly, compile the test suit and run the new test:
   
