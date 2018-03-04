@@ -1,6 +1,8 @@
 # cs133u-project
 This is for the final project in CS133U.
 
+workflow instructions here: https://github.com/githubuser476/cs133u-project/blob/master/workflow.md
+
 
 ## Proposal:
 
