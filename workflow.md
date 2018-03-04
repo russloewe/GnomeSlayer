@@ -1,3 +1,5 @@
+## Git
+
 we are going to be doing our individual work on our own branches. 
 
 #### Step 1
@@ -49,3 +51,83 @@ Eighth, after the pull request has been merged, you are done. make sure you pull
 
     git checkout master
     git pull origin master
+
+## Tests
+
+#### Step 1
+First open up the right test suit for the module you are working on. The test suits are named
+
+      test_module.c
+      
+ For example, grpahics and input test suits are called
+ 
+      test_graphics.c
+      test_input.c
+      
+ respectivly.
+ 
+ #### Step 2
+ Second, add a test case to the test suit. Go to the buttom of the test file and add a new funciton. Give it a unique 
+ name or just call it test<number>.c . All the test functions have the prototype:
+      
+       int test(void);
+       
+  #### Step 3
+  Before writing the test, write a comment to tell other coders what the test function does:
+  
+      int test5(){
+      /* this test checks the move() function by calling move() 
+      * then checking that the item posistion has uopdated correctly
+      */
+  
+  Then below the comment, write a print statement to tell inform the user what's going on when the test runner is running.
+  To keep with the current output format, include the name function that is being tested and the source file that
+  function is in. Don not put "\n" at the end of the first print statement.
+     
+     printf("Testing gameobject.c->move() ");
+     
+   #### Step 4
+   Next, write the test. Most test s will require that you setup a few variables first, then call the function that 
+   you want to test, then check the result:
+   
+      gamepiece * test_piece;
+      test_piece = create_piece(<arguments>);  //set up 
+      
+      move(test_piece, <direction>);          //run function to test
+      
+  When checking the result, on a pass print "pass \n" to the terminal and return 1 for success. On failer print "fail \n" 
+  and return -1 for failer.
+  
+      if( (test_piece->x == <correct value>) && (test_piece.y == <correct value>) ){
+           printf("Pass \n");
+           return 1;
+       }else{
+           printf("Fail \n");
+           return -1;
+       }
+       
+  This is the basic format. Remember to test edge and corner casses. You can also do something that you 
+  know will make the function fail and check that the function fails in the way you expect it too.
+  For example if the move() function fails because you gave it a game piece without a defined position, you 
+  don't want it to cause the whole game to crash.
+  
+  #### Step 4
+  Next, add a prototype for your function to the top of the source file with the other test prototypes. Then add the 
+  function name to the array of functions that are called when the test is ran. Make sure you don't put it at the 
+  very end of the list. so this:
+  
+      int (*test_suit[])() = {test1, test2, 
+                            test3, test4, 
+                             cleantest};  
+  
+  becomes this.
+  
+       int (*test_suit[])() = {test1, test2, 
+                            test3, test4, 
+                            test5, cleantest};  
+                            
+  #### Step 5
+  Lastly, compile the test suit and run the new test:
+  
+      make test_graphics
+      ./test_graphics
