@@ -2,6 +2,7 @@
 This is for the final project in CS133U.
 
 workflow instructions here: https://github.com/githubuser476/cs133u-project/blob/master/workflow.md
+
 official project channel: #pcc-c-project-2018 @ freenode.net (webchat.freenode.net for web interface)
 
 
