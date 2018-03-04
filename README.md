@@ -57,7 +57,7 @@ Game Flow:
      Loop through these steps:  
      1: draw board  
      2: get input  
-     3: perform player action  
+     3: perform player action (get_input)
      4: perform monster action(AI)  
      5: check health of monster and player  
      6: check win condition  
