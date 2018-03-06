@@ -62,6 +62,8 @@ int get_piece_x(gamepiece *piece){
     return a;
 }
 
-int get_piece_y(gamepiece *p){
-    return 1;
+int get_piece_y(gamepiece *piece){
+    //interface to get gamepiece y coordinate
+    int a = piece->y;
+    return a;
 }
