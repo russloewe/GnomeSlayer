@@ -1,9 +1,6 @@
 #include "./headers/graphics.h"
 
 
-
-extern gamepiece ** objects_hd;
-
 SDL_Window * Main_Screen = NULL;
 SDL_Renderer * Main_Renderer  = NULL;
 
