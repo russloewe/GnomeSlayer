@@ -98,7 +98,7 @@ int render_objects( gamepiece * pieces[]){
     rect.h = 16;
     
     for(int i = 0; i < 10; i++){ 
-        //if(pieces[i] != NULL){
+        if(pieces[i] != NULL){
             image = get_piece_image(pieces[i]);
             rect.x = get_piece_x(pieces[i]);
             rect.y == get_piece_y(pieces[i]);
@@ -110,7 +110,7 @@ int render_objects( gamepiece * pieces[]){
                 printf("display.c->render_objects()->SDL_RenderCopy()\n");
                 return 1;
             }
-        //}
+        }
     }
     
     SDL_RenderPresent(Main_Renderer);
