@@ -203,10 +203,10 @@ SDL_Renderer * Main_Renderer  = NULL;
 Call functions to draw the room and stuff in the room.
 
 #### void get_input(void);
-Gets input from user and will call move() or fight()
+Gets input from user and will call move(the direction) or fight(player, monster);
 
 #### void move(typedef enum direction);
 Will move the piece.
 
 #### void fight(gamepiece * attacker, gamepiece * defender);
-Will attack or miss the opponent.
+Will attack or miss the defender.
