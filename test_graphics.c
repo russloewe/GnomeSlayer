@@ -149,7 +149,7 @@ int test5(){
     gamepiece * objects[10] = {NULL};
     objects[0] = player;
     
-    render_objects(objects);
+    render_objects(objects, 10);
     printf("Pass\n");
     
     return 1;
@@ -161,14 +161,19 @@ int test6(){
      */
      
      printf("Testing graphics->room_render() ");
-     room room1;
+     room room1 = {.walls = {NULL}}; //need arrays to init to null pointers
      
-     for(int i = 1; i < 11; i++){
+     for(int i = 1; i < 11; i++){  //make some walls
          
-        gamepiece * wall = create_piece(50, 50, load_image("./img/player2.bmp"), PLAYER_TYPE);
+        gamepiece * wall = create_piece(50, 50, load_image("./img/player2.bmp"), WALL_TYPE);
         room1.walls[i-1] = wall;
     }
     
+    gamepiece * player;
+    for(int i = 0; i<5; i++){
+        player = create_piece(rand()%20+8, rand()%30+8, load_image("./img/player.bmp"), MONSTER_TYPE);
+        room1.monsters[i] = player;
+    }
     render_room(&room1);
     
     return 1;
