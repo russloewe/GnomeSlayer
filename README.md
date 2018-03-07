@@ -80,7 +80,7 @@ Begins the program and calls several functions including ai() and action(). Will
 
    start the graphics engine. 
     
-    draw(struct room * currentroom);  
+    render_room(struct room * currentroom);  
     
    Call functions to draw the room and stuff in the room.
   
@@ -186,6 +186,17 @@ hp or def for sword and shield and healing power for potion.
   
 ### function prototypes
 
-int main(void) //not a prototype
+####int main(void) //not a prototype
+
+####create_room
+Creates a room and add the doors, items, players, etc to it.
+
+####void init(void);
+Init() starts the sdl graphics stuff. It opens a screen 640 x 480 pixels and creates:
+SDL_Window * Main_Screen = NULL;
+SDL_Renderer * Main_Renderer  = NULL;
+
+####void render_room(struct room * currentroom);
+Call functions to draw the room and stuff in the room.
 
 
