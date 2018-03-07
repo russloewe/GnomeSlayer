@@ -181,14 +181,14 @@ hp or def for sword and shield and healing power for potion.
   This struct shows the position of the door and points to the two rooms that it connects.
   
      generate_room();  
-  Generates the room. Calls create_maps() or will deal with creating maps directly.
+  Generates the room. Calls create_maps() or will deal with creating maps directly.  
 
   
 ### function prototypes
 
-####int main(void) //not a prototype
+#####int main(void) //not a prototype
 
-####struct room creat_room(void)
+####struct room creat_room(void);
 Creates a room and add the doors, items, players, etc to it.
 
 ####void init(void);
