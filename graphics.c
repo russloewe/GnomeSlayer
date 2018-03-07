@@ -117,13 +117,28 @@ int render_objects( gamepiece * pieces[], int range){
     return 0;
 }
 
+int render_background2(SDL_Texture * image){
+    SDL_Rect  rect;             //holder for rect
+    rect.w = 620;                //height and width can be defiend now
+    rect.h = 350;
+    rect.x = 10;
+    rect.y = 10; 
+
+    if(SDL_RenderCopy(Main_Renderer, image, NULL, &rect) != 0){
+        printf("display.c->render_background()->SDL_RenderCopy()\n");
+        return 1;
+    }
+
+    return 0;
+}
+
 int render_background(){
     /*
      * this draws the background. Every render cycle the screen starts off
      * fresh before objects are drawn. This function draws the background color
      * adn frames and stuff that are the basis for each new frame
      */
-    if(SDL_SetRenderDrawColor(Main_Renderer, 0, 0, 0, 255) != 0){
+    if(SDL_SetRenderDrawColor(Main_Renderer, 0, 0, 0, 0) != 0){
         printf("Error display.c->render_background->SDL_SetRenderDrawColort()\n");
         return 1;
     }else if(SDL_RenderClear(Main_Renderer) != 0){
