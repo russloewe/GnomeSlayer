@@ -6,9 +6,9 @@
 
 struct room{
     char name[50];
-    gamepiece monsters[5];
-    gamepiece bounty[5];
-    gamepiece walls[200];
+    gamepiece * monsters[5];
+    gamepiece * bounty[5];
+    gamepiece * walls[200];
     struct door * lastroom;
     struct door * nextroom;
 };
