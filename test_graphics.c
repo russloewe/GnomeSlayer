@@ -13,6 +13,7 @@
 #include "SDL2/SDL.h"
 #include "./headers/graphics.h"
 #include "./headers/gameobjects.h"
+#include "./headers/maps.h"
 #define GAMESQUARE 16
 
 int run_tests();
@@ -39,7 +40,8 @@ int run_tests(){
     
     int (*test_suit[])() = {test1, test2, 
                             test3, test4, 
-                            test5, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
+                            test5, test6,
+                            cleantest};                      //array of all tests to run - cleantest must be at the end of this array
     const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
 
     
@@ -152,3 +154,23 @@ int test5(){
     
     return 1;
 }
+
+int test6(){
+    /*
+     * test the room renderer
+     */
+     
+     printf("Testing graphics->room_render() ");
+     room room1;
+     
+     for(int i = 1; i < 11; i++){
+         
+        gamepiece * wall = create_piece(50, 50, load_image("./img/player2.bmp"), PLAYER_TYPE);
+        room1.walls[i-1] = wall;
+    }
+    
+    render_room(&room1);
+    
+    return 1;
+}
+    
