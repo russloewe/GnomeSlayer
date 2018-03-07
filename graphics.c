@@ -73,18 +73,20 @@ SDL_Texture * load_image(char * filename)
     }else{
         //copy image surface to a texture
         texture = SDL_CreateTextureFromSurface(Main_Renderer, image);
-        //free the surface
-         SDL_FreeSurface(image); 
+       
+       if (texture == NULL){  //fall back if error in creatng texture from image surface
+            printf("Error: display.c->load_image()-> SDL_CreateTextureFromSurface()\n");
+            texture = make_colored_texture(16, 16, 255, 255, 255);
+       }
     }
-   
-   if (texture == NULL){
-       printf("Error: display.c->load_image()-> SDL_CreateTextureFromSurface()\n");
-       return NULL;
-   }
+
+    //free the surface
+    SDL_FreeSurface(image);
+    
     return texture;
 }
 
-int render_objects( gamepiece * pieces[]){
+int render_objects( gamepiece * pieces[], int range){
     /*
      * This function takes an array of pointers to game pieces and
      * loops through, rendering each one that isn't NULL.
@@ -94,7 +96,7 @@ int render_objects( gamepiece * pieces[]){
     rect.w = 16;                //height and width can be defiend now
     rect.h = 16;
     
-    for(int i = 0; i < 10; i++){ 
+    for(int i = 0; i < range; i++){ 
         if(pieces[i] != NULL){
             image = get_piece_image(pieces[i]);
             rect.x = get_piece_x(pieces[i]) * 16; //set rect.x and rect.y with gamepiece interface functions
@@ -157,9 +159,8 @@ SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue,
 }
 
 int render_room(room * cur_room){
-    for(int i =0; i < 5; i ++){
-        render_objects(cur_room->walls);
-    }
-    
+    //pass each of the array of game objects in a room to render_objects
+    render_objects(cur_room->walls, 100);
+    render_objects(cur_room->monsters, 5);
     return 0;
 }
