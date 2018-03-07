@@ -184,3 +184,8 @@ hp or def for sword and shield and healing power for potion.
   Generates the room. Calls create_maps() or will deal with creating maps directly.
 
   
+### function prototypes
+
+int main(void) //not a prototype
+
+
