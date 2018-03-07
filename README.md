@@ -206,36 +206,36 @@ Called by main(). Will decide action for monster to make then pass that back to 
 ##### int main(void) //not a prototype
 
 #### struct room creat_room(void);
-Creates a room and add the doors, items, players, etc to it.
+     Creates a room and add the doors, items, players, etc to it.
 
 #### void init(void);
-Init() starts the sdl graphics stuff. It opens a screen 640 x 480 pixels and creates:
-SDL_Window * Main_Screen = NULL;
-SDL_Renderer * Main_Renderer  = NULL;
+     Init() starts the sdl graphics stuff. It opens a screen 640 x 480 pixels and creates:
+     SDL_Window * Main_Screen = NULL;
+     SDL_Renderer * Main_Renderer  = NULL;
 
 #### void render_room(struct room * currentroom);
-Call functions to draw the room and stuff in the room.
+     Call functions to draw the room and stuff in the room.
 
 #### void get_input(void);
-Gets input from user and will call move(the direction) or fight(player, monster);
+     Gets input from user and will call move(the direction) or fight(player, monster);
 
 #### ai() //Need to finish this prototype  
-Will generate an action and then call move(the direction) or call fight(monster, player).
+     Will generate an action and then call move(the direction) or call fight(monster, player).
 
 #### void move(typedef enum direction);
-Will move the piece.
+     Will move the piece.
 
 #### void fight(gamepiece * attacker, gamepiece * defender);
-Will attack or miss the defender.
+     Will attack or miss the defender.
 
 #### int get_piece_x(gamepiece * piece);
-return x position
+     return x position
   
 #### int get_piece_y(gamepiece * piece);
-return y position
+     return y position
   
 #### SDL_Texture * get_piece_image(gamepiece * piece);
-return pointer to SDL_texture
+     return pointer to SDL_texture
   
 #### check_state();  //Next prototype to work on
-   Check if the game is won or the player is dead.
+     Check if the game is won or the player is dead.
