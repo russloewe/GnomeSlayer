@@ -113,6 +113,18 @@ something there to fight.
        struct item sword;
        struct item shield;
      }
+     
+    struct gamepiece{
+        char name[50];
+        int x;
+        int y;
+        SDL_Texture * img;
+        enum piecetype type;
+        union{
+            struct Player player;
+            struct Item item;
+        } data;
+    };
 
 This struct contains all the attributes for a player or a monster or item. Val is health for monster or player, 
 hp or def for sword and shield and healing power for potion.
@@ -210,3 +222,12 @@ Will move the piece.
 
 #### void fight(gamepiece * attacker, gamepiece * defender);
 Will attack or miss the defender.
+
+#### int get_piece_x();
+  return x position
+  
+#### int get_piece_y();
+  return y position
+
+#### ai() //Need to finish this prototype
+When ai() runs and a monster fights back it will call fight(monster, player).
