@@ -97,8 +97,8 @@ int render_objects( gamepiece * pieces[]){
     for(int i = 0; i < 10; i++){ 
         if(pieces[i] != NULL){
             image = get_piece_image(pieces[i]);
-            rect.x = get_piece_x(pieces[i]);
-            rect.y = get_piece_y(pieces[i]);
+            rect.x = get_piece_x(pieces[i]) * 16;
+            rect.y = get_piece_y(pieces[i]) * 16;
             if( image == NULL){ 
                 //if the piece doesn't have an image with it give it a blank square
                 image = make_colored_texture(16, 16, 255, 0, 0); 
@@ -154,4 +154,12 @@ SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue,
      }
     
     return texture;
+}
+
+int render_room(room * cur_room){
+    for(int i =0; i < 5; i ++){
+        render_objects(cur_room->monsters);
+    }
+    
+    return 0;
 }

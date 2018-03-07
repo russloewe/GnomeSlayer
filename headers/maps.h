@@ -17,4 +17,8 @@ struct door{
     struct room * room1;
     struct room * room2;
 };
+
+typedef struct room room;
+typedef struct door door;
+
 #endif
