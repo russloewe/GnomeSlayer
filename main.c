@@ -21,7 +21,7 @@ int main(void){
      * Create a player piece add it to array
      */
     gamepiece * player;
-    player = create_piece(50, 50, load_image("./img/player2.bmp"), PLAYER_TYPE);
+    player = create_piece(5, 5, load_image("./img/wall.bmp"), PLAYER_TYPE);
     gamepiece * objects[10] = {NULL};
     objects[0] = player;
     

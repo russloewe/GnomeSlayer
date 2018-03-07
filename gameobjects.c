@@ -7,7 +7,7 @@
  */
  
 #include "./headers/gameobjects.h"
-#define GAMESQUARE 16
+
 
 gamepiece * create_piece(int x, int y, SDL_Texture * img, enum piecetype type){
     
@@ -34,16 +34,16 @@ int destroy_piece(gamepiece * piece){
 int move_piece(gamepiece * piece, enum direction direc){
     switch(direc){
         case MVUP:
-            (piece->y) -= GAMESQUARE;
+            (piece->y) -= 1;
             break;
         case MVDOWN:
-            (piece->y) += GAMESQUARE;
+            (piece->y) += 1;
             break;
         case MVLEFT:
-            (piece->x) -= GAMESQUARE;
+            (piece->x) -= 1;
             break;
         case MVRIGHT:
-            (piece->x) += GAMESQUARE;
+            (piece->x) += 1;
             break;
             
         }
