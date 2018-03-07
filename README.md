@@ -186,17 +186,17 @@ hp or def for sword and shield and healing power for potion.
   
 ### function prototypes
 
-#####int main(void) //not a prototype
+##### int main(void) //not a prototype
 
-####struct room creat_room(void);
+#### struct room creat_room(void);
 Creates a room and add the doors, items, players, etc to it.
 
-####void init(void);
+#### void init(void);
 Init() starts the sdl graphics stuff. It opens a screen 640 x 480 pixels and creates:
 SDL_Window * Main_Screen = NULL;
 SDL_Renderer * Main_Renderer  = NULL;
 
-####void render_room(struct room * currentroom);
+#### void render_room(struct room * currentroom);
 Call functions to draw the room and stuff in the room.
 
 
