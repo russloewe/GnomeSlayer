@@ -223,10 +223,10 @@ Will move the piece.
 #### void fight(gamepiece * attacker, gamepiece * defender);
 Will attack or miss the defender.
 
-#### int get_piece_x();
+#### int get_piece_x(gamepiece * piece);
   return x position
   
-#### int get_piece_y();
+#### int get_piece_y(gamepiece * piece);
   return y position
 
 #### ai() //Need to finish this prototype
