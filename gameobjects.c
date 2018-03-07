@@ -16,14 +16,9 @@ gamepiece * create_piece(int x, int y, SDL_Texture * img, enum piecetype type){
         return NULL;
     }
     gamepiece * newpiece = (gamepiece *)malloc(sizeof(gamepiece));
-    SDL_Rect  * newrect = (SDL_Rect *)malloc(sizeof(SDL_Rect));
-    
-    newrect->x = x;
-    newrect->y = y;
-    newrect->w = 16;
-    newrect->h = 16;
-    
-    newpiece->rect = newrect;
+
+    newpiece->x = x;
+    newpiece->y = y;
     newpiece->type = type;
     newpiece->img = img;
     
@@ -31,7 +26,6 @@ gamepiece * create_piece(int x, int y, SDL_Texture * img, enum piecetype type){
 }
 
 int destroy_piece(gamepiece * piece){
-    free(piece->rect);
     SDL_DestroyTexture(piece->img);
     free(piece);
     return 0;
@@ -40,16 +34,16 @@ int destroy_piece(gamepiece * piece){
 int move_piece(gamepiece * piece, enum direction direc){
     switch(direc){
         case MVUP:
-            (piece->rect->y) -= GAMESQUARE;
+            (piece->y) -= GAMESQUARE;
             break;
         case MVDOWN:
-            (piece->rect->y) += GAMESQUARE;
+            (piece->y) += GAMESQUARE;
             break;
         case MVLEFT:
-            (piece->rect->x) -= GAMESQUARE;
+            (piece->x) -= GAMESQUARE;
             break;
         case MVRIGHT:
-            (piece->rect->x) += GAMESQUARE;
+            (piece->x) += GAMESQUARE;
             break;
             
         }
@@ -57,7 +51,11 @@ int move_piece(gamepiece * piece, enum direction direc){
 }
 
 SDL_Texture * get_piece_image(gamepiece *p){
-    return NULL;
+    SDL_Texture * image;
+    
+    image = p->img;
+    
+    return image;
 }
 
 int get_piece_x(gamepiece *piece){
@@ -68,6 +66,8 @@ int get_piece_x(gamepiece *piece){
     return a;
 }
 
-int get_piece_y(gamepiece *p){
-    return 1;
+int get_piece_y(gamepiece *piece){
+    //interface to get gamepiece y coordinate
+    int y = piece->y;
+    return y;
 }
