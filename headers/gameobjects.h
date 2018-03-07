@@ -8,6 +8,15 @@
 enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE};
 enum direction{MVUP, MVDOWN, MVLEFT, MVRIGHT};
 
+struct Item{
+    int val;
+};
+
+struct Player{
+    int health;
+    struct Item sword;
+    struct Item shield;
+};
 
 struct gamepiece{
     char name[50];
@@ -15,9 +24,12 @@ struct gamepiece{
     int y;
     SDL_Texture * img;
     enum piecetype type;
-    struct gamepiece * sword;
-    struct gamepiece * shield;
+    union{
+        struct Player player;
+        struct Item item;
+    } data;
 };
+
 
 typedef struct gamepiece gamepiece;
 typedef enum piecetype piecetype;
