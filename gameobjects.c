@@ -51,7 +51,11 @@ int move_piece(gamepiece * piece, enum direction direc){
 }
 
 SDL_Texture * get_piece_image(gamepiece *p){
-    return NULL;
+    SDL_Texture * image;
+    
+    image = p->img;
+    
+    return image;
 }
 
 int get_piece_x(gamepiece *piece){
@@ -64,6 +68,6 @@ int get_piece_x(gamepiece *piece){
 
 int get_piece_y(gamepiece *piece){
     //interface to get gamepiece y coordinate
-    int a = piece->y;
-    return a;
+    int y = piece->y;
+    return y;
 }
