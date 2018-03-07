@@ -153,9 +153,11 @@ hp or def for sword and shield and healing power for potion.
 ##### AI
      
      ai();  
-   
-   Called by main(). Will decide action for monster to make then pass that back to main(). Ai() will need to get a list of the monsters and player and room data to make a decision for each of the monsters in the room. Will generate an action and return (monster1, move_left). We're still trying to figure out a way to pass these but we have ideas.
+   Called by main(). Will decide action for monster to make then. Ai() will need to get a list of the monsters and player and room data to make a decision for each of the monsters in the room. Will generate an action and then call move() or fight().
 
+//BELOW NOT ALL APPLICABLE
+Called by main(). Will decide action for monster to make then pass that back to main(). Ai() will need to get a list of the monsters and player and room data to make a decision for each of the monsters in the room. Will generate an action and return (monster1, move_left). We're still trying to figure out a way to pass these but we have ideas.
+//ABOVE NOT ALL APPLICABLE
 
 ##### Endgame
 
@@ -217,6 +219,9 @@ Call functions to draw the room and stuff in the room.
 #### void get_input(void);
 Gets input from user and will call move(the direction) or fight(player, monster);
 
+#### ai() //Need to finish this prototype  
+Will generate an action and then call move(the direction) or call fight(monster, player).
+
 #### void move(typedef enum direction);
 Will move the piece.
 
@@ -224,10 +229,13 @@ Will move the piece.
 Will attack or miss the defender.
 
 #### int get_piece_x(gamepiece * piece);
-  return x position
+return x position
   
 #### int get_piece_y(gamepiece * piece);
-  return y position
-
-#### ai() //Need to finish this prototype
-When ai() runs and a monster fights back it will call fight(monster, player).
+return y position
+  
+#### SDL_Texture * get_piece_image(gamepiece * piece);
+return pointer to SDL_texture
+  
+#### check_state();  //Next prototype to work on
+   Check if the game is won or the player is dead.
