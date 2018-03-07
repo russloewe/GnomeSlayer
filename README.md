@@ -188,7 +188,7 @@ hp or def for sword and shield and healing power for potion.
 
 ####int main(void) //not a prototype
 
-####create_room
+####struct room creat_room(void)
 Creates a room and add the doors, items, players, etc to it.
 
 ####void init(void);
