@@ -88,11 +88,14 @@ Begins the program and calls several functions including ai() and action(). Will
 
      
      get_input();  
-Will generate a move for the player. Like if the player wants to go right, the get_input() function will 
+Will generate a move for the player. Like if the player wants to go right, the get_input() function
+will call move() or fight().
+
+//BELOW NOT APPLICABLE ANYMORE
 return MOVE_RIGHT, then that is passed to the action module as (PLAYER, MOVE_RIGHT), from there it
 will call the subfunctions such as move_right(). The player will also be able to fight if there is 
 something there to fight.
-
+//ABOVE NOT APPLICABLE ANYMORE
 
 
 
@@ -199,4 +202,5 @@ SDL_Renderer * Main_Renderer  = NULL;
 #### void render_room(struct room * currentroom);
 Call functions to draw the room and stuff in the room.
 
-
+#### void get_input(void);
+Gets input from user and will call move() or fight()
