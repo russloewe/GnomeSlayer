@@ -204,3 +204,9 @@ Call functions to draw the room and stuff in the room.
 
 #### void get_input(void);
 Gets input from user and will call move() or fight()
+
+#### void move(typedef enum direction);
+Will move the piece.
+
+#### void fight(gamepiece * attacker, gamepiece * defender);
+Will attack or miss the opponent.
