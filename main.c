@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <time.h>
 #include "SDL2/SDL.h"
 #include "./headers/input.h"
 #include "./headers/graphics.h"
@@ -15,7 +16,9 @@
 
 int main(void){
     
-       init_video();      //open the screen
+    init_video();      //open the screen
+    int seed = time(NULL); // set random number gernerator
+    srand(seed);
        
        SDL_Texture * background_img = load_image("./img/background.bmp");
         /***********temp room hack***************/
@@ -38,13 +41,13 @@ int main(void){
         room1.walls[i+150] = wall;
         }
         
-
+        
         //spawn some monsters
         gamepiece * monst;
         for(int i = 0; i<5; i++){
-        monst = create_piece(rand()%10+8, rand()%10+8, load_image("./img/monster.bmp"), MONSTER_TYPE);
-        room1.monsters[i] =monst;
-    }
+            monst = create_piece(rand()%38+2, rand()%15+2, load_image("./img/monster.bmp"), MONSTER_TYPE);
+            room1.monsters[i] =monst;
+        }
     /******************end temp room hack**********/
         
 
