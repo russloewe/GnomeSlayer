@@ -71,3 +71,8 @@ int get_piece_y(gamepiece *piece){
     int y = piece->y;
     return y;
 }
+
+int attack(gamepiece *attaker, gamepiece *defender){
+
+
+}
