@@ -16,13 +16,29 @@
 int main(void){
     
        init_video();      //open the screen
+       
+       SDL_Texture * background_img = load_image("./img/background.bmp");
         /***********temp room hack***************/
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
         //make some walls
-        for(int i = 1; i < 11; i++){
-        gamepiece * wall = create_piece(5, i, load_image("./img/wall.bmp") , WALL_TYPE);
-        room1.walls[i-1] = wall;
+        for(int i = 0; i < 48; i++){
+        gamepiece * wall = create_piece(i+1, 1, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i] = wall;
         }
+        for(int i = 0; i < 21; i++){
+        gamepiece * wall = create_piece(1, i+1, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+50] = wall;
+        }
+        for(int i = 0; i < 48; i++){
+        gamepiece * wall = create_piece(i+1, 21, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+100] = wall;
+        }
+        for(int i = 0; i < 21; i++){
+        gamepiece * wall = create_piece(48, i+1, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+150] = wall;
+        }
+        
+
         //spawn some monsters
         gamepiece * monst;
         for(int i = 0; i<5; i++){
@@ -69,7 +85,7 @@ int main(void){
         }
         
         //render the background
-        render_background();
+        render_background_image(background_img);
         
         //render the objects to screen    
         if(render_objects(objects,1) != 0){
