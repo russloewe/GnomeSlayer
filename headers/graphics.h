@@ -13,7 +13,7 @@ SDL_Texture * load_image(char * filename);
 int render_objects( gamepiece * pieces[], int range);
 SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue, Uint8 green);
 int render_background();
-int render_background2(SDL_Texture * img);
+int render_background_image(SDL_Texture * img);
 int render_room(room * cur_room);
 
 

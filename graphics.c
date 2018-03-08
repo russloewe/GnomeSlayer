@@ -117,7 +117,12 @@ int render_objects( gamepiece * pieces[], int range){
     return 0;
 }
 
-int render_background2(SDL_Texture * image){
+int render_background_image(SDL_Texture * image){
+    /*
+     * Draw a texture the size of the whole screen to the screen
+     * use this in place of the original render_background(), since
+     * there is no need to clear the screen or black the screen 
+     */
     SDL_Rect  rect;             //holder for rect
     rect.w = 800;                //height and width can be defiend now
     rect.h = 608;
@@ -174,7 +179,9 @@ SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue,
 }
 
 int render_room(room * cur_room){
-    //pass each of the array of game objects in a room to render_objects
+    /*
+     * take a pointer to a room and render all of the parts of the room to the screen
+     */
     render_objects(cur_room->walls, 200);
     render_objects(cur_room->monsters, 5);
     return 0;
