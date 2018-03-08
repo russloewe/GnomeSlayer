@@ -73,18 +73,20 @@ SDL_Texture * load_image(char * filename)
     }else{
         //copy image surface to a texture
         texture = SDL_CreateTextureFromSurface(Main_Renderer, image);
-        //free the surface
-         SDL_FreeSurface(image); 
+       
+       if (texture == NULL){  //fall back if error in creatng texture from image surface
+            printf("Error: display.c->load_image()-> SDL_CreateTextureFromSurface()\n");
+            texture = make_colored_texture(16, 16, 255, 255, 255);
+       }
     }
-   
-   if (texture == NULL){
-       printf("Error: display.c->load_image()-> SDL_CreateTextureFromSurface()\n");
-       return NULL;
-   }
+
+    //free the surface
+    SDL_FreeSurface(image);
+    
     return texture;
 }
 
-int render_objects( gamepiece * pieces[]){
+int render_objects( gamepiece * pieces[], int range){
     /*
      * This function takes an array of pointers to game pieces and
      * loops through, rendering each one that isn't NULL.
@@ -94,11 +96,11 @@ int render_objects( gamepiece * pieces[]){
     rect.w = 16;                //height and width can be defiend now
     rect.h = 16;
     
-    for(int i = 0; i < 10; i++){ 
+    for(int i = 0; i < range; i++){ 
         if(pieces[i] != NULL){
             image = get_piece_image(pieces[i]);
-            rect.x = get_piece_x(pieces[i]);
-            rect.y = get_piece_y(pieces[i]);
+            rect.x = get_piece_x(pieces[i]) * 16; //set rect.x and rect.y with gamepiece interface functions
+            rect.y = get_piece_y(pieces[i]) * 16; // multiply by 16 to convert from game square to pixel coordinates
             if( image == NULL){ 
                 //if the piece doesn't have an image with it give it a blank square
                 image = make_colored_texture(16, 16, 255, 0, 0); 
@@ -115,13 +117,28 @@ int render_objects( gamepiece * pieces[]){
     return 0;
 }
 
+int render_background2(SDL_Texture * image){
+    SDL_Rect  rect;             //holder for rect
+    rect.w = 620;                //height and width can be defiend now
+    rect.h = 350;
+    rect.x = 10;
+    rect.y = 10; 
+
+    if(SDL_RenderCopy(Main_Renderer, image, NULL, &rect) != 0){
+        printf("display.c->render_background()->SDL_RenderCopy()\n");
+        return 1;
+    }
+
+    return 0;
+}
+
 int render_background(){
     /*
      * this draws the background. Every render cycle the screen starts off
      * fresh before objects are drawn. This function draws the background color
      * adn frames and stuff that are the basis for each new frame
      */
-    if(SDL_SetRenderDrawColor(Main_Renderer, 0, 0, 0, 255) != 0){
+    if(SDL_SetRenderDrawColor(Main_Renderer, 0, 0, 0, 0) != 0){
         printf("Error display.c->render_background->SDL_SetRenderDrawColort()\n");
         return 1;
     }else if(SDL_RenderClear(Main_Renderer) != 0){
@@ -154,4 +171,11 @@ SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue,
      }
     
     return texture;
+}
+
+int render_room(room * cur_room){
+    //pass each of the array of game objects in a room to render_objects
+    render_objects(cur_room->walls, 100);
+    render_objects(cur_room->monsters, 5);
+    return 0;
 }

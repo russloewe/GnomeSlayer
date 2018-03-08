@@ -7,13 +7,12 @@
  */
  
 #include "./headers/gameobjects.h"
-
+#define GAMESQUARE 16
 
 gamepiece * create_piece(int x, int y, SDL_Texture * img, enum piecetype type){
     
     if(img == NULL){
         printf("Error: gameobjects.c->creat_piece()-> img is NULL\n");
-        return NULL;
     }
     gamepiece * newpiece = (gamepiece *)malloc(sizeof(gamepiece));
 
