@@ -27,7 +27,7 @@ struct gamepiece{
     union{
         struct Player player;
         struct Item item;
-    } data;
+    };
 };
 
 
