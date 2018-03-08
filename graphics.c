@@ -184,5 +184,6 @@ int render_room(room * cur_room){
      */
     render_objects(cur_room->walls, 200);
     render_objects(cur_room->monsters, 5);
+    render_objects(cur_room->bounty, 5);
     return 0;
 }
