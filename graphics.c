@@ -22,7 +22,7 @@ int init_video(void){
     Main_Screen = SDL_CreateWindow("PCC CS133 Final",
                           SDL_WINDOWPOS_UNDEFINED,
                           SDL_WINDOWPOS_UNDEFINED,
-                          640, 480,
+                          800, 608,
                           SDL_WINDOW_OPENGL);
                           
     if(Main_Screen == NULL){
@@ -119,10 +119,10 @@ int render_objects( gamepiece * pieces[], int range){
 
 int render_background2(SDL_Texture * image){
     SDL_Rect  rect;             //holder for rect
-    rect.w = 620;                //height and width can be defiend now
-    rect.h = 350;
-    rect.x = 10;
-    rect.y = 10; 
+    rect.w = 800;                //height and width can be defiend now
+    rect.h = 608;
+    rect.x = 0;
+    rect.y = 0; 
 
     if(SDL_RenderCopy(Main_Renderer, image, NULL, &rect) != 0){
         printf("display.c->render_background()->SDL_RenderCopy()\n");
@@ -175,7 +175,7 @@ SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue,
 
 int render_room(room * cur_room){
     //pass each of the array of game objects in a room to render_objects
-    render_objects(cur_room->walls, 100);
+    render_objects(cur_room->walls, 200);
     render_objects(cur_room->monsters, 5);
     return 0;
 }
