@@ -21,20 +21,20 @@ int main(void){
         /***********temp room hack***************/
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
         //make some walls
-        for(int i = 0; i < 48; i++){
-        gamepiece * wall = create_piece(i+1, 1, load_image("./img/wall.bmp") , WALL_TYPE);
+        for(int i = 0; i < 40; i++){
+        gamepiece * wall = create_piece(i, 0, load_image("./img/wall.bmp") , WALL_TYPE);
         room1.walls[i] = wall;
         }
-        for(int i = 0; i < 21; i++){
-        gamepiece * wall = create_piece(1, i+1, load_image("./img/wall.bmp") , WALL_TYPE);
+        for(int i = 0; i < 17; i++){
+        gamepiece * wall = create_piece(0, i, load_image("./img/wall.bmp") , WALL_TYPE);
         room1.walls[i+50] = wall;
         }
-        for(int i = 0; i < 48; i++){
-        gamepiece * wall = create_piece(i+1, 21, load_image("./img/wall.bmp") , WALL_TYPE);
+        for(int i = 0; i < 40; i++){
+        gamepiece * wall = create_piece(i, 17, load_image("./img/wall.bmp") , WALL_TYPE);
         room1.walls[i+100] = wall;
         }
-        for(int i = 0; i < 21; i++){
-        gamepiece * wall = create_piece(48, i+1, load_image("./img/wall.bmp") , WALL_TYPE);
+        for(int i = 0; i < 17; i++){
+        gamepiece * wall = create_piece(39, i, load_image("./img/wall.bmp") , WALL_TYPE);
         room1.walls[i+150] = wall;
         }
         
@@ -42,7 +42,7 @@ int main(void){
         //spawn some monsters
         gamepiece * monst;
         for(int i = 0; i<5; i++){
-        monst = create_piece(rand()%10+8, rand()%10+8, load_image("./img/player.bmp"), MONSTER_TYPE);
+        monst = create_piece(rand()%10+8, rand()%10+8, load_image("./img/monster.bmp"), MONSTER_TYPE);
         room1.monsters[i] =monst;
     }
     /******************end temp room hack**********/
