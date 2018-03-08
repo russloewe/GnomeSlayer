@@ -48,6 +48,14 @@ int main(void){
             monst = create_piece(rand()%38+2, rand()%15+2, load_image("./img/monster.bmp"), MONSTER_TYPE);
             room1.monsters[i] =monst;
         }
+        //add some items
+        gamepiece * potion = create_piece(rand()%38+2, rand()%15+2, load_image("./img/potion.bmp"), POTION_TYPE);
+        room1.bounty[0] = potion;
+        gamepiece * sword = create_piece(rand()%38+2, rand()%15+2, load_image("./img/sword.bmp"), SWORD_TYPE);
+        room1.bounty[1] = sword;
+        gamepiece * shield = create_piece(rand()%38+2, rand()%15+2, load_image("./img/shield.bmp"), SHIELD_TYPE);
+        room1.bounty[2] = shield;
+        
     /******************end temp room hack**********/
         
 
