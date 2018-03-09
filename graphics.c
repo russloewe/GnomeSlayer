@@ -117,6 +117,7 @@ int render_objects( gamepiece * pieces[], int range){
     return 0;
 }
 
+
 int render_background_image(SDL_Texture * image){
     /*
      * Draw a texture the size of the whole screen to the screen
@@ -185,5 +186,6 @@ int render_room(room * cur_room){
     render_objects(cur_room->walls, 200);
     render_objects(cur_room->monsters, 5);
     render_objects(cur_room->bounty, 5);
+    render_objects(cur_room->doors, 2);
     return 0;
 }
