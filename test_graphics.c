@@ -15,6 +15,27 @@
 #include "./headers/gameobjects.h"
 #include "./headers/maps.h"
 
+/**********Internal functions and data structures from graphics.c*****/
+//internal data structures
+struct Textline{
+    char text[40];
+    struct Textline * nxt;
+};
+typedef struct Textline Textline;
+
+//function prototypes for internal functions
+int render_objects( gamepiece * pieces[], int range);
+SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue, Uint8 green);
+int render_background();
+int render_background_image(SDL_Texture * img);
+int render_room(room * cur_room);
+SDL_Rect get_char_rect(char c);
+int trim_message_queue(int n);
+int render_player_stats(room * curroom);
+int render_message_queue(int lines, int x, int y);
+Textline * get_message_queue();
+
+/***************End of internal functions and data structures*******/
 
 int run_tests();
 int cleantest();
