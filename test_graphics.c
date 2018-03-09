@@ -14,7 +14,7 @@
 #include "./headers/graphics.h"
 #include "./headers/gameobjects.h"
 #include "./headers/maps.h"
-#define GAMESQUARE 16
+
 
 int run_tests();
 int cleantest();
@@ -161,21 +161,55 @@ int test6(){
      */
      
      printf("Testing graphics->room_render() ");
-     room room1 = {.walls = {NULL}}; //need arrays to init to null pointers
-     
-     for(int i = 1; i < 11; i++){  //make some walls
-         
-        gamepiece * wall = create_piece(50, 50, load_image("./img/player2.bmp"), WALL_TYPE);
-        room1.walls[i-1] = wall;
+ /***********temp room hack***************/
+        room room1 = {.walls = {NULL}}; //init walls array to null pointers
+        //make some walls
+        for(int i = 0; i < 40; i++){
+        gamepiece * wall = create_piece(i, 0, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i] = wall;
+        }
+        for(int i = 0; i < 17; i++){
+        gamepiece * wall = create_piece(0, i, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+50] = wall;
+        }
+        for(int i = 0; i < 40; i++){
+        gamepiece * wall = create_piece(i, 17, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+100] = wall;
+        }
+        for(int i = 0; i < 17; i++){
+        gamepiece * wall = create_piece(39, i, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+150] = wall;
+        }
+        
+        
+        //spawn some monsters
+        gamepiece * monst;
+        for(int i = 0; i<5; i++){
+            monst = create_piece(rand()%38+2, rand()%15+2, load_image("./img/monster.bmp"), MONSTER_TYPE);
+            room1.monsters[i] =monst;
+        }
+        //add some items
+        gamepiece * potion = create_piece(rand()%38+2, rand()%15+2, load_image("./img/potion.bmp"), POTION_TYPE);
+        room1.bounty[0] = potion;
+        gamepiece * sword = create_piece(rand()%38+2, rand()%15+2, load_image("./img/sword.bmp"), SWORD_TYPE);
+        room1.bounty[1] = sword;
+        gamepiece * shield = create_piece(rand()%38+2, rand()%15+2, load_image("./img/shield.bmp"), SHIELD_TYPE);
+        room1.bounty[2] = shield;
+       
+        //add the two doors;
+        gamepiece * d1 = create_piece(0, 10, load_image("./img/door.bmp"), DOOR_TYPE);
+        gamepiece * d2 = create_piece(39, 5, load_image("./img/door.bmp"), DOOR_TYPE);
+        
+        room1.doors[0] = d1;
+        room1.doors[1] = d2;
+        
+    /******************end temp room hack**********/
+    if( render_room(&room1) != 0){
+        printf("Fail \n");
+        return -1;
+    }else{
+        printf("Pass\n");
+        return 1;
     }
-    
-    gamepiece * player;
-    for(int i = 0; i<5; i++){
-        player = create_piece(rand()%20+8, rand()%30+8, load_image("./img/player.bmp"), MONSTER_TYPE);
-        room1.monsters[i] = player;
-    }
-    render_room(&room1);
-    
-    return 1;
 }
     
