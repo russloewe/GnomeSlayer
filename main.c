@@ -115,8 +115,14 @@ int main(void){
     
         render_room(&room1);
     
-       render_text_line("ABCDEFGHIJKLMNOPQRSTUVXYZ!*", 2, 20);
-       render_text_line("abcdefghijklmnoprstuvxyz!*", 2, 21);
+        add_message_queue("first message");
+        add_message_queue("Second Message");
+        add_message_queue("Third Message");
+        add_message_queue("Fourth Message");
+        add_message_queue("Fifth Message");
+        add_message_queue("Sixth Message");
+        render_message_queue(6, 1, 29);
+       
         render_all();
         //hold up a sec to not hog the cpu
         SDL_Delay(120);
