@@ -286,9 +286,15 @@ int test9(){
      * Test render message queue
      */
      printf("Testing graphics.c->render_message_queue(): ");
-     
-    for(int i = 0; i < 20; i++){
-        if( add_message_queue("test Message !") != 0){
+     char matrix[5][15];
+     strcpy(matrix[0], "hello");
+     strcpy(matrix[1], "Tom23");
+     strcpy(matrix[2], "test34");
+     strcpy(matrix[3], "!@test");
+     strcpy(matrix[1], "test Test 45");
+    
+    for(int i = 0; i < 5; i++){
+        if( add_message_queue(matrix[i]) != 0){
             printf("Fail 1\n");
             return -1;
         }
