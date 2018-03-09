@@ -267,7 +267,6 @@ int add_message_queue(char * string){
      */
      
      Textline * newline = (Textline*)malloc(sizeof(Textline));  //put the new node on heap
-     Textline * cur = _text_head;  // iterator poitnter, pointed to head of the queue
      if( newline == NULL){
          printf("graphics.c->add_textline(): Error, unable to allocate new tetline\n");
          return 1;
@@ -279,10 +278,8 @@ int add_message_queue(char * string){
     if(_text_head == NULL){
         _text_head = newline;
     }else{
-        while(cur->nxt != NULL){  //iterate through list till last node
-            cur = cur->nxt;
-        } 
-        cur->nxt = newline;     //have the last one point to new node
+        newline->nxt = _text_head;   // newline points to first node after head
+        _text_head = newline;        // head points to newline
     }    
     return 0;
 }
@@ -295,8 +292,8 @@ int render_message_queue(int line, int x, int y){
      */
      Textline * cur = _text_head;
      int i = 0;  //counter
-     while(( i < line) && (cur != NULL) ){          //stop if end of list or counter max 
-         y = y - 1;                            //each iteration, sub from y coordinate, to go upward
+     while(( i < line) && (cur != NULL) ){   //stop if end of list or counter max 
+         y = y - 1;                          //each iteration, sub from y coordinate, to go upward
          render_text_line(cur->text, x, y);  
          cur = cur->nxt;
          i++;
