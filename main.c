@@ -115,9 +115,11 @@ int main(void){
     
         render_room(&room1);
     
-    //end test function
+       render_text_line("ABCDEFGHIJKLMNOPQRSTUVXYZ!*", 2, 20);
+       render_text_line("abcdefghijklmnoprstuvxyz!*", 2, 21);
+        render_all();
         //hold up a sec to not hog the cpu
-        SDL_Delay(16);
+        SDL_Delay(120);
     }
     
     
