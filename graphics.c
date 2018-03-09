@@ -225,7 +225,8 @@ int render_text_line(char * text, int x, int y){
         return 1;
     }
     
-    for(int i = 0; i < strlen(text); i++){
+    for(int i = 0; (i < strlen(text)) && (i < 40); i++){
+       // if(text[i] == '\0'){break;} //stop at end of line
         src_rect = get_char_rect(text[i]); // get the rect with coordinates that point to the letter we want to print on the font sheet
         if( SDL_RenderCopy(Main_Renderer, bitmap_font, &src_rect, &dest_rect) != 0){
             printf("graphics.c->render_text_line(): Error copying font texture to main renderer\n");
@@ -272,7 +273,7 @@ int add_message_queue(char * string){
          return 1;
      }
      
-     strncpy(newline->text, string, strlen(string)); //copy text to new struct
+     strncpy(newline->text, string, 40); //copy text to new struct
      newline->nxt = NULL;
      
     if(_text_head == NULL){

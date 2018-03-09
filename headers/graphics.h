@@ -9,7 +9,7 @@
 #include "maps.h"
 
 struct Textline{
-    char text[50];
+    char text[40];
     struct Textline * nxt;
 };
 typedef struct Textline Textline;

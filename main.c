@@ -20,7 +20,7 @@ int main(void){
     int seed = time(NULL); // set random number gernerator
     srand(seed);
        
-       SDL_Texture * background_img = load_image("./img/background.bmp");
+       SDL_Texture * background_img = load_image("./img/background2.bmp");
         /***********temp room hack***************/
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
         //make some walls
@@ -120,7 +120,7 @@ int main(void){
         add_message_queue("Third Message");
         add_message_queue("Fourth Message");
         add_message_queue("Fifth Message");
-        add_message_queue("Sixth Message");
+        add_message_queue("123456789123456789123456789123456879123456789");
         render_message_queue(6, 1, 29);
        
         render_all();
