@@ -25,6 +25,8 @@ int test4();
 int test5();
 int test6();
 int test7();
+int test8();
+int test9();
 
 
 
@@ -41,7 +43,8 @@ int run_tests(){
     int (*test_suit[])() = {test1, test2, 
                             test3, test4, 
                             test5, test6,
-                            test7, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
+                            test7, test8,
+                            test9, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
     const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
 
     
@@ -235,3 +238,44 @@ int test7(){
     printf("Pass \n");
     return 1;
 }
+
+int test8(){
+    /*
+     * test adding text to the message queue
+     */
+     printf("Testing graphics->add_message_queue(): ");
+     
+     if(add_message_queue("hello") != 0){
+         printf("Fail 1\n");
+         return -1;
+     }
+     if(add_message_queue("test") != 0){
+         printf("Fail 2\n");
+         return -1;
+     }
+     
+     printf("Pass \n");
+     return 1;
+ }
+ 
+int test9(){
+    /*
+     * Test render message queue
+     */
+     printf("Testing graphics.c->render_message_queue(): ");
+     
+    for(int i = 0; i < 20; i++){
+        if( add_message_queue("test Message !") != 0){
+            printf("Fail 1\n");
+            return -1;
+        }
+    }
+    
+    if(render_message_queue(5, 10 , 20) != 0){
+        printf("Fail 2 \n");
+        return -1;
+    }
+    printf("Pass \n");
+    return 1;
+}
+     
