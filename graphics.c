@@ -2,11 +2,11 @@
 
 SDL_Window * Main_Screen = NULL;
 SDL_Renderer * Main_Renderer  = NULL;
+Textline * _text_head = NULL;
 
 int init_video(void){
     /*
      * Initialize the SDL subsytem for video only. 
-     * If initai
      */ 
     if( SDL_Init(SDL_INIT_VIDEO) != 0){
         printf("ERROR: init.c -> init_video -> SDL_Init\n: %s\n", SDL_GetError());
@@ -54,6 +54,11 @@ void cleanup(){
 }
 
 void render_all(){
+    /*
+     * this function is called by main loop to render the screen.
+     * I like this better then having to use extern Main_Renderer
+     * in main.c
+     */
     SDL_RenderPresent(Main_Renderer);
 }
 
@@ -185,19 +190,19 @@ int render_room(room * cur_room){
      * test return value each time render_objects is called
      */
     if( render_objects(cur_room->walls, 200) != 0){
-        printf("Error rendering walls\n");
+        printf("graphics.c->render_room(): Error rendering walls\n");
         return 1;
     }
     if( render_objects(cur_room->monsters, 5) != 0){
-        printf("Error rendering monsters\n");
+        printf("graphics.c->render_room(): Error rendering monsters\n");
         return 1;
     }
     if( render_objects(cur_room->bounty, 5) != 0){
-        printf("Error rendering bounty\n");
+        printf("graphics.c->render_room(): Error rendering bounty\n");
         return 1;
     }
     if( render_objects(cur_room->doors, 2) != 0){
-        printf("Error rendering doors\n");
+        printf("graphics.c->render_room(): Error rendering doors\n");
         return 1;
     }
     return 0;
@@ -216,14 +221,14 @@ int render_text_line(char * text, int x, int y){
     SDL_Texture * bitmap_font = load_image("./img/font2.bmp"); //load font sheet
     
     if( bitmap_font == NULL){
-        printf("Error loading bitmap font image\n");
+        printf("graphics.c->render_text_line(): Error loading bitmap font image\n");
         return 1;
     }
     
     for(int i = 0; i < strlen(text); i++){
         src_rect = get_char_rect(text[i]); // get the rect with coordinates that point to the letter we want to print on the font sheet
         if( SDL_RenderCopy(Main_Renderer, bitmap_font, &src_rect, &dest_rect) != 0){
-            printf("Error copying font texture to main renderer\n");
+            printf("graphics.c->render_text_line(): Error copying font texture to main renderer\n");
         }
         dest_rect.x = dest_rect.x + 12;  //move over 1 before looping to draw next char
     }  
@@ -250,3 +255,44 @@ SDL_Rect get_char_rect(char c){
     
     return rect;
 }
+
+int add_message_queue(char * string){
+    /*
+     * take a sting of text and add it to a linked list
+     */
+     
+     Textline * newline = (Textline*)malloc(sizeof(Textline));
+     if( newline == NULL){
+         printf("graphics.c->add_textline(): Error, unable to allocate new tetline\n");
+         return 1;
+     }
+     
+     strncpy(newline->text, string, strlen(string)); //copy text to new struct
+     newline->nxt = NULL;
+     
+    if(_text_head == NULL){
+        _text_head = newline;
+    }else{
+        newline->nxt = _text_head->nxt;
+        _text_head = newline;
+    }
+    
+    return 0;
+}
+        
+int render_message_queue(int line, int x, int y){
+    /*
+     * render the messages in the queue 
+     * line = how many lines to draw from queue
+     * x, y = where to start the messages at, messages grow upward
+     */
+     Textline * cur = _text_head;
+     int i = 0;  //counter
+     while(( i < line) && (cur != NULL) ){          //stop if end of list or counter max 
+         y = y - (i*20);                            //each iteration, sub from y coordinate, to go upward
+         render_text_line(cur->text, x, y);  
+         cur = cur->nxt;
+         i++;
+     }
+     return 0;
+ }   
