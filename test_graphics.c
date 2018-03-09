@@ -245,24 +245,28 @@ int test8(){
      */
      printf("Testing graphics->add_message_queue(): ");
      
-     if(add_message_queue("hello") != 0){
-         printf("Fail 1\n");
-         return -1;
-     }
-     if(add_message_queue("test") != 0){
-         printf("Fail 2\n");
-         return -1;
-     }
+
+   //add three messages to the message queue
     if(add_message_queue("Hddtt234 234$%^&(*&^%$") != 0){
          printf("Fail 3\n");
          return -1;
      }
-     Textline * cur = get_message_queue();  
+    if(add_message_queue("test") != 0){
+         printf("Fail 2\n");
+         return -1;
+     }
+    if(add_message_queue("hello") != 0){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
+     Textline * cur = get_message_queue();  //grab the head of the queue
      
      if(strncmp(cur->text, "hello", strlen("hello")) != 0){  //check first message
          printf("Fail 4 \n");
          return -1;
      }
+     
      cur = cur->nxt;     //get next message
          
      if( strncmp(cur->text, "test", strlen("test")) != 0){
