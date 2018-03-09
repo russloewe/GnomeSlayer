@@ -27,5 +27,6 @@ int render_text_line(char * text, int x, int y);
 SDL_Rect get_char_rect(char c);
 int add_message_queue(char * string);
 int render_message_queue(int lines, int x, int y);
+Textline * get_message_queue();
 
 #endif
