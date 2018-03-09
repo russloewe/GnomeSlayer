@@ -1,6 +1,5 @@
 #include "./headers/graphics.h"
 
-
 SDL_Window * Main_Screen = NULL;
 SDL_Renderer * Main_Renderer  = NULL;
 
@@ -14,7 +13,6 @@ int init_video(void){
         SDL_GetError();
         return 1;
     }
-    
     /*
      * Open a screen 800 by 600, with the double buffer feature 
      * to speed rendering.
@@ -55,9 +53,12 @@ void cleanup(){
     SDL_Quit();
 }
 
+void render_all(){
+    SDL_RenderPresent(Main_Renderer);
+}
 
-SDL_Texture * load_image(char * filename)
-{
+
+SDL_Texture * load_image(char * filename){
     /*
      * Takes a char pointer to the filename and returns pointer to
      * SDL_Surface containing loaded bitmap
@@ -113,9 +114,6 @@ int render_objects( gamepiece * pieces[], int range){
             }
         }
     }
-    
-    SDL_RenderPresent(Main_Renderer);
-
     return 0;
 }
 
@@ -153,7 +151,7 @@ int render_background(){
         printf("Error display.c->render_background->SDL_RenderCleart()\n");
         return 1;
     }else{
-        SDL_RenderPresent(Main_Renderer);
+       // SDL_RenderPresent(Main_Renderer);
         return 0;
     }
 }
@@ -203,4 +201,52 @@ int render_room(room * cur_room){
         return 1;
     }
     return 0;
+}
+
+int render_text_line(char * text, int x, int y){
+    /*
+     * draw a line of text to string starting at coodrinate x, y
+     * renders letters by copying from a bitmap font sheet
+     * 
+     * ----returns 0 on success-------
+     */
+    SDL_Rect dest_rect = {.h = 20, .w = 12, .x = x*20, .y = y*20};  //set dest rect to where line will start
+    SDL_Rect src_rect; 
+    
+    SDL_Texture * bitmap_font = load_image("./img/font2.bmp"); //load font sheet
+    
+    if( bitmap_font == NULL){
+        printf("Error loading bitmap font image\n");
+        return 1;
+    }
+    
+    for(int i = 0; i < strlen(text); i++){
+        src_rect = get_char_rect(text[i]); // get the rect with coordinates that point to the letter we want to print on the font sheet
+        if( SDL_RenderCopy(Main_Renderer, bitmap_font, &src_rect, &dest_rect) != 0){
+            printf("Error copying font texture to main renderer\n");
+        }
+        dest_rect.x = dest_rect.x + 12;  //move over 1 before looping to draw next char
+    }  
+    
+    return 0;
+}
+
+SDL_Rect get_char_rect(char c){
+    /*
+     * take a char and return the rect that represents that letter on the 
+     * font bitmap. There is an equation that maps ascii code to (x,y) coordinate 
+     * on the bitmap "font1.bmp" that is utilized in this function.
+     */
+    SDL_Rect rect;
+    int ascii = (int)c;          //turn char into ascii code
+    int index = ascii - 32;      //this maps ascii code to index of sprite map
+    
+    int sprite_x = 17 + (index % 10) * 61;     //map ascii index to x offest of sprite map
+    int sprite_y = 10 + (index / 10) * 65;     //map ascii index to y offset of sprite map
+    rect.h = 50;
+    rect.w = 25;
+    rect.x = sprite_x;
+    rect.y = sprite_y;
+    
+    return rect;
 }
