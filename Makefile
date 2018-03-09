@@ -1,6 +1,7 @@
 CC=gcc
 CFLAGS= -g --std=c99
-LIBS=    `sdl2-config --libs`  -l:libSDL2.a    
+LIBS=    `sdl2-config --libs`  -l:libSDL2.a  
+
 OBJ=  input.o graphics.o gameobjects.o
 
 %.o: %.c 
