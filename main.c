@@ -87,18 +87,22 @@ int main(void){
                 
             case 2:
                 move_piece(player, MVUP);
+                add_message_queue("You Moved Up");
                 break;
                 
             case 3:
                 move_piece(player, MVDOWN);
+                trim_message_queue(5);
                 break;
                 
             case 5:
                 move_piece(player, MVRIGHT);
+                add_message_queue("You Moved Right");
                 break;
                 
             case 4:
                 move_piece(player, MVLEFT);
+                add_message_queue("You Moved Left");
                 break;
         }
         
@@ -115,17 +119,11 @@ int main(void){
     
         render_room(&room1);
     
-        add_message_queue("first message");
-        add_message_queue("Second Message");
-        add_message_queue("Third Message");
-        add_message_queue("Fourth Message");
-        add_message_queue("Fifth Message");
-        add_message_queue("123456789123456789123456789123456879123456789");
-        render_message_queue(6, 1, 29);
+        render_message_queue(10, 1, 29);
        
         render_all();
         //hold up a sec to not hog the cpu
-        SDL_Delay(120);
+        SDL_Delay(60);
     }
     
     
