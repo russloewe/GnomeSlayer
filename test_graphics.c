@@ -27,6 +27,7 @@ int test6();
 int test7();
 int test8();
 int test9();
+int test10();
 
 
 
@@ -40,11 +41,9 @@ int main(void){
 
 int run_tests(){
     
-    int (*test_suit[])() = {test1, test2, 
-                            test3, test4, 
-                            test5, test6,
-                            test7, test8,
-                            test9, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
+    int (*test_suit[])() = {test1, test2, test3, test4, 
+                            test5, test6, test7, test8,
+                            test9, test10, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
     const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
 
     
@@ -311,4 +310,23 @@ int test9(){
     printf("Pass \n");
     return 1;
 }
+
+int test10(){
+    /*
+     * test trim message queue
+     */
+     
+     printf("Testing graphics->trim_message_queue(): ");
+     
+     for(int i = 0 ; i < 20; i++){
+         for(int j = 0; j < 20; j++){
+             add_message_queue("test message");
+         }
+         trim_message_queue(5);
+         trim_message_queue(6);
+         trim_message_queue(4);
+     }
+     
+     return 1;
+ }
      

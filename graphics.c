@@ -284,6 +284,40 @@ int add_message_queue(char * string){
     }    
     return 0;
 }
+
+int trim_message_queue(int n){
+    Textline * cur = _text_head;
+    
+    for(int i = 0; i < n; i++){ //step n steps through linked list
+        if(cur == NULL){return 0;}
+        if(cur->nxt == NULL){return 0;}
+        if(cur->nxt == cur){
+            cur->nxt = NULL;
+            return 0;
+        }
+         cur = cur->nxt;
+     }
+     
+     if(cur->nxt == NULL){return 0;} //make sure we aren't on end node before next step
+     
+     Textline * prv = cur; //prv and cur point to same struct here and when loop repeats
+     cur = cur->nxt; // advanced cur pointer
+     prv->nxt = NULL;  //make current node end of list before freeing rest of list
+     
+     int i = 0;                  //count how many structs are freed
+     while(1){
+         prv = cur;   //
+         if(cur == NULL){break;}
+         if(prv == NULL){break;}
+         if(cur->nxt == NULL){break;}
+         if(cur->nxt == cur){break;}
+         cur = cur->nxt; // advance cur pointer
+         free(prv);     //free prev pointer
+         i++;
+     }
+     return i;
+ }
+         
         
 int render_message_queue(int line, int x, int y){
     /*
