@@ -72,7 +72,7 @@ int main(void){
      * Create a player piece add it to array
      */
     room1.monsters[0] = create_piece(5, 5, load_image("./img/player.bmp"), PLAYER_TYPE);
-    
+    room1.monsters[0]->player.health = 50;
     //main loop 
     while(1){
         
