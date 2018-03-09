@@ -41,7 +41,7 @@ int run_tests(){
     int (*test_suit[])() = {test1, test2, 
                             test3, test4, 
                             test5, test6,
-                            cleantest};                      //array of all tests to run - cleantest must be at the end of this array
+                            test7, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
     const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
 
     
@@ -220,3 +220,18 @@ int test6(){
     }
 }
     
+int test7(){
+    /*
+     * testing the text string render function
+     */
+    printf("Testing graphics->render_text_line(): ");
+    
+    char * text = "hello";
+    
+    if(render_text_line(text, 2, 20) != 0){
+        printf("Fail \n");
+        return -1;
+    }    
+    printf("Pass \n");
+    return 1;
+}
