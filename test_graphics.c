@@ -25,6 +25,8 @@ int test4();
 int test5();
 int test6();
 int test7();
+int test8();
+int test9();
 
 
 
@@ -41,7 +43,8 @@ int run_tests(){
     int (*test_suit[])() = {test1, test2, 
                             test3, test4, 
                             test5, test6,
-                            cleantest};                      //array of all tests to run - cleantest must be at the end of this array
+                            test7, test8,
+                            test9, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
     const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
 
     
@@ -220,3 +223,92 @@ int test6(){
     }
 }
     
+int test7(){
+    /*
+     * testing the text string render function
+     */
+    printf("Testing graphics->render_text_line(): ");
+    
+    char * text = "hello";
+    
+    if(render_text_line(text, 2, 20) != 0){
+        printf("Fail \n");
+        return -1;
+    }    
+    printf("Pass \n");
+    return 1;
+}
+
+int test8(){
+    /*
+     * test adding text to the message queue
+     */
+     printf("Testing graphics->add_message_queue(): ");
+     
+
+   //add three messages to the message queue
+    if(add_message_queue("Hddtt234 234$%^&(*&^%$") != 0){
+         printf("Fail 3\n");
+         return -1;
+     }
+    if(add_message_queue("test") != 0){
+         printf("Fail 2\n");
+         return -1;
+     }
+    if(add_message_queue("hello") != 0){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
+     Textline * cur = get_message_queue();  //grab the head of the queue
+     
+     if(strncmp(cur->text, "hello", strlen("hello")) != 0){  //check first message
+         printf("Fail 4 \n");
+         return -1;
+     }
+     
+     cur = cur->nxt;     //get next message
+         
+     if( strncmp(cur->text, "test", strlen("test")) != 0){
+         printf("Fail 5 \n");
+         return -1;
+     }
+     
+     cur = cur->nxt;  //get third message
+     
+     if( strncmp(cur->text, "Hddtt234 234$%^&(*&^%$", strlen("Hddtt234 234$%^&(*&^%$")) != 0){
+         printf("Fail 6 \n");
+         return -1;
+     }
+     
+     printf("Pass \n");
+     return 1;
+ }
+ 
+int test9(){
+    /*
+     * Test render message queue
+     */
+     printf("Testing graphics.c->render_message_queue(): ");
+     char matrix[5][15];
+     strcpy(matrix[0], "hello");
+     strcpy(matrix[1], "Tom23");
+     strcpy(matrix[2], "test34");
+     strcpy(matrix[3], "!@test");
+     strcpy(matrix[1], "test Test 45");
+    
+    for(int i = 0; i < 5; i++){
+        if( add_message_queue(matrix[i]) != 0){
+            printf("Fail 1\n");
+            return -1;
+        }
+    }
+    
+    if(render_message_queue(5, 10 , 20) != 0){
+        printf("Fail 2 \n");
+        return -1;
+    }
+    printf("Pass \n");
+    return 1;
+}
+     
