@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <time.h>
 #include "SDL2/SDL.h"
 #include "./headers/input.h"
 #include "./headers/graphics.h"
@@ -15,20 +16,53 @@
 
 int main(void){
     
-       init_video();      //open the screen
+    init_video();      //open the screen
+    int seed = time(NULL); // set random number gernerator
+    srand(seed);
+       
+       SDL_Texture * background_img = load_image("./img/background.bmp");
         /***********temp room hack***************/
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
         //make some walls
-        for(int i = 1; i < 11; i++){
-        gamepiece * wall = create_piece(5, i, load_image("./img/wall.bmp") , WALL_TYPE);
-        room1.walls[i-1] = wall;
+        for(int i = 0; i < 40; i++){
+        gamepiece * wall = create_piece(i, 0, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i] = wall;
         }
+        for(int i = 0; i < 17; i++){
+        gamepiece * wall = create_piece(0, i, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+50] = wall;
+        }
+        for(int i = 0; i < 40; i++){
+        gamepiece * wall = create_piece(i, 17, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+100] = wall;
+        }
+        for(int i = 0; i < 17; i++){
+        gamepiece * wall = create_piece(39, i, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+150] = wall;
+        }
+        
+        
         //spawn some monsters
         gamepiece * monst;
         for(int i = 0; i<5; i++){
-        monst = create_piece(rand()%10+8, rand()%10+8, load_image("./img/player.bmp"), MONSTER_TYPE);
-        room1.monsters[i] =monst;
-    }
+            monst = create_piece(rand()%38+2, rand()%15+2, load_image("./img/monster.bmp"), MONSTER_TYPE);
+            room1.monsters[i] =monst;
+        }
+        //add some items
+        gamepiece * potion = create_piece(rand()%38+2, rand()%15+2, load_image("./img/potion.bmp"), POTION_TYPE);
+        room1.bounty[0] = potion;
+        gamepiece * sword = create_piece(rand()%38+2, rand()%15+2, load_image("./img/sword.bmp"), SWORD_TYPE);
+        room1.bounty[1] = sword;
+        gamepiece * shield = create_piece(rand()%38+2, rand()%15+2, load_image("./img/shield.bmp"), SHIELD_TYPE);
+        room1.bounty[2] = shield;
+       
+        //add the two doors;
+        gamepiece * d1 = create_piece(0, 10, load_image("./img/door.bmp"), DOOR_TYPE);
+        gamepiece * d2 = create_piece(39, 5, load_image("./img/door.bmp"), DOOR_TYPE);
+        
+        room1.doors[0] = d1;
+        room1.doors[1] = d2;
+        
     /******************end temp room hack**********/
         
 
@@ -69,7 +103,7 @@ int main(void){
         }
         
         //render the background
-        render_background();
+        render_background_image(background_img);
         
         //render the objects to screen    
         if(render_objects(objects,1) != 0){

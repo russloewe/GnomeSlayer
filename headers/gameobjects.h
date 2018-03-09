@@ -5,8 +5,9 @@
 #include <stdlib.h>
 #include "SDL2/SDL.h"
 
-enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE};
+enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, DOOR_TYPE};
 enum direction{MVUP, MVDOWN, MVLEFT, MVRIGHT};
+
 
 struct Item{
     int val;

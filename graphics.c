@@ -16,13 +16,13 @@ int init_video(void){
     }
     
     /*
-     * Open a screen 640 by 480, with the double buffer feature 
+     * Open a screen 800 by 600, with the double buffer feature 
      * to speed rendering.
      */
     Main_Screen = SDL_CreateWindow("PCC CS133 Final",
                           SDL_WINDOWPOS_UNDEFINED,
                           SDL_WINDOWPOS_UNDEFINED,
-                          640, 480,
+                          800, 600,
                           SDL_WINDOW_OPENGL);
                           
     if(Main_Screen == NULL){
@@ -69,14 +69,14 @@ SDL_Texture * load_image(char * filename)
     {
         //if the image doesn't load, draw a 
         printf("ERROR: display.c -> load_image -> SDL_loadBMP(): %s\n", SDL_GetError());
-        texture = make_colored_texture(16, 16, 255, 255, 255);
+        texture = make_colored_texture(20, 20, 255, 255, 255);
     }else{
         //copy image surface to a texture
         texture = SDL_CreateTextureFromSurface(Main_Renderer, image);
        
        if (texture == NULL){  //fall back if error in creatng texture from image surface
             printf("Error: display.c->load_image()-> SDL_CreateTextureFromSurface()\n");
-            texture = make_colored_texture(16, 16, 255, 255, 255);
+            texture = make_colored_texture(20, 20, 255, 255, 255);
        }
     }
 
@@ -90,20 +90,22 @@ int render_objects( gamepiece * pieces[], int range){
     /*
      * This function takes an array of pointers to game pieces and
      * loops through, rendering each one that isn't NULL.
+     * 
+     * ---return 0 on success---
      */
     SDL_Texture * image;        //holder for image
     SDL_Rect  rect;             //holder for rect
-    rect.w = 16;                //height and width can be defiend now
-    rect.h = 16;
+    rect.w = 20;                //height and width can be defiend now
+    rect.h = 20;
     
     for(int i = 0; i < range; i++){ 
         if(pieces[i] != NULL){
             image = get_piece_image(pieces[i]);
-            rect.x = get_piece_x(pieces[i]) * 16; //set rect.x and rect.y with gamepiece interface functions
-            rect.y = get_piece_y(pieces[i]) * 16; // multiply by 16 to convert from game square to pixel coordinates
+            rect.x = get_piece_x(pieces[i]) * 20; //get rect.x and rect.y with gamepiece interface functions
+            rect.y = get_piece_y(pieces[i]) * 20; // multiply by 16 to convert from game square to pixel coordinates
             if( image == NULL){ 
                 //if the piece doesn't have an image with it give it a blank square
-                image = make_colored_texture(16, 16, 255, 0, 0); 
+                image = make_colored_texture(20, 20, 255, 0, 0); 
             }
             if(SDL_RenderCopy(Main_Renderer, image, NULL, &rect) != 0){
                 printf("display.c->render_objects()->SDL_RenderCopy()\n");
@@ -117,12 +119,18 @@ int render_objects( gamepiece * pieces[], int range){
     return 0;
 }
 
-int render_background2(SDL_Texture * image){
+
+int render_background_image(SDL_Texture * image){
+    /*
+     * Draw a texture the size of the whole screen to the screen
+     * use this in place of the original render_background(), since
+     * there is no need to clear the screen or black the screen 
+     */
     SDL_Rect  rect;             //holder for rect
-    rect.w = 620;                //height and width can be defiend now
-    rect.h = 350;
-    rect.x = 10;
-    rect.y = 10; 
+    rect.w = 800;                //height and width can be defiend now
+    rect.h = 608;
+    rect.x = 0;
+    rect.y = 0; 
 
     if(SDL_RenderCopy(Main_Renderer, image, NULL, &rect) != 0){
         printf("display.c->render_background()->SDL_RenderCopy()\n");
@@ -174,8 +182,25 @@ SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue,
 }
 
 int render_room(room * cur_room){
-    //pass each of the array of game objects in a room to render_objects
-    render_objects(cur_room->walls, 100);
-    render_objects(cur_room->monsters, 5);
+    /*
+     * take a pointer to a room and render all of the parts of the room to the screen
+     * test return value each time render_objects is called
+     */
+    if( render_objects(cur_room->walls, 200) != 0){
+        printf("Error rendering walls\n");
+        return 1;
+    }
+    if( render_objects(cur_room->monsters, 5) != 0){
+        printf("Error rendering monsters\n");
+        return 1;
+    }
+    if( render_objects(cur_room->bounty, 5) != 0){
+        printf("Error rendering bounty\n");
+        return 1;
+    }
+    if( render_objects(cur_room->doors, 2) != 0){
+        printf("Error rendering doors\n");
+        return 1;
+    }
     return 0;
 }
