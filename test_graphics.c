@@ -28,7 +28,7 @@ int test7();
 int test8();
 int test9();
 int test10();
-
+int test11();
 
 
 int main(void){
@@ -43,7 +43,7 @@ int run_tests(){
     
     int (*test_suit[])() = {test1, test2, test3, test4, 
                             test5, test6, test7, test8,
-                            test9, test10, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
+                            test9, test10, test11, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
     const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
 
     
@@ -318,15 +318,99 @@ int test10(){
      
      printf("Testing graphics->trim_message_queue(): ");
      
+     add_message_queue("test"); //put at least 1 message in queue
+     if(trim_message_queue(0) < 1){   //clear queue
+         printf("Fail .5\n");
+         return -1;
+     }
+     if(trim_message_queue(1) != 0){  //make sure queue is empty
+         printf("Fail .6\n");
+         return -1;
+     }
      for(int i = 0 ; i < 20; i++){
          for(int j = 0; j < 20; j++){
              add_message_queue("test message");
          }
-         trim_message_queue(5);
-         trim_message_queue(6);
-         trim_message_queue(4);
+         if(trim_message_queue(5) != 14){
+             printf("Fail 1\n");
+             return -1;
+         }
+         if(trim_message_queue(6) > 0){
+             printf("Fail 2\n");
+             return -1;
+         }
+         if(trim_message_queue(4) > 0){
+             printf("Fail 3\n");
+             return -1;
+         }
+         
+         //clear queue before loop repeats
+         trim_message_queue(0);
      }
-     
+     printf("Pass \n");
      return 1;
  }
+
+int test11(){
+    /*
+     * test render all function
+     */
+     printf("Testing graphics->render_all() ");
      
+    /***********temp room hack***************/
+        room room1 = {.walls = {NULL}}; //init walls array to null pointers
+        current_room = &room1;          //set current room pointer to room1
+        //make some walls
+        for(int i = 0; i < 40; i++){
+        gamepiece * wall = create_piece(i, 0, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i] = wall;
+        }
+        for(int i = 0; i < 17; i++){
+        gamepiece * wall = create_piece(0, i, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+50] = wall;
+        }
+        for(int i = 0; i < 40; i++){
+        gamepiece * wall = create_piece(i, 17, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+100] = wall;
+        }
+        for(int i = 0; i < 17; i++){
+        gamepiece * wall = create_piece(39, i, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i+150] = wall;
+        }
+        
+        
+        //spawn some monsters
+        gamepiece * monst;
+        for(int i = 0; i<5; i++){
+            monst = create_piece(rand()%38+2, rand()%15+2, load_image("./img/monster.bmp"), MONSTER_TYPE);
+            room1.monsters[i] =monst;
+        }
+        //add some items
+        gamepiece * potion = create_piece(rand()%38+2, rand()%15+2, load_image("./img/potion.bmp"), POTION_TYPE);
+        room1.bounty[0] = potion;
+        gamepiece * sword = create_piece(rand()%38+2, rand()%15+2, load_image("./img/sword.bmp"), SWORD_TYPE);
+        room1.bounty[1] = sword;
+        gamepiece * shield = create_piece(rand()%38+2, rand()%15+2, load_image("./img/shield.bmp"), SHIELD_TYPE);
+        room1.bounty[2] = shield;
+       
+        //add the two doors;
+        gamepiece * d1 = create_piece(0, 10, load_image("./img/door.bmp"), DOOR_TYPE);
+        gamepiece * d2 = create_piece(39, 5, load_image("./img/door.bmp"), DOOR_TYPE);
+        
+        room1.doors[0] = d1;
+        room1.doors[1] = d2;
+        
+        for(int j = 0; j < 20; j++){
+             add_message_queue("test message");
+         }
+    set_background_image("./img/background2.bmp");
+    /******************end temp room hack**********/
+
+    if (render_all() != 0){
+        printf("Fail \n");
+        return -1;
+    }
+    
+    printf("Pass \n");
+    return 1;
+}
