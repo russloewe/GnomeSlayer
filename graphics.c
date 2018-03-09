@@ -3,6 +3,8 @@
 SDL_Window * Main_Screen = NULL;
 SDL_Renderer * Main_Renderer  = NULL;
 Textline * _text_head = NULL;
+SDL_Texture * background_img = NULL;
+extern room * current_room;
 
 int init_video(void){
     /*
@@ -53,13 +55,31 @@ void cleanup(){
     SDL_Quit();
 }
 
-void render_all(){
+int render_all(){
     /*
      * this function is called by main loop to render the screen.
      * I like this better then having to use extern Main_Renderer
      * in main.c
      */
+    if( render_background_image(background_img) != 0){
+        printf("graphics->render all: Error rendering background image\n");
+        return 1;
+    }
+    if(render_room(current_room) != 0){
+        printf("graphics->render_all(): Error rending room\n");
+        return 1;
+    }
+    if(render_message_queue(10, 1, 29) != 0){   //print messages to the screen
+        printf("graphics->render_all(): Error rendering message queue\n");
+        return 1;
+    }
+    trim_message_queue(20);
+    if(render_player_stats(current_room) != 0){ 
+        printf("graphics->render_all(): Error rendering player stats\n");
+        return 1;
+    }
     SDL_RenderPresent(Main_Renderer);
+    return 0;
 }
 
 
@@ -122,6 +142,9 @@ int render_objects( gamepiece * pieces[], int range){
     return 0;
 }
 
+int set_background_image(char * file){
+    background_img = load_image(file);
+}
 
 int render_background_image(SDL_Texture * image){
     /*
@@ -284,7 +307,40 @@ int add_message_queue(char * string){
     }    
     return 0;
 }
-        
+
+int trim_message_queue(int n){
+    Textline * cur = _text_head;
+    
+    for(int i = 0; i < n; i++){ //step n steps through linked list
+        if(cur == NULL){return 0;}
+        if(cur->nxt == NULL){return 0;}
+        if(cur->nxt == cur){
+            cur->nxt = NULL;
+            return 0;
+        }
+         cur = cur->nxt;
+     }
+     
+     if(cur->nxt == NULL){return 0;} //make sure we aren't on end node before next step
+     
+     Textline * prv = cur; //prv and cur point to same struct here and when loop repeats
+     cur = cur->nxt; // advanced cur pointer
+     prv->nxt = NULL;  //make current node end of list before freeing rest of list
+     
+     int i = 0;                  //count how many structs are freed
+     while(1){
+         prv = cur;   //
+         if(cur == NULL){break;}
+         if(prv == NULL){break;}
+         if(cur->nxt == NULL){break;}
+         if(cur->nxt == cur){break;}
+         cur = cur->nxt; // advance cur pointer
+         free(prv);     //free prev pointer
+         i++;
+     }
+     return i;
+ }
+         
 int render_message_queue(int line, int x, int y){
     /*
      * render the messages in the queue 
@@ -301,3 +357,23 @@ int render_message_queue(int line, int x, int y){
      }
      return 0;
  }   
+
+int render_player_stats(room * curroom){
+    /*
+     * Draw the player health and stuff to stat box on screen
+     */
+    
+    char  player_health[15];
+    int health;
+    
+    health = curroom->monsters[0]->player.health;
+    
+    sprintf(player_health, "Health: %d", health);
+    
+    if (render_text_line(player_health, 28, 19) != 0){
+        printf("graphics->render_player_sats(): Error with render text line\n");
+        return 1;
+    }
+    
+    return 0;
+}

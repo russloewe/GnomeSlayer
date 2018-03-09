@@ -13,16 +13,18 @@
 #include "./headers/graphics.h"
 #include "./headers/maps.h"
 
+room * current_room;  //this needs to be parked in the maps module eventually
 
 int main(void){
     
     init_video();      //open the screen
+    set_background_image("./img/background2.bmp");
     int seed = time(NULL); // set random number gernerator
     srand(seed);
-       
-       SDL_Texture * background_img = load_image("./img/background2.bmp");
+
         /***********temp room hack***************/
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
+        current_room = &room1;          //set current room pointer to room1
         //make some walls
         for(int i = 0; i < 40; i++){
         gamepiece * wall = create_piece(i, 0, load_image("./img/wall.bmp") , WALL_TYPE);
@@ -69,11 +71,8 @@ int main(void){
     /*
      * Create a player piece add it to array
      */
-    gamepiece * player;
-    player = create_piece(5, 5, load_image("./img/player.bmp"), PLAYER_TYPE);
-    gamepiece * objects[10] = {NULL};
-    objects[0] = player;
-    
+    room1.monsters[0] = create_piece(5, 5, load_image("./img/player.bmp"), PLAYER_TYPE);
+    room1.monsters[0]->player.health = 50;
     //main loop 
     while(1){
         
@@ -86,46 +85,29 @@ int main(void){
                 break;
                 
             case 2:
-                move_piece(player, MVUP);
+                move_piece(current_room->monsters[0], MVUP);
+                add_message_queue("You Moved Up");
                 break;
                 
             case 3:
-                move_piece(player, MVDOWN);
+                move_piece(current_room->monsters[0], MVDOWN);
+                add_message_queue("You Moved Down");
                 break;
                 
             case 5:
-                move_piece(player, MVRIGHT);
+                move_piece(current_room->monsters[0], MVRIGHT);
+                add_message_queue("You Moved Right");
                 break;
                 
             case 4:
-                move_piece(player, MVLEFT);
+                move_piece(current_room->monsters[0], MVLEFT);
+                add_message_queue("You Moved Left");
                 break;
         }
         
-        //render the background
-        render_background_image(background_img);
-        
-        //render the objects to screen    
-        if(render_objects(objects,1) != 0){
-            printf("Failed\n");
-            return -1;
-        }
-            //test function 
-
-    
-        render_room(&room1);
-    
-        add_message_queue("first message");
-        add_message_queue("Second Message");
-        add_message_queue("Third Message");
-        add_message_queue("Fourth Message");
-        add_message_queue("Fifth Message");
-        add_message_queue("123456789123456789123456789123456879123456789");
-        render_message_queue(6, 1, 29);
-       
         render_all();
         //hold up a sec to not hog the cpu
-        SDL_Delay(120);
+        SDL_Delay(5);
     }
     
     
