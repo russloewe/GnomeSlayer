@@ -162,7 +162,14 @@ int test6(){
      
      printf("Testing graphics->room_render() ");
  /***********temp room hack***************/
-        room room1 = {.walls = {NULL}}; //init walls array to null pointers
+        room room1 = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}, .doors = {NULL}}; //init walls array to null pointers
+        
+        if( render_room(&room1) != 0){ //test render_room when room is empty
+            printf("Fail 1\n");
+            return -1;
+        }
+
+    
         //make some walls
         for(int i = 0; i < 40; i++){
         gamepiece * wall = create_piece(i, 0, load_image("./img/wall.bmp") , WALL_TYPE);
@@ -205,7 +212,7 @@ int test6(){
         
     /******************end temp room hack**********/
     if( render_room(&room1) != 0){
-        printf("Fail \n");
+        printf("Fail 2\n");
         return -1;
     }else{
         printf("Pass\n");
