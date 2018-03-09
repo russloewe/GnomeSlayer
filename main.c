@@ -92,7 +92,7 @@ int main(void){
                 
             case 3:
                 move_piece(player, MVDOWN);
-                trim_message_queue(5);
+                add_message_queue("You Moved Down");
                 break;
                 
             case 5:
@@ -119,11 +119,12 @@ int main(void){
     
         render_room(&room1);
     
-        render_message_queue(10, 1, 29);
+        render_message_queue(10, 1, 29); //print messages to the screen
+        trim_message_queue(20);  //don't let our message queue get too big
        
         render_all();
         //hold up a sec to not hog the cpu
-        SDL_Delay(60);
+        SDL_Delay(5);
     }
     
     
