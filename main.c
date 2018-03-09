@@ -55,6 +55,13 @@ int main(void){
         room1.bounty[1] = sword;
         gamepiece * shield = create_piece(rand()%38+2, rand()%15+2, load_image("./img/shield.bmp"), SHIELD_TYPE);
         room1.bounty[2] = shield;
+       
+        //add the two doors;
+        gamepiece * d1 = create_piece(0, 10, load_image("./img/door.bmp"), DOOR_TYPE);
+        gamepiece * d2 = create_piece(39, 5, load_image("./img/door.bmp"), DOOR_TYPE);
+        
+        room1.doors[0] = d1;
+        room1.doors[1] = d2;
         
     /******************end temp room hack**********/
         
