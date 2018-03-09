@@ -16,7 +16,7 @@ int init_video(void){
     }
     
     /*
-     * Open a screen 640 by 480, with the double buffer feature 
+     * Open a screen 800 by 600, with the double buffer feature 
      * to speed rendering.
      */
     Main_Screen = SDL_CreateWindow("PCC CS133 Final",
@@ -90,6 +90,8 @@ int render_objects( gamepiece * pieces[], int range){
     /*
      * This function takes an array of pointers to game pieces and
      * loops through, rendering each one that isn't NULL.
+     * 
+     * ---return 0 on success---
      */
     SDL_Texture * image;        //holder for image
     SDL_Rect  rect;             //holder for rect
@@ -182,10 +184,23 @@ SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue,
 int render_room(room * cur_room){
     /*
      * take a pointer to a room and render all of the parts of the room to the screen
+     * test return value each time render_objects is called
      */
-    render_objects(cur_room->walls, 200);
-    render_objects(cur_room->monsters, 5);
-    render_objects(cur_room->bounty, 5);
-    render_objects(cur_room->doors, 2);
+    if( render_objects(cur_room->walls, 200) != 0){
+        printf("Error rendering walls\n");
+        return 1;
+    }
+    if( render_objects(cur_room->monsters, 5) != 0){
+        printf("Error rendering monsters\n");
+        return 1;
+    }
+    if( render_objects(cur_room->bounty, 5) != 0){
+        printf("Error rendering bounty\n");
+        return 1;
+    }
+    if( render_objects(cur_room->doors, 2) != 0){
+        printf("Error rendering doors\n");
+        return 1;
+    }
     return 0;
 }
