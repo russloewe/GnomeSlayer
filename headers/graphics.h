@@ -16,7 +16,7 @@ typedef struct Textline Textline;
 
 int init_video(void);
 void cleanup();
-void render_all();
+int render_all();
 SDL_Texture * load_image(char * filename);
 int render_objects( gamepiece * pieces[], int range);
 SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue, Uint8 green);
@@ -29,5 +29,7 @@ int add_message_queue(char * string);
 int render_message_queue(int lines, int x, int y);
 Textline * get_message_queue();
 int trim_message_queue(int n);
+int set_background_image(char * file);
+int render_player_stats(room * curroom);
 
 #endif
