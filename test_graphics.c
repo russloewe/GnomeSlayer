@@ -253,6 +253,29 @@ int test8(){
          printf("Fail 2\n");
          return -1;
      }
+    if(add_message_queue("Hddtt234 234$%^&(*&^%$") != 0){
+         printf("Fail 3\n");
+         return -1;
+     }
+     Textline * cur = get_message_queue();  
+     
+     if(strncmp(cur->text, "hello", strlen("hello")) != 0){  //check first message
+         printf("Fail 4 \n");
+         return -1;
+     }
+     cur = cur->nxt;     //get next message
+         
+     if( strncmp(cur->text, "test", strlen("test")) != 0){
+         printf("Fail 5 \n");
+         return -1;
+     }
+     
+     cur = cur->nxt;  //get third message
+     
+     if( strncmp(cur->text, "Hddtt234 234$%^&(*&^%$", strlen("Hddtt234 234$%^&(*&^%$")) != 0){
+         printf("Fail 6 \n");
+         return -1;
+     }
      
      printf("Pass \n");
      return 1;
