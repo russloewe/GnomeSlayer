@@ -17,5 +17,6 @@ struct room{
 
 typedef struct room room;
 
+room * current_room;
 
 #endif
