@@ -44,12 +44,13 @@ SDL_Texture * get_piece_image(gamepiece *p);
 int get_piece_x(gamepiece *piece);
 int get_piece_y(gamepiece *piece);
 int get_piece_health(gamepiece *piece);
+int set_piece_health(gamepiece* player, int a);
 enum piecetype get_piece_type(gamepiece *piece);
 
-Item * get_player_sword(gamepiece * piece);
-Item * get_player_shield(gamepiece * piece);
-
-
+gamepiece * get_player_sword(gamepiece * piece);
+gamepiece * get_player_shield(gamepiece * piece);
+gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item);
+int get_item_val(gamepiece * item);
 int attack(gamepiece *attaker, gamepiece *defender);
 
 #endif
