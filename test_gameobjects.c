@@ -125,9 +125,22 @@ int test2(){
     
 int test3(){
     /*
-     * 
+     * test get gamepiece stats
      */
-     printf("Testing   ");
+     printf("Testing  gameobjects->(various stats) ");
+     
+     piece1->player.health = 50;
+     
+     if(get_piece_health(piece1) != 50){
+         printf("Fail 1\n");
+         return -1;
+     }
+     if(get_piece_health(piece2) != -1){
+         printf("Fail 2 \n");
+         return -1;
+     }
+     
+     
    return 1;
 }
     
