@@ -12,7 +12,7 @@
 gamepiece * create_piece(int x, int y, SDL_Texture * img, enum piecetype type){
     
     if(img == NULL){
-        printf("Error: gameobjects.c->creat_piece()-> img is NULL\n");
+       // printf("Error: gameobjects.c->creat_piece()-> img is NULL\n");
     }
     gamepiece * newpiece = (gamepiece *)malloc(sizeof(gamepiece));
 
@@ -70,6 +70,24 @@ int get_piece_y(gamepiece *piece){
     int y = piece->y;
     return y;
 }
+enum piecetype get_piece_type(gamepiece *piece){
+    //super quick dirty function
+        return piece->type;
+}
+
+int get_piece_health(gamepiece * piece){
+    if(piece == NULL){
+        return -1;
+    }else{
+        if( (get_piece_type(piece) == PLAYER_TYPE) || 
+            (get_piece_type(piece) == MONSTER_TYPE)){
+            return piece->player.health;
+        }else{
+            return -1;
+        }
+    }
+}
+
 
 int attack(gamepiece *attaker, gamepiece *defender){
 
