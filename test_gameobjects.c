@@ -13,7 +13,7 @@
 #include "SDL2/SDL.h"
 #include "./headers/gameobjects.h"
 #include "./headers/maps.h"
-#define GAMESQUARE 16
+
 
 int run_tests();
 int cleantest();
@@ -25,7 +25,8 @@ int test5();
 int test6();
 int test7();
 
-
+gamepiece * piece1;
+gamepiece * piece2;
 
 int main(void){
     
@@ -80,9 +81,18 @@ int cleantest(){
 
 int test1(){
     /*
-     * 
+     * test create game piece and init the two test pieces
      */
-     printf("Testing   ");
+     printf("Testing gameobjects->creat_piece()  ");
+     
+     piece1 = create_piece(5, 5, NULL, PLAYER_TYPE);
+     piece2 = create_piece(5, 5, NULL, SWORD_TYPE);
+     
+     if((piece1 == NULL) || (piece2 == NULL)){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
    return 1;
 }
 
