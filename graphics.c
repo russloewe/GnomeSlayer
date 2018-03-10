@@ -102,7 +102,6 @@ int render_all(){
     return 0;
 }
 
-
 SDL_Texture * load_image(char * filename){
     /*
      * Takes a char pointer to the filename and returns pointer to
@@ -384,9 +383,9 @@ int render_player_stats(room * curroom){
      */
     
     char  player_health[15];
-    int health;
     
-    health = curroom->monsters[0]->player.health;
+    //gamepiece * player = get_player(); // when interface is done
+    int health = get_piece_health(curroom->monsters[0]);
     
     sprintf(player_health, "Health: %d", health);
     
@@ -395,5 +394,12 @@ int render_player_stats(room * curroom){
         return 1;
     }
     
+    if((player_on_item(current_room) == SWORD_TYPE)  ||
+       (player_on_item(current_room) == SHIELD_TYPE) ||
+       (player_on_item(current_room) == POTION_TYPE)){
+        render_text_line("Press Space Bar to", 26, 23);
+        render_text_line("pick up item", 26, 24);
+    }
+            
     return 0;
 }

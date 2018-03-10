@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 #include "gameobjects.h"
 #include "maps.h"
+#include "checker.h"
 
 int init_video(void);
 void cleanup();

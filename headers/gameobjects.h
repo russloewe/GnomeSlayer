@@ -33,6 +33,7 @@ struct gamepiece{
 
 
 typedef struct gamepiece gamepiece;
+typedef struct Item Item;
 typedef enum piecetype piecetype;
 
 gamepiece * create_piece(int x, int y, SDL_Texture * img, enum piecetype type);
@@ -42,6 +43,12 @@ int destroy_piece(gamepiece * piece);
 SDL_Texture * get_piece_image(gamepiece *p);
 int get_piece_x(gamepiece *piece);
 int get_piece_y(gamepiece *piece);
+int get_piece_health(gamepiece *piece);
+enum piecetype get_piece_type(gamepiece *piece);
+
+Item * get_player_sword(gamepiece * piece);
+Item * get_player_shield(gamepiece * piece);
+
 
 int attack(gamepiece *attaker, gamepiece *defender);
 

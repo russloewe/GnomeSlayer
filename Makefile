@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS= -g --std=c99
 LIBS=    `sdl2-config --libs`  -l:libSDL2.a  
 
-OBJ=  input.o graphics.o gameobjects.o
+OBJ=  input.o graphics.o gameobjects.o checker.o
 
 %.o: %.c 
 	$(CC) -c -o $@ $< $(CFLAGS)
@@ -21,6 +21,9 @@ test-input: $(OBJ) test_input.o
 	
 test-maps: $(OBJ) test_maps.o
 	gcc -o test_maps $^ -g $(LIBS)
+
+test-checker: $(OBJ) test_checker.o
+	gcc -o test_checker $^ -g $(LIBS)
 	
 clean:
 	rm -rf *o
