@@ -17,6 +17,18 @@ struct room{
 
 typedef struct room room;
 
-room * current_room;
+room * current_room;        //this points to current room, will need to be moved to source file eventually
+
+room * get_current_room();   //return pointer to current room
+
+int load_next_room();       //copy player from current room to next room, then point current_room pointer to next room
+
+gamepiece * get_player();   // copy pointer to player struct from current room and return it
+
+gamepiece * get_item(int x, int y); // return item located at (x,y), null if empty
+
+gamepiece * get_adjacent_item(enum direction dir); //get adjacent item in "dir" direction
+
+gamepiece * swap_item(gamepiece * in_item, int x, int y); //pop item from coord (x,y) and return, replace with in item. if no item return in_item
 
 #endif
