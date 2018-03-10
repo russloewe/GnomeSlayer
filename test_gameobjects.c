@@ -140,21 +140,39 @@ int test3(){
          return -1;
      }
      
+     printf("Pass \n");
      
    return 1;
 }
     
 int test4(){
     /*
-     * 
+     * test getting shield or sword
      */
-     printf("Testing   ");
+     printf("Testing  gameobjects->get_player_shield/sword() ");
+     gamepiece * sword;
+     gamepiece * shield;
+     piece1->player.sword.val = 10;
+     piece1->player.shield.val = 11;
+     
+     sword = get_player_sword(piece1);
+     shield = get_player_shield(piece1);
+     
+     if( (sword == NULL) || (shield == NULL)){
+         printf("Fail 1\n");
+         return -1;
+     }
+     if( (sword->item.val != 10) || (shield->item.val != 11) ){
+         printf("Fail\n");
+         return -1;
+     }
+    printf("Pass \n");
    return 1;
 }
 
 int test5(){
     /*
-     * 
+     * test equip item to player
      */
      printf("Testing   ");
    return 1;
