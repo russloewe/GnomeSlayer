@@ -4,3 +4,4 @@ test_input
 test_graphics
 test_maps
 test gameobjects
+test_checker
