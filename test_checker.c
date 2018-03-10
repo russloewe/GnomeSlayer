@@ -81,17 +81,79 @@ int cleantest(){
 
 int test1(){
     /*
-     * 
+     * test player_on_item checker, and get item type
      */
-     printf("Testing   ");
-   return 1;
-}
+     printf("Testing checker->player_on_item  ");
+     
+     room room1 = {.walls = {NULL}}; //init walls array to null pointers
+     
+     room1.monsters[0] = create_piece(5, 5, NULL, PLAYER_TYPE); // add player to (5,5)
+     room1.bounty[0] = create_piece(5, 5, NULL, SWORD_TYPE);
+     room1.bounty[1] = create_piece(6, 6, NULL, POTION_TYPE);
+     room1.bounty[2] = create_piece(6, 5, NULL, SHIELD_TYPE);
+     room1.bounty[3] = create_piece(5, 6, NULL, SWORD_TYPE);
+     
+     if( player_on_item(&room1) != SWORD_TYPE){
+         printf("Fail 1\n");
+         return -1;
+     }
+     room1.monsters[0]->x = 6;
+     room1.monsters[0]->y = 6;
+     if(player_on_item(&room1) != POTION_TYPE){
+         printf("Fail 2\n");
+         return -1;
+     }
+     room1.monsters[0]->x = 10;
+     room1.monsters[0]->y = 10;
+     if(player_on_item(&room1) != PLAYER_TYPE){
+         printf("Fail 3\n");
+         return -1;
+     }
+     
+     printf("Pass \n");
+     return 1;
+ }
+
 
 int test2(){
     /*
-     * 
+     * test is_player_dead function
      */
-     printf("Testing   ");
+     printf("Testing  checker->is_player_dead ");
+     
+     gamepiece * piece1 = create_piece(5, 5, NULL, PLAYER_TYPE);
+     gamepiece * piece2 = create_piece(5, 5, NULL, MONSTER_TYPE);
+     gamepiece * piece3 = create_piece(5, 5, NULL, SWORD_TYPE);
+     
+     piece1->player.health = 50;
+     piece2->player.health = 50;
+     
+     if(is_player_dead(piece1) != 0){
+         printf("Fail 1\n");
+         return -1;
+     }
+      if(is_player_dead(piece2) != 0){
+         printf("Fail 2\n");
+         return -1;
+     }
+     
+     piece1->player.health = 0;
+     piece2->player.health = 0;
+     
+    if(is_player_dead(piece1) != 1){
+         printf("Fail 3\n");
+         return -1;
+     }
+    if(is_player_dead(piece2) != 1){
+         printf("Fail 4\n");
+         return -1;
+     }
+     
+     if(is_player_dead(piece3) != 1){
+         printf("Fail 5\n");
+         return -1;
+     }
+     printf("Pass \n");
    return 1;
 }
 
