@@ -106,9 +106,18 @@ int test2(){
      move_piece(piece1, MVUP);
      
      if( (get_piece_x(piece1) != 6 ) || (get_piece_y(piece1) != 4)){
-         printf("Fail \n");
+         printf("Fail 1\n");
          return -1;
      }
+     
+     move_piece(piece2, MVLEFT);
+     move_piece(piece2, MVDOWN);
+     
+    if( (get_piece_x(piece2) != 4 ) || (get_piece_y(piece2) != 6)){
+         printf("Fail 2\n");
+         return -1;
+     }
+     
      printf("Pass \n");
    return 1;
 }
