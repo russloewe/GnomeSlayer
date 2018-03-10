@@ -88,6 +88,30 @@ int get_piece_health(gamepiece * piece){
     }
 }
 
+Item * get_player_sword(gamepiece * piece){
+    //return gamepieces shield
+    //return null on failer or empty
+    
+    if( (get_piece_type(piece) == PLAYER_TYPE) ||
+        (get_piece_type(piece) == MONSTER_TYPE) ){
+        return &(piece->player.sword);
+    }else{
+        return NULL;
+    }
+}
+
+Item * get_player_shield(gamepiece * piece){
+    //return gamepieces shield
+    //return null on failer or empty
+    
+    if( (get_piece_type(piece) == PLAYER_TYPE) ||
+        (get_piece_type(piece) == MONSTER_TYPE) ){
+        return &(piece->player.shield);
+    }else{
+        return NULL;
+    }
+}
+        
 
 int attack(gamepiece *attaker, gamepiece *defender){
 
