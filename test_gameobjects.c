@@ -83,7 +83,7 @@ int test1(){
     /*
      * test create game piece and init the two test pieces
      */
-     printf("Testing gameobjects->creat_piece()  ");
+     printf("Testing gameobjects->create_piece()  ");
      
      piece1 = create_piece(5, 5, NULL, PLAYER_TYPE);
      piece2 = create_piece(5, 5, NULL, SWORD_TYPE);
@@ -92,15 +92,24 @@ int test1(){
          printf("Fail 1\n");
          return -1;
      }
-     
+     printf("Pass \n");
    return 1;
 }
 
 int test2(){
     /*
-     * 
+     * test move piece
      */
-     printf("Testing   ");
+     printf("Testing  gameobjects->move_piece() ");
+     
+     move_piece(piece1, MVRIGHT);
+     move_piece(piece1, MVUP);
+     
+     if( (get_piece_x(piece1) != 6 ) || (get_piece_y(piece1) != 4)){
+         printf("Fail \n");
+         return -1;
+     }
+     printf("Pass \n");
    return 1;
 }
 
