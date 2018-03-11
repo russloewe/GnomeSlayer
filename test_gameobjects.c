@@ -130,19 +130,16 @@ int test3(){
      printf("Testing  gameobjects->(various stats) ");
      
      //HEALTH
-     if(set_piece_health(piece1, 50) != 0){
+     if(set_player_health(piece1, 50) != 0){
          printf("Fail .5\n");
          return -1;
      }
      
-     if(get_piece_health(piece1) != 50){
+     if(get_piece_val(piece1) != 50){
          printf("Fail 1\n");
          return -1;
      }
-     if(get_piece_health(piece2) != -1){
-         printf("Fail 2 \n");
-         return -1;
-     }
+     
      //NAME
      if(set_piece_name(piece1, "name") != 0){
          printf("Fail 3\n");
@@ -165,12 +162,12 @@ int test3(){
      
      //VAL
      
-     if(set_item_val(piece2, 25) != 0){
+     if(set_piece_val(piece2, 25) != 0){
          printf("Fail 7\n");
          return -1;
      }
      
-     if(get_item_val(piece2) != 25){
+     if(get_piece_val(piece2) != 25){
          printf("Fail 8\n");
          return -1;
      }
@@ -184,22 +181,28 @@ int test4(){
      * test getting shield or sword
      */
      printf("Testing  gameobjects->get_player_shield/sword() ");
-     gamepiece * sword;
-     gamepiece * shield;
-     piece1->player.sword.val = 10;
-     piece1->player.shield.val = 11;
+     //create sword and shield
+     gamepiece * sword = create_piece(5, 5, NULL, SWORD_TYPE);
+     gamepiece * shield = create_piece(5, 5, NULL, SHIELD_TYPE);
+     set_piece_name(sword, "Big Sword");
+     set_piece_val(sword, 100);
+     set_piece_name(shield, "Big Shield");
+     set_piece_val(shield, 35);
      
-     sword = get_player_sword(piece1);
-     shield = get_player_shield(piece1);
-     
-     if( (sword == NULL) || (shield == NULL)){
-         printf("Fail 1\n");
+     //equipe sword and shield to piece1
+     if( (equip_item_to_player(piece1, sword) != NULL) ||
+         (equip_item_to_player(piece1, shield) != NULL) ){
+         printf("Fail 1\n:");
          return -1;
      }
-     if( (sword->item.val != 10) || (shield->item.val != 11) ){
-         printf("Fail\n");
-         return -1;
-     }
+     
+     if( (get_piece_val(get_player_sword(piece1)) != 100) ||
+         (get_piece_val(get_player_shield(piece1)) != 35)) {
+        printf
+        ("Fail 2\n");
+        return -1;
+    }
+
     printf("Pass \n");
    return 1;
 }

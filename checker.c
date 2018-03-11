@@ -34,7 +34,7 @@ int is_player_dead(gamepiece * piece){
      * return 1 if dead, 0 if not
      */
      
-     int health = get_piece_health(piece);
+     int health = get_piece_val(piece);
      
      if(health <= 0){
          return 1;
