@@ -40,7 +40,6 @@ int run_tests(){
     
     int (*test_suit[])() = {test1, test2, 
                             test3, test4, 
-                            test5, test6,
                             cleantest};                      //array of all tests to run - cleantest must be at the end of this array
     const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
 
