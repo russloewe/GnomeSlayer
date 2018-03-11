@@ -15,7 +15,5 @@ int render_all();
 SDL_Texture * load_image(char * filename);
 int render_text_line(char * text, int x, int y);
 int add_message_queue(char * string);
-int set_background_image(char * file);
-
 
 #endif

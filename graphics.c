@@ -9,6 +9,7 @@ typedef struct Textline Textline;
 
 //function prototypes for internal functions
 int render_objects( gamepiece * pieces[], int range);
+int load_images();
 SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue, Uint8 green);
 int render_background();
 int render_background_image(SDL_Texture * img);
@@ -22,9 +23,9 @@ Textline * get_message_queue();
 //pointers to stuff internal stuff
 SDL_Window * Main_Screen = NULL;
 SDL_Renderer * Main_Renderer  = NULL;
-Textline * _text_head = NULL;
-SDL_Texture * background_img = NULL;   //pointer to background image, accessed externally with set_background_image()
-extern room * current_room;
+Textline * _text_head = NULL;          //message queue
+SDL_Texture * images[10] = {NULL};
+extern room * current_room;            //replace wit get current room interface
 
 int init_video(void){
     /*
@@ -62,6 +63,10 @@ int init_video(void){
         return 1;
     }
     
+    //laod images
+    if(load_images() != 0){
+        printf("Error loading game images \n");
+    }
     
     return 0;
 }
@@ -81,7 +86,7 @@ int render_all(){
      * I like this better then having to use extern Main_Renderer
      * in main.c
      */
-    if( render_background_image(background_img) != 0){
+    if( render_background_image(images[BACKGROUND]) != 0){
         printf("graphics->render all: Error rendering background image\n");
         return 1;
     }
@@ -131,6 +136,26 @@ SDL_Texture * load_image(char * filename){
     return texture;
 }
 
+int load_images(){
+    //load an array of images that are going to be used in game
+    images[BACKGROUND] = load_image("./img/background2.bmp");
+    images[WALL_TYPE] = load_image("./img/wall.bmp");
+    images[DOOR_TYPE] = load_image("./img/door.bmp");
+    images[SWORD_TYPE] = load_image("./img/sword.bmp");
+    images[SHIELD_TYPE] = load_image("./img/shield.bmp");
+    images[POTION_TYPE] = load_image("./img/potion.bmp");
+    images[MONSTER_TYPE] = load_image("./img/monster.bmp");
+    images[PLAYER_TYPE] = load_image("./img/toby.bmp");
+    
+    for(int i = 0; i < 8; i++){
+        if(images[i] == NULL){
+            return 1;
+        }
+    }
+    return 0;
+} 
+    
+    
 int render_objects( gamepiece * pieces[], int range){
     /*
      * This function takes an array of pointers to game pieces and
@@ -138,31 +163,25 @@ int render_objects( gamepiece * pieces[], int range){
      * 
      * ---return 0 on success---
      */
-    SDL_Texture * image;        //holder for image
     SDL_Rect  rect;             //holder for rect
     rect.w = 20;                //height and width can be defiend now
     rect.h = 20;
     
     for(int i = 0; i < range; i++){ 
         if(pieces[i] != NULL){
-            image = get_piece_image(pieces[i]);
+            //set dest rect x,y coords
             rect.x = get_piece_x(pieces[i]) * 20; //get rect.x and rect.y with gamepiece interface functions
             rect.y = get_piece_y(pieces[i]) * 20; // multiply by 16 to convert from game square to pixel coordinates
-            if( image == NULL){ 
-                //if the piece doesn't have an image with it give it a blank square
-                image = make_colored_texture(20, 20, 255, 0, 0); 
-            }
-            if(SDL_RenderCopy(Main_Renderer, image, NULL, &rect) != 0){
+            
+            //get piece type 
+            piecetype type = get_piece_type(pieces[i]);
+            if(SDL_RenderCopy(Main_Renderer, images[type], NULL, &rect) != 0){
                 printf("display.c->render_objects()->SDL_RenderCopy()\n");
                 return 1;
             }
         }
     }
     return 0;
-}
-
-int set_background_image(char * file){
-    background_img = load_image(file);
 }
 
 int render_background_image(SDL_Texture * image){
