@@ -3,7 +3,6 @@
 
 
 #include <stdio.h>
-#include <assert.h>
 #include <stdlib.h>
 #include "SDL2/SDL.h"
 #include "gameobjects.h"
@@ -12,7 +11,7 @@
 
 
 int player_on_door();
-gamepiece * player_on_item(room * curroom);
+int player_on_item();
 int is_player_dead(gamepiece *piece);
 
 #endif
