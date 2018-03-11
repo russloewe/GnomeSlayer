@@ -105,11 +105,16 @@ gamepiece * get_player_sword(gamepiece * piece){
     if( (get_piece_type(piece) == PLAYER_TYPE) ||
         (get_piece_type(piece) == MONSTER_TYPE) ){ //only for action character
          gamepiece * item_piece ;
+         
+         //copy x,y coords from player
          int x = get_piece_x(piece);
          int y = get_piece_y(piece);
          item_piece = create_piece(x, y, NULL, SWORD_TYPE); //create new gameobject
          if(item_piece == NULL){return NULL;}
-         item_piece->item.val = piece->player.sword.val;  //assign val of player sword to new item value
+        
+         item_piece->item.val = piece->player.sword.val;  //copy sword's val to new objects
+         strncpy(item_piece->item.name, piece->player.sword.name, 25); //copy sword name
+         
         return item_piece;
     }else{
         return NULL;
@@ -123,11 +128,16 @@ gamepiece * get_player_shield(gamepiece * piece){
     if( (get_piece_type(piece) == PLAYER_TYPE) ||
         (get_piece_type(piece) == MONSTER_TYPE) ){ //only for action character
          gamepiece * item_piece ;
+         //get x,y coords
          int x = get_piece_x(piece);
          int y = get_piece_y(piece);
+         
          item_piece = create_piece(x, y, NULL, SHIELD_TYPE); //create new gameobject
          if(item_piece == NULL){return NULL;}
-         item_piece->item.val = piece->player.shield.val;  //assign val of player shield to new item value
+         
+         item_piece->item.val = piece->player.shield.val;  //copy shield value to new object
+         strncpy(item_piece->item.name, piece->player.shield.name, 25); //copy name
+         
         return item_piece;
     }else{
         return NULL;
