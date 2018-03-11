@@ -412,17 +412,43 @@ int render_player_stats(room * curroom){
      * Draw the player health and stuff to stat box on screen
      */
     
-    char  player_health[15];
+    char  player_health_text[15];    
+    char  player_sword_text[40];
+    char  player_shield_text[40];
+    gamepiece * player = get_player(); 
     
-    gamepiece * player = get_player(); // when interface is done
-    int health = get_piece_val(curroom->monsters[0]);
-    
-    sprintf(player_health, "Health: %d", health);
-    
-    if (render_text_line(player_health, 28, 19) != 0){
+    //render health
+    int health = get_piece_val(player);    
+    sprintf(player_health_text, "Health: %d", health);    
+    if (render_text_line(player_health_text, 26, 19) != 0){
         printf("graphics->render_player_sats(): Error with render text line\n");
         return 1;
     }
+    //render sword
+    gamepiece * sword = get_player_sword(player);
+    if(sword != NULL){
+        char * sword_name = get_piece_name(sword);       //grab item atttributes
+        int sword_val = get_piece_val(sword);
+        sprintf(player_sword_text, "%s : %d hp",sword_name, sword_val );  //format text
+        if (render_text_line(player_sword_text, 26, 20) != 0){
+            printf("graphics->render_player_sats(): Error with render text line\n");
+            return 1;
+        }
+    } 
+    
+    //render shield
+    gamepiece * shield = get_player_shield(player);
+    if(shield != NULL){
+        char * shield_name = get_piece_name(shield);    //grab item attributes
+        int shield_val = get_piece_val(shield);
+        sprintf(player_shield_text, "%s : %d hp",shield_name, shield_val );  //format text
+        if (render_text_line(player_shield_text, 26, 21) != 0){
+            printf("graphics->render_player_sats(): Error with render text line\n");
+            return 1;
+        }
+    }     
+    
+    //render pick up message
     int on_item = player_on_item(curroom);
     if(on_item == 0){
         return 0;
@@ -431,8 +457,8 @@ int render_player_stats(room * curroom){
         if((get_piece_type(item) == SWORD_TYPE)  ||
            (get_piece_type(item) == SHIELD_TYPE) ||
            (get_piece_type(item) == POTION_TYPE)){
-            render_text_line("Press Space Bar to", 26, 23);
-            render_text_line("pick up item", 26, 24);
+            render_text_line("Press Space Bar to", 26, 27);
+            render_text_line("pick up item", 26, 28);
         }
     }
             
