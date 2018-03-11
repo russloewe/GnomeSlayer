@@ -8,6 +8,7 @@ struct Textline{
 typedef struct Textline Textline;
 
 //function prototypes for internal functions
+SDL_Texture * load_image(char * filename);
 int render_objects( gamepiece * pieces[], int range);
 int load_images();
 SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue, Uint8 green);
