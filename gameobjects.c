@@ -50,8 +50,9 @@ int move_piece(gamepiece * piece, enum direction direc){
 }
 
 SDL_Texture * get_piece_image(gamepiece *p){
-    SDL_Texture * image;
-    
+    //interface to access gamepiece img pointer
+    if(p == NULL){return NULL;} //check for null pointer first
+    SDL_Texture * image;    
     image = p->img;
     
     return image;
@@ -76,6 +77,7 @@ enum piecetype get_piece_type(gamepiece *piece){
 }
 
 int get_piece_health(gamepiece * piece){
+    //interface to access gamepiece's health
     if(piece == NULL){
         return -1;
     }else{
@@ -89,6 +91,12 @@ int get_piece_health(gamepiece * piece){
 }
 
 int set_piece_health(gamepiece* player, int a){
+    //set the health stat of a player or monster health
+    
+    //check for correct type first
+    if( (get_piece_type(player) != PLAYER_TYPE) && (get_piece_type(player) != MONSTER_TYPE) ){
+        return -1;
+    }
     if(a <= 100){
         player->player.health = a;
     }
@@ -144,7 +152,34 @@ gamepiece * get_player_shield(gamepiece * piece){
     }
 }
 
+char * get_piece_name(gamepiece * piece){
+    //interface to access gamepieces name
+    
+    if(piece == NULL){return NULL;}
+    
+    if(( get_piece_type(piece) == PLAYER_TYPE) || (get_piece_type(piece) == MONSTER_TYPE) ){
+        return piece->player.name;
+    }else{
+        return piece->item.name;
+    }
+}
+
+int set_piece_name(gamepiece * piece, char * string){
+    //interface to access gamepieces name
+    
+    if(piece == NULL){return 1;}
+    
+    if(( get_piece_type(piece) == PLAYER_TYPE) || (get_piece_type(piece) == MONSTER_TYPE) ){
+        strncpy(piece->player.name, string, 25);
+        return 0;
+    }else{
+        strncpy(piece->item.name, string, 25);
+        return 0;
+    }
+}
+
 int get_item_val(gamepiece * item){
+    //interface to access a gamepiece's val
     if(item == NULL){
         return 0;
     }
