@@ -49,6 +49,7 @@ int set_piece_health(gamepiece* player, int a);
 enum piecetype get_piece_type(gamepiece *piece);
 char * get_piece_name(gamepiece * piece);
 int set_piece_name(gamepiece * piece, char * string);
+int set_item_val(gamepiece * piece,int val);
 gamepiece * get_player_sword(gamepiece * piece);
 gamepiece * get_player_shield(gamepiece * piece);
 gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item);

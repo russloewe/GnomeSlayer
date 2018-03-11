@@ -191,6 +191,14 @@ int get_item_val(gamepiece * item){
         return 0;
     }
 }
+
+int set_item_val(gamepiece * piece,int val){
+    //interface to set item value
+    if(piece == NULL){ return 1;}
+    piece->item.val = val;
+    return 0;
+}
+    
     
 gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item){
     //take an item and add it to player stuct 
