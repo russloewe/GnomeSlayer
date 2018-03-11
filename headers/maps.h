@@ -17,9 +17,11 @@ struct room{
 
 typedef struct room room;
 
-room * current_room;        //this points to current room, will need to be moved to source file eventually
+
 
 room * get_current_room();   //return pointer to current room
+
+int set_current_room(room * curroom);
 
 int load_next_room();       //copy player from current room to next room, then point current_room pointer to next room
 
