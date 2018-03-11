@@ -27,6 +27,7 @@ SDL_Renderer * Main_Renderer  = NULL;
 Textline * _text_head = NULL;          //message queue
 SDL_Texture * images[10] = {NULL};
 extern room * current_room;            //replace wit get current room interface
+SDL_Texture * _bitmap_font = NULL;    //pointer for font sheet
 
 int init_video(void){
     /*
@@ -68,6 +69,9 @@ int init_video(void){
     if(load_images() != 0){
         printf("Error loading game images \n");
     }
+    
+    //load font sheet
+    _bitmap_font = load_image("./img/font2.bmp"); 
     
     return 0;
 }
@@ -280,9 +284,9 @@ int render_text_line(char * text, int x, int y){
     SDL_Rect dest_rect = {.h = 20, .w = 12, .x = x*20, .y = y*20};  //set dest rect to where line will start
     SDL_Rect src_rect; 
     
-    SDL_Texture * bitmap_font = load_image("./img/font2.bmp"); //load font sheet
     
-    if( bitmap_font == NULL){
+    
+    if( _bitmap_font == NULL){
         printf("graphics.c->render_text_line(): Error loading bitmap font image\n");
         return 1;
     }
@@ -290,7 +294,7 @@ int render_text_line(char * text, int x, int y){
     for(int i = 0; (i < strlen(text)) && (i < 40); i++){
        // if(text[i] == '\0'){break;} //stop at end of line
         src_rect = get_char_rect(text[i]); // get the rect with coordinates that point to the letter we want to print on the font sheet
-        if( SDL_RenderCopy(Main_Renderer, bitmap_font, &src_rect, &dest_rect) != 0){
+        if( SDL_RenderCopy(Main_Renderer, _bitmap_font, &src_rect, &dest_rect) != 0){
             printf("graphics.c->render_text_line(): Error copying font texture to main renderer\n");
         }
         dest_rect.x = dest_rect.x + 12;  //move over 1 before looping to draw next char
