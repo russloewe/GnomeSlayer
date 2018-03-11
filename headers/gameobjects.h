@@ -10,17 +10,18 @@ enum direction{MVUP, MVDOWN, MVLEFT, MVRIGHT};
 
 
 struct Item{
+    char name[25];
     int val;
 };
 
 struct Player{
+    char name[25];
     int health;
     struct Item sword;
     struct Item shield;
 };
 
-struct gamepiece{
-    char name[50];
+struct gamepiece{    
     int x;
     int y;
     SDL_Texture * img;
