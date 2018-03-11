@@ -414,7 +414,7 @@ int render_player_stats(room * curroom){
     
     char  player_health[15];
     
-    //gamepiece * player = get_player(); // when interface is done
+    gamepiece * player = get_player(); // when interface is done
     int health = get_piece_val(curroom->monsters[0]);
     
     sprintf(player_health, "Health: %d", health);
@@ -423,13 +423,14 @@ int render_player_stats(room * curroom){
         printf("graphics->render_player_sats(): Error with render text line\n");
         return 1;
     }
-    gamepiece * on_item = player_on_item(curroom);
-    if(on_item == NULL){
+    int on_item = player_on_item(curroom);
+    if(on_item == 0){
         return 0;
     }else{
-        if((get_piece_type(on_item) == SWORD_TYPE)  ||
-           (get_piece_type(on_item) == SHIELD_TYPE) ||
-           (get_piece_type(on_item) == POTION_TYPE)){
+        gamepiece * item = grab_item_reference(get_piece_x(player), get_piece_y(player)); //grab pointer to item player is on
+        if((get_piece_type(item) == SWORD_TYPE)  ||
+           (get_piece_type(item) == SHIELD_TYPE) ||
+           (get_piece_type(item) == POTION_TYPE)){
             render_text_line("Press Space Bar to", 26, 23);
             render_text_line("pick up item", 26, 24);
         }
