@@ -424,7 +424,6 @@ int test11(){
         for(int j = 0; j < 20; j++){
              add_message_queue("test message");
          }
-    set_background_image("./img/background2.bmp");
     /******************end temp room hack**********/
 
     if (render_all() != 0){
