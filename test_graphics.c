@@ -176,7 +176,7 @@ int graph_test5(){
      */
      printf("graph_testing graphics->render_objects(): ");
     gamepiece * player;
-    player = create_piece(50, 50, PLAYER_TYPE);
+    player = create_piece(50, 50, "player1", 100, PLAYER_TYPE);
     gamepiece * objects[10] = {NULL};
     objects[0] = player;
     
@@ -192,54 +192,44 @@ int graph_test6(){
      */
      
      printf("graph_testing graphics->room_render() ");
- /***********temp room hack***************/
-        room room1 = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}, .doors = {NULL}}; //init walls array to null pointers
+        /***********temp room hack***************/
+        room room1 = {.walls = {NULL}}; //init walls array to null pointers
+        set_current_room(&room1);
+        room * current_room = &room1;          //set current room pointer to room1
         
-        if( render_room(&room1) != 0){ //graph_test render_room when room is empty
-            printf("Fail 1\n");
-            return -1;
-        }
-
-    
         //make some walls
         for(int i = 0; i < 40; i++){
-        gamepiece * wall = create_piece(i, 0,  WALL_TYPE);
-        room1.walls[i] = wall;
+            room1.walls[i] = create_piece(i, 0, "wall", 1, WALL_TYPE);;
         }
-        for(int i = 0; i < 17; i++){
-        gamepiece * wall = create_piece(0, i, WALL_TYPE);
-        room1.walls[i+50] = wall;
+        for(int i = 0; i < 17; i++){        
+            room1.walls[i+50] = create_piece(0, i, "wall", 1, WALL_TYPE);
         }
         for(int i = 0; i < 40; i++){
-        gamepiece * wall = create_piece(i, 17,  WALL_TYPE);
-        room1.walls[i+100] = wall;
+            room1.walls[i+100] = create_piece(i, 17, "wall", 1, WALL_TYPE);
         }
         for(int i = 0; i < 17; i++){
-        gamepiece * wall = create_piece(39, i,  WALL_TYPE);
-        room1.walls[i+150] = wall;
+            room1.walls[i+150] = create_piece(39, i, "wall", 1, WALL_TYPE);
         }
         
         
         //spawn some monsters
-        gamepiece * monst;
         for(int i = 0; i<5; i++){
-            monst = create_piece(rand()%38+2, rand()%15+2,  MONSTER_TYPE);
-            room1.monsters[i] =monst;
+            room1.monsters[i] = create_piece(rand()%38+2, rand()%15+2, "monster", 100, MONSTER_TYPE);
         }
-        //add some items
-        gamepiece * potion = create_piece(rand()%38+2, rand()%15+2,  POTION_TYPE);
-        room1.bounty[0] = potion;
-        gamepiece * sword = create_piece(rand()%38+2, rand()%15+2,  SWORD_TYPE);
-        room1.bounty[1] = sword;
-        gamepiece * shield = create_piece(rand()%38+2, rand()%15+2,  SHIELD_TYPE);
-        room1.bounty[2] = shield;
+        //add some items 
+        room1.bounty[0] = create_piece(rand()%38+2, rand()%15+2, "potion", 40, POTION_TYPE);
+       
+        //make 2 swords
+        room1.bounty[1] = create_piece(rand()%38+2, rand()%15+2, "Big Sword", 25, SWORD_TYPE);
+        room1.bounty[2] = create_piece(rand()%38+2, rand()%15+2, "Big Dagger", 25,  SWORD_TYPE);
+        
+        //make two shields
+        room1.bounty[3] = create_piece(rand()%38+2, rand()%15+2, "Iron Shield", 20, SHIELD_TYPE);
+        room1.bounty[4] = create_piece(rand()%38+2, rand()%15+2, "Bronze Shield", 40, SHIELD_TYPE);
        
         //add the two doors;
-        gamepiece * d1 = create_piece(0, 10,  DOOR_TYPE);
-        gamepiece * d2 = create_piece(39, 5,  DOOR_TYPE);
-        
-        room1.doors[0] = d1;
-        room1.doors[1] = d2;
+        room1.doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
+        room1.doors[1] = create_piece(39, 5, "door", 1, DOOR_TYPE);
         
     /******************end temp room hack**********/
     if( render_room(&room1) != 0){
@@ -388,53 +378,45 @@ int graph_test11(){
      */
      printf("graph_testing graphics->render_all() ");
      
-    /***********temp room hack***************/
+           /***********temp room hack***************/
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
         set_current_room(&room1);
         room * current_room = &room1;          //set current room pointer to room1
+        
         //make some walls
         for(int i = 0; i < 40; i++){
-        gamepiece * wall = create_piece(i, 0, WALL_TYPE);
-        room1.walls[i] = wall;
+            room1.walls[i] = create_piece(i, 0, "wall", 1, WALL_TYPE);;
         }
-        for(int i = 0; i < 17; i++){
-        gamepiece * wall = create_piece(0, i,  WALL_TYPE);
-        room1.walls[i+50] = wall;
+        for(int i = 0; i < 17; i++){        
+            room1.walls[i+50] = create_piece(0, i, "wall", 1, WALL_TYPE);
         }
         for(int i = 0; i < 40; i++){
-        gamepiece * wall = create_piece(i, 17,  WALL_TYPE);
-        room1.walls[i+100] = wall;
+            room1.walls[i+100] = create_piece(i, 17, "wall", 1, WALL_TYPE);
         }
         for(int i = 0; i < 17; i++){
-        gamepiece * wall = create_piece(39, i,  WALL_TYPE);
-        room1.walls[i+150] = wall;
+            room1.walls[i+150] = create_piece(39, i, "wall", 1, WALL_TYPE);
         }
         
         
         //spawn some monsters
-        gamepiece * monst;
         for(int i = 0; i<5; i++){
-            monst = create_piece(rand()%38+2, rand()%15+2, MONSTER_TYPE);
-            room1.monsters[i] =monst;
+            room1.monsters[i] = create_piece(rand()%38+2, rand()%15+2, "monster", 100, MONSTER_TYPE);
         }
-        //add some items
-        gamepiece * potion = create_piece(rand()%38+2, rand()%15+2, POTION_TYPE);
-        room1.bounty[0] = potion;
-        gamepiece * sword = create_piece(rand()%38+2, rand()%15+2,  SWORD_TYPE);
-        room1.bounty[1] = sword;
-        gamepiece * shield = create_piece(rand()%38+2, rand()%15+2,  SHIELD_TYPE);
-        room1.bounty[2] = shield;
+        //add some items 
+        room1.bounty[0] = create_piece(rand()%38+2, rand()%15+2, "potion", 40, POTION_TYPE);
+       
+        //make 2 swords
+        room1.bounty[1] = create_piece(rand()%38+2, rand()%15+2, "Big Sword", 25, SWORD_TYPE);
+        room1.bounty[2] = create_piece(rand()%38+2, rand()%15+2, "Big Dagger", 25,  SWORD_TYPE);
+        
+        //make two shields
+        room1.bounty[3] = create_piece(rand()%38+2, rand()%15+2, "Iron Shield", 20, SHIELD_TYPE);
+        room1.bounty[4] = create_piece(rand()%38+2, rand()%15+2, "Bronze Shield", 40, SHIELD_TYPE);
        
         //add the two doors;
-        gamepiece * d1 = create_piece(0, 10,  DOOR_TYPE);
-        gamepiece * d2 = create_piece(39, 5,  DOOR_TYPE);
+        room1.doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
+        room1.doors[1] = create_piece(39, 5, "door", 1, DOOR_TYPE);
         
-        room1.doors[0] = d1;
-        room1.doors[1] = d2;
-        
-        for(int j = 0; j < 20; j++){
-             add_message_queue("graph_test message");
-         }
     /******************end temp room hack**********/
 
     if (render_all() != 0){

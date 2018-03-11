@@ -81,8 +81,8 @@ int obj_test1(){
      */
      printf("obj_testing gameobjects->create_piece()  ");
      
-     piece1 = create_piece(5, 5, PLAYER_TYPE);
-     piece2 = create_piece(5, 5, SWORD_TYPE);
+     piece1 = create_piece(5, 5, "platey", 100, PLAYER_TYPE);
+     piece2 = create_piece(5, 5, "sword", 30, SWORD_TYPE);
      
      if((piece1 == NULL) || (piece2 == NULL)){
          printf("Fail 1\n");
@@ -178,8 +178,8 @@ int obj_test4(){
      */
      printf("obj_testing  gameobjects->get_player_shield/sword() ");
      //create sword and shield
-     gamepiece * sword = create_piece(5, 5,  SWORD_TYPE);
-     gamepiece * shield = create_piece(5, 5,  SHIELD_TYPE);
+     gamepiece * sword = create_piece(5, 5, "sword", 20, SWORD_TYPE);
+     gamepiece * shield = create_piece(5, 5, "shield", 40, SHIELD_TYPE);
      set_piece_name(sword, "Big Sword");
      set_piece_val(sword, 100);
      set_piece_name(shield, "Big Shield");
@@ -210,7 +210,7 @@ int obj_test5(){
      printf("obj_testing  gameobjects->create/destroy_piece(stress): ");
      
      for(int i = 0; i < 5000000; i++){
-         gamepiece * temp = create_piece(rand()%38+2, rand()%15+2, POTION_TYPE);
+         gamepiece * temp = create_piece(rand()%38+2, rand()%15+2, "tmp", 100, POTION_TYPE);
          destroy_piece(temp);
      }
    return 1;
