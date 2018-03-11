@@ -27,57 +27,40 @@ int main(void){
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
         set_current_room(&room1);
         room * current_room = &room1;          //set current room pointer to room1
+        
         //make some walls
         for(int i = 0; i < 40; i++){
-        gamepiece * wall = create_piece(i, 0,  WALL_TYPE);
-        room1.walls[i] = wall;
+            room1.walls[i] = create_piece(i, 0, "wall", 1, WALL_TYPE);;
         }
-        for(int i = 0; i < 17; i++){
-        gamepiece * wall = create_piece(0, i,  WALL_TYPE);
-        room1.walls[i+50] = wall;
+        for(int i = 0; i < 17; i++){        
+            room1.walls[i+50] = create_piece(0, i, "wall", 1, WALL_TYPE);
         }
         for(int i = 0; i < 40; i++){
-        gamepiece * wall = create_piece(i, 17,  WALL_TYPE);
-        room1.walls[i+100] = wall;
+            room1.walls[i+100] = create_piece(i, 17, "wall", 1, WALL_TYPE);
         }
         for(int i = 0; i < 17; i++){
-        gamepiece * wall = create_piece(39, i,  WALL_TYPE);
-        room1.walls[i+150] = wall;
+            room1.walls[i+150] = create_piece(39, i, "wall", 1, WALL_TYPE);
         }
         
         
         //spawn some monsters
-        gamepiece * monst;
         for(int i = 0; i<5; i++){
-            monst = create_piece(rand()%38+2, rand()%15+2,  MONSTER_TYPE);
-            room1.monsters[i] =monst;
+            room1.monsters[i] = create_piece(rand()%38+2, rand()%15+2, "monster", 100, MONSTER_TYPE);
         }
-        //add some items
-        gamepiece * potion = create_piece(rand()%38+2, rand()%15+2,  POTION_TYPE);
-        room1.bounty[0] = potion;
+        //add some items 
+        room1.bounty[0] = create_piece(rand()%38+2, rand()%15+2, "potion", 40, POTION_TYPE);
        
         //make 2 swords
-        gamepiece * sword = create_piece(rand()%38+2, rand()%15+2,  SWORD_TYPE);
-        set_piece_name(sword, "Big Sword");
-        gamepiece * sword2 = create_piece(rand()%38+2, rand()%15+2,  SWORD_TYPE);
-        set_piece_name(sword2, "Big Dagger");
-        room1.bounty[1] = sword;
-        room1.bounty[2] = sword2;
+        room1.bounty[1] = create_piece(rand()%38+2, rand()%15+2, "Big Sword", 25, SWORD_TYPE);
+        room1.bounty[2] = create_piece(rand()%38+2, rand()%15+2, "Big Dagger", 25,  SWORD_TYPE);
         
         //make two shields
-        gamepiece * shield = create_piece(rand()%38+2, rand()%15+2,  SHIELD_TYPE);
-        set_piece_name(shield, "Iron Shield");
-        room1.bounty[3] = shield;
-        gamepiece * shield2 = create_piece(rand()%38+2, rand()%15+2,  SHIELD_TYPE);
-        set_piece_name(shield2, "Bronze Shield");
-        room1.bounty[4] = shield2;
+        room1.bounty[3] = create_piece(rand()%38+2, rand()%15+2, "Iron Shield", 20, SHIELD_TYPE);
+        room1.bounty[4] = create_piece(rand()%38+2, rand()%15+2, "Bronze Shield", 40, SHIELD_TYPE);
        
         //add the two doors;
-        gamepiece * d1 = create_piece(0, 10,  DOOR_TYPE);
-        gamepiece * d2 = create_piece(39, 5,  DOOR_TYPE);
-        
-        room1.doors[0] = d1;
-        room1.doors[1] = d2;
+        room1.doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
+        room1.doors[1] = create_piece(39, 5, "door", 1, DOOR_TYPE);
         
     /******************end temp room hack**********/
         
@@ -85,7 +68,7 @@ int main(void){
     /*
      * Create a player piece add it to array
      */
-    room1.monsters[0] = create_piece(5, 5, PLAYER_TYPE);
+    room1.monsters[0] = create_piece(5, 5, "Toby", 100, PLAYER_TYPE);
     set_player_health(room1.monsters[0], 50);
     //main loop 
     while(1){        
