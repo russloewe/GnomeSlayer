@@ -129,7 +129,10 @@ int test3(){
      */
      printf("Testing  gameobjects->(various stats) ");
      
-     set_piece_health(piece1, 50);
+     if(set_piece_health(piece1, 50) != 0){
+         printf("Fail .5\n");
+         return -1;
+     }
      
      if(get_piece_health(piece1) != 50){
          printf("Fail 1\n");
@@ -140,6 +143,24 @@ int test3(){
          return -1;
      }
      
+     if(set_piece_name(piece1, "name") != 0){
+         printf("Fail 3\n");
+         return -1;
+     }
+      if(set_piece_name(piece2, "name2") != 0){
+         printf("Fail 4\n");
+         return -1;
+     }
+     
+     if(strncmp(get_piece_name(piece1), "name", 4) != 0){
+         printf("Fail 5\n");
+         return -1;
+     }
+     
+      if(strncmp(get_piece_name(piece2), "name2", 5) != 0){
+         printf("Fail 5\n");
+         return -1;
+     }
      printf("Pass \n");
      
    return 1;
