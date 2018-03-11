@@ -12,7 +12,7 @@
 
 
 int player_on_door();
-enum piecetype player_on_item(room * curroom);
+gamepiece * player_on_item(room * curroom);
 int is_player_dead(gamepiece *piece);
 
 #endif

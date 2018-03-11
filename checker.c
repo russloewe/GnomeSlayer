@@ -6,7 +6,7 @@
 
 #include "./headers/checker.h"
 
-enum piecetype player_on_item(room * curroom){
+gamepiece * player_on_item(room * curroom){
     //use direct access now, switch to interface when done with maps
     
    // gamepiece * player = get_player();  //function not defined yet in map interface
@@ -21,12 +21,12 @@ enum piecetype player_on_item(room * curroom){
             int i_y = get_piece_y(curroom->bounty[i]);
             
             if( (i_x == x) && (i_y == y) ){ //return the first item that matches x,y coords
-                return get_piece_type(curroom->bounty[i]);
+                return curroom->bounty[i];
             }
         }
     }
     
-    return PLAYER_TYPE;
+    return NULL;
 }  
 
 int is_player_dead(gamepiece * piece){
