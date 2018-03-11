@@ -35,14 +35,17 @@ int is_player_dead(gamepiece * piece){
     /* check if player or monster is dead
      * return 1 if dead, 0 if not
      */
-     
-     int health = get_piece_val(piece);
-     
-     if(health <= 0){
-         return 1;
-     }else{
-         return 0;
-     }
- }
+     if( (get_piece_type(piece) == PLAYER_TYPE) || (get_piece_type(piece) == MONSTER_TYPE) ){
+          //get health   
+         int health = get_piece_val(piece);         
+         if(health <= 0){
+             return 1;     //dead
+         }else{
+             return 0;     //not dead
+         }
+    }else{
+        return 1;  //inanimate objects return dead
+    }
+}
     
     
