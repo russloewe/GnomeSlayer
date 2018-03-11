@@ -23,6 +23,9 @@ gamepiece * create_piece(int x, int y, enum piecetype type){
 }
 
 int destroy_piece(gamepiece * piece){
+    if(piece == NULL){
+        return 1;
+    }
     //recusicly free sub structs
     if(piece->sword != NULL){
         destroy_piece(piece->sword);
@@ -114,7 +117,8 @@ gamepiece * get_player_shield(gamepiece * piece){
 
 piecetype get_piece_type(gamepiece *piece){
     //super quick dirty function
-        return piece->type;
+    return piece->type;
+ 
 }
 
 /****************SETTERS**********************/
