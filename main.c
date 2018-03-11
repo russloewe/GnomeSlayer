@@ -55,10 +55,22 @@ int main(void){
         //add some items
         gamepiece * potion = create_piece(rand()%38+2, rand()%15+2,  POTION_TYPE);
         room1.bounty[0] = potion;
+       
+        //make 2 swords
         gamepiece * sword = create_piece(rand()%38+2, rand()%15+2,  SWORD_TYPE);
+        set_piece_name(sword, "Big Sword");
+        gamepiece * sword2 = create_piece(rand()%38+2, rand()%15+2,  SWORD_TYPE);
+        set_piece_name(sword2, "Big Dagger");
         room1.bounty[1] = sword;
+        room1.bounty[2] = sword2;
+        
+        //make two shields
         gamepiece * shield = create_piece(rand()%38+2, rand()%15+2,  SHIELD_TYPE);
-        room1.bounty[2] = shield;
+        set_piece_name(shield, "Iron Shield");
+        room1.bounty[3] = shield;
+        gamepiece * shield2 = create_piece(rand()%38+2, rand()%15+2,  SHIELD_TYPE);
+        set_piece_name(shield2, "Bronze Shield");
+        room1.bounty[4] = shield2;
        
         //add the two doors;
         gamepiece * d1 = create_piece(0, 10,  DOOR_TYPE);
