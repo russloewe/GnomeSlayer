@@ -390,7 +390,8 @@ int graph_test11(){
      
     /***********temp room hack***************/
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
-        current_room = &room1;          //set current room pointer to room1
+        set_current_room(&room1);
+        room * current_room = &room1;          //set current room pointer to room1
         //make some walls
         for(int i = 0; i < 40; i++){
         gamepiece * wall = create_piece(i, 0, WALL_TYPE);
