@@ -73,10 +73,8 @@ int remove_item_from_map(gamepiece * item){
 }
 
 int add_item_to_map(gamepiece * item){
-    int x = get_piece_x(item);
-    int y = get_piece_y(item);
-    
-    for(int i = 0; i < 5; i++){
+    //look for empty slot to add item to room struct
+    for(int i = 0; i < 10; i++){
         if(_current_room->bounty[i] == NULL){
             _current_room->bounty[i] = item;   //look for empty slot to add item
             return 0;
@@ -84,6 +82,36 @@ int add_item_to_map(gamepiece * item){
     }
     return 1;
 }
+
+int add_monster_to_map(gamepiece * monster){
+    //look for empty slot to add monster to room    
+    for(int i = 1; i < 10; i++){
+        if(_current_room->monsters[i] == NULL){
+            _current_room->monsters[i] = monster;   //look for empty slot to add item
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int add_wall_to_map(gamepiece * wall){
+    //look for empty slot to add monster to room    
+    for(int i = 0; i < 300; i++){
+        if(_current_room->walls[i] == NULL){
+            _current_room->walls[i] = wall;   //look for empty slot to add item
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int add_player_to_map(gamepiece * player){
+    //add player to front of monster aray
+    _current_room->bounty[0] = player;   //look for empty slot to add item
+    return 1;
+}
+
+
 
 gamepiece * grab_item_reference(int x, int y){
     //look for item at x,y and return pointer, leave in bounty list

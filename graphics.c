@@ -261,15 +261,15 @@ int render_room(room * cur_room){
      * take a pointer to a room and render all of the parts of the room to the screen
      * test return value each time render_objects is called
      */
-    if( render_objects(cur_room->walls, 200) != 0){
+    if( render_objects(cur_room->walls, 300) != 0){
         printf("graphics.c->render_room(): Error rendering walls\n");
         return 1;
     }
-    if( render_objects(cur_room->monsters, 5) != 0){
+    if( render_objects(cur_room->monsters, 10) != 0){
         printf("graphics.c->render_room(): Error rendering monsters\n");
         return 1;
     }
-    if( render_objects(cur_room->bounty, 5) != 0){
+    if( render_objects(cur_room->bounty, 10) != 0){
         printf("graphics.c->render_room(): Error rendering bounty\n");
         return 1;
     }
@@ -358,6 +358,7 @@ int add_message_queue(char * string){
 }
 
 int trim_message_queue(int n){
+    //leave the first n nodes in queue, free the rest
     Textline * cur = _text_head;
     
     for(int i = 0; i < n; i++){ //step n steps through linked list
