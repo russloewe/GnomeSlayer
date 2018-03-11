@@ -1,10 +1,10 @@
 /* author: russ loewe
  * date:   20 feb 2018
- * file:   test_suit.c
+ * file:   obj_test_suit.c
  * Purpose:
- *         This file contains all of the tests to run in this suit.
- *         each of these tests needs to  have their function name put 
- *         in the function pointer array of tests.
+ *         This file contains all of the obj_tests to run in this suit.
+ *         each of these obj_tests needs to  have their function name put 
+ *         in the function pointer array of obj_tests.
  */
 
 #include <stdio.h>
@@ -15,49 +15,45 @@
 #include "./headers/maps.h"
 
 
-int run_tests();
-int cleantest();
-int test1();
-int test2();
-int test3();
-int test4();
-int test5();
-int test6();
-int test7();
+int run_obj_tests();
+int cleanobj_test();
+int obj_test1();
+int obj_test2();
+int obj_test3();
+int obj_test4();
+int obj_test5();
+int obj_test6();
+int obj_test7();
 
 gamepiece * piece1;
 gamepiece * piece2;
 
-int main(void){
-    
-    printf("running tests now\n");
-    run_tests();
-    
-    return 0;
-}
 
-int run_tests(){
-    
-    int (*test_suit[])() = {test1, test2, 
-                            test3, test4, 
-                            cleantest};                      //array of all tests to run - cleantest must be at the end of this array
-    const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
+
+int run_obj_tests(){
+    printf("running GameObject obj_tests now\n");
+    printf("**********************************************\n");
+    int (*obj_test_suit[])() = {obj_test1, obj_test2, 
+                                obj_test3, obj_test4, 
+                            cleanobj_test};                      //array of all obj_tests to run - cleanobj_test must be at the end of this array
+    const int obj_test_len = sizeof(obj_test_suit) / sizeof(obj_test_suit[0]);  //variable to tell obj_test runner how many obj_tests there are
 
     
     int success = 0;
     int failure = 0;
     
-    for(int i = 0; i < test_len; i++){
+    for(int i = 0; i < obj_test_len; i++){
         int response;
         
-        response = test_suit[i]();
+        response = obj_test_suit[i]();
         
         switch(response){
             
             case 0:
-                //Last test is supposed to return 0 to indicate tests are done
-                printf("Finished Runnig all tests. Success: %i\n", success);
-                printf("                           Failure: %i\n", failure);
+                //Last obj_test is supposed to return 0 to indicate obj_tests are done
+                printf("Finished Runnig all obj_tests. Success: %i\n", success);
+                printf("                               Failure: %i\n", failure);
+                printf("**********************************************\n");
                 return 0;
             
             case 1:
@@ -69,20 +65,21 @@ int run_tests(){
                 break;
         }
     }
-    printf("Error: test.c -> run_tests() -> not cleanup at end\n");
+    printf("Error: obj_test.c -> run_obj_tests() -> not cleanup at end\n");
+    printf("**********************************************\n");
     return 1;
 }
-/***************************** Begin Test Functions ********************/
-int cleantest(){
-    printf("cleaning up tests\n");
+/***************************** Begin obj_test Functions ********************/
+int cleanobj_test(){
+    printf("cleaning up obj_tests\n");
     return 0;
 }
 
-int test1(){
+int obj_test1(){
     /*
-     * test create game piece and init the two test pieces
+     * obj_test create game piece and init the two obj_test pieces
      */
-     printf("Testing gameobjects->create_piece()  ");
+     printf("obj_testing gameobjects->create_piece()  ");
      
      piece1 = create_piece(5, 5, PLAYER_TYPE);
      piece2 = create_piece(5, 5, SWORD_TYPE);
@@ -95,11 +92,11 @@ int test1(){
    return 1;
 }
 
-int test2(){
+int obj_test2(){
     /*
-     * test move piece
+     * obj_test move piece
      */
-     printf("Testing  gameobjects->move_piece() ");
+     printf("obj_testing  gameobjects->move_piece() ");
      
      move_piece(piece1, MVRIGHT);
      move_piece(piece1, MVUP);
@@ -122,11 +119,11 @@ int test2(){
 }
 
     
-int test3(){
+int obj_test3(){
     /*
-     * test get gamepiece stats
+     * obj_test get gamepiece stats
      */
-     printf("Testing  gameobjects->(various stats) ");
+     printf("obj_testing  gameobjects->(various stats) ");
      
      //HEALTH
      if(set_player_health(piece1, 50) != 0){
@@ -175,11 +172,11 @@ int test3(){
    return 1;
 }
     
-int test4(){
+int obj_test4(){
     /*
-     * test getting shield or sword
+     * obj_test getting shield or sword
      */
-     printf("Testing  gameobjects->get_player_shield/sword() ");
+     printf("obj_testing  gameobjects->get_player_shield/sword() ");
      //create sword and shield
      gamepiece * sword = create_piece(5, 5,  SWORD_TYPE);
      gamepiece * shield = create_piece(5, 5,  SHIELD_TYPE);
@@ -206,19 +203,19 @@ int test4(){
    return 1;
 }
 
-int test5(){
+int obj_test5(){
     /*
-     * test equip item to player
+     * obj_test equip item to player
      */
-     printf("Testing   ");
+     printf("obj_testing   ");
    return 1;
 }
 
-int test6(){
+int obj_test6(){
       /*
      * 
      */
-     printf("Testing   ");
+     printf("obj_testing   ");
    return 1;
 }
     

@@ -1,10 +1,10 @@
 /* author: russ loewe
  * date:   20 feb 2018
- * file:   test_suit.c
+ * file:   graph_test_suit.c
  * Purpose:
- *         This file contains all of the tests to run in this suit.
- *         each of these tests needs to  have their function name put 
- *         in the function pointer array of tests.
+ *         This file contains all of the graph_tests to run in this suit.
+ *         each of these graph_tests needs to  have their function name put 
+ *         in the function pointer array of graph_tests.
  */
 
 #include <stdio.h>
@@ -24,6 +24,7 @@ struct Textline{
 typedef struct Textline Textline;
 
 //function prototypes for internal functions
+SDL_Texture * load_image(char * filename);
 int render_objects( gamepiece * pieces[], int range);
 SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue, Uint8 green);
 int render_background();
@@ -37,51 +38,54 @@ Textline * get_message_queue();
 
 /***************End of internal functions and data structures*******/
 
-int run_tests();
-int cleantest();
-int test1();
-int test2();
-int test3();
-int test4();
-int test5();
-int test6();
-int test7();
-int test8();
-int test9();
-int test10();
-int test11();
+int run_graph_tests();
+int cleangraph_test();
+int graph_test1();
+int graph_test2();
+int graph_test3();
+int graph_test4();
+int graph_test5();
+int graph_test6();
+int graph_test7();
+int graph_test8();
+int graph_test9();
+int graph_test10();
+int graph_test11();
 
 
-int main(void){
+int graph_test_graphics(void){
     
-    printf("running tests now\n");
-    run_tests();
-    
+    printf("running Graphics graph_tests now\n");
+    printf("*****************************\n");
+    run_graph_tests();
+    printf("*****************************\n");
     return 0;
 }
 
-int run_tests(){
-    
-    int (*test_suit[])() = {test1, test2, test3, test4, 
-                            test5, test6, test7, test8,
-                            test9, test10, test11, cleantest};                      //array of all tests to run - cleantest must be at the end of this array
-    const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
+int run_graph_tests(){
+    printf("running Graphics graph_tests now\n");
+    printf("**********************************************\n");
+    int (*graph_test_suit[])() = {graph_test1, graph_test2, graph_test3, graph_test4, 
+                            graph_test5, graph_test6, graph_test7, graph_test8,
+                            graph_test9, graph_test10, graph_test11, cleangraph_test};                      //array of all graph_tests to run - cleangraph_test must be at the end of this array
+    const int graph_test_len = sizeof(graph_test_suit) / sizeof(graph_test_suit[0]);  //variable to tell graph_test runner how many graph_tests there are
 
     
     int success = 0;
     int failure = 0;
     
-    for(int i = 0; i < test_len; i++){
+    for(int i = 0; i < graph_test_len; i++){
         int response;
         
-        response = test_suit[i]();
+        response = graph_test_suit[i]();
         
         switch(response){
             
             case 0:
-                //Last test is supposed to return 0 to indicate tests are done
-                printf("Finished Runnig all tests. Success: %i\n", success);
-                printf("                           Failure: %i\n", failure);
+                //Last graph_test is supposed to return 0 to indicate graph_tests are done
+                printf("Finished Runnig all graph_tests. Success: %i\n", success);
+                printf("                                 Failure: %i\n", failure);
+                printf("**********************************************\n");
                 return 0;
             
             case 1:
@@ -93,21 +97,22 @@ int run_tests(){
                 break;
         }
     }
-    printf("Error: test.c -> run_tests() -> not cleanup at end\n");
+    printf("Error: graph_test.c -> run_graph_tests() -> not cleanup at end\n");
+    printf("**********************************************\n");
     return 1;
 }
-/***************************** Begin Test Functions ********************/
-int cleantest(){
-    printf("cleaning up tests\n");
+/***************************** Begin graph_test Functions ********************/
+int cleangraph_test(){
+    printf("cleaning up graph_tests\n");
     cleanup();
     return 0;
 }
 
-int test1(){
+int graph_test1(){
     /*
      * Check that the graphics will initalize
      */
-    printf("testing init.c->init_video() - ");
+    printf("graph_testing init.c->init_video() - ");
     if(init_video() != 0 ){
         printf("Fail\n");
         return -1;
@@ -117,13 +122,13 @@ int test1(){
     }
 }
 
-int test2(){
+int graph_test2(){
     /*
      * Check that we can open one of the images
      * Later I'll probably have it loop though all images for 
      * the game
      */
-    printf("Testing display.c->Load_image() - ");
+    printf("graph_testing display.c->Load_image() - ");
     
     if(load_image("./img/player.bmp") == NULL){
         printf("Failed\n");
@@ -136,8 +141,8 @@ int test2(){
 }
 
     
-int test3(){
-    printf("Testing display->render_background() - ");
+int graph_test3(){
+    printf("graph_testing display->render_background() - ");
     if(render_background() == 1){
         printf("Fail \n");
         return -1;
@@ -147,9 +152,9 @@ int test3(){
     }
 }
     
-int test4(){
+int graph_test4(){
     /*Check if the function that renders a colored square works */
-    printf("Testing display->make_colored_texture(): ");
+    printf("graph_testing display->make_colored_texture(): ");
     
     SDL_Texture * blank_square;
     
@@ -159,14 +164,14 @@ int test4(){
         printf("Fail 1\n");
         return -1;
     }
-    
+    printf("Pass \n");
     return 1;
 }
 
-int test5(){
-    /*Test the render objects function
+int graph_test5(){
+    /*graph_test the render objects function
      */
-     printf("Testing graphics->render_objects(): ");
+     printf("graph_testing graphics->render_objects(): ");
     gamepiece * player;
     player = create_piece(50, 50, PLAYER_TYPE);
     gamepiece * objects[10] = {NULL};
@@ -178,16 +183,16 @@ int test5(){
     return 1;
 }
 
-int test6(){
+int graph_test6(){
     /*
-     * test the room renderer
+     * graph_test the room renderer
      */
      
-     printf("Testing graphics->room_render() ");
+     printf("graph_testing graphics->room_render() ");
  /***********temp room hack***************/
         room room1 = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}, .doors = {NULL}}; //init walls array to null pointers
         
-        if( render_room(&room1) != 0){ //test render_room when room is empty
+        if( render_room(&room1) != 0){ //graph_test render_room when room is empty
             printf("Fail 1\n");
             return -1;
         }
@@ -243,11 +248,11 @@ int test6(){
     }
 }
     
-int test7(){
+int graph_test7(){
     /*
-     * testing the text string render function
+     * graph_testing the text string render function
      */
-    printf("Testing graphics->render_text_line(): ");
+    printf("graph_testing graphics->render_text_line(): ");
     
     char * text = "hello";
     
@@ -259,11 +264,11 @@ int test7(){
     return 1;
 }
 
-int test8(){
+int graph_test8(){
     /*
-     * test adding text to the message queue
+     * graph_test adding text to the message queue
      */
-     printf("Testing graphics->add_message_queue(): ");
+     printf("graph_testing graphics->add_message_queue(): ");
      
 
    //add three messages to the message queue
@@ -271,7 +276,7 @@ int test8(){
          printf("Fail 3\n");
          return -1;
      }
-    if(add_message_queue("test") != 0){
+    if(add_message_queue("graph_test") != 0){
          printf("Fail 2\n");
          return -1;
      }
@@ -289,7 +294,7 @@ int test8(){
      
      cur = cur->nxt;     //get next message
          
-     if( strncmp(cur->text, "test", strlen("test")) != 0){
+     if( strncmp(cur->text, "graph_test", strlen("graph_test")) != 0){
          printf("Fail 5 \n");
          return -1;
      }
@@ -305,17 +310,17 @@ int test8(){
      return 1;
  }
  
-int test9(){
+int graph_test9(){
     /*
-     * Test render message queue
+     * graph_test render message queue
      */
-     printf("Testing graphics.c->render_message_queue(): ");
+     printf("graph_testing graphics.c->render_message_queue(): ");
      char matrix[5][15];
      strcpy(matrix[0], "hello");
      strcpy(matrix[1], "Tom23");
-     strcpy(matrix[2], "test34");
-     strcpy(matrix[3], "!@test");
-     strcpy(matrix[1], "test Test 45");
+     strcpy(matrix[2], "graph_test34");
+     strcpy(matrix[3], "!@graph_test");
+     strcpy(matrix[1], "graph_test graph_test 45");
     
     for(int i = 0; i < 5; i++){
         if( add_message_queue(matrix[i]) != 0){
@@ -332,14 +337,14 @@ int test9(){
     return 1;
 }
 
-int test10(){
+int graph_test10(){
     /*
-     * test trim message queue
+     * graph_test trim message queue
      */
      
-     printf("Testing graphics->trim_message_queue(): ");
+     printf("graph_testing graphics->trim_message_queue(): ");
      
-     add_message_queue("test"); //put at least 1 message in queue
+     add_message_queue("graph_test"); //put at least 1 message in queue
      if(trim_message_queue(0) < 1){   //clear queue
          printf("Fail .5\n");
          return -1;
@@ -350,7 +355,7 @@ int test10(){
      }
      for(int i = 0 ; i < 20; i++){
          for(int j = 0; j < 20; j++){
-             add_message_queue("test message");
+             add_message_queue("graph_test message");
          }
          if(trim_message_queue(5) != 14){
              printf("Fail 1\n");
@@ -372,11 +377,11 @@ int test10(){
      return 1;
  }
 
-int test11(){
+int graph_test11(){
     /*
-     * test render all function
+     * graph_test render all function
      */
-     printf("Testing graphics->render_all() ");
+     printf("graph_testing graphics->render_all() ");
      
     /***********temp room hack***************/
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
@@ -422,7 +427,7 @@ int test11(){
         room1.doors[1] = d2;
         
         for(int j = 0; j < 20; j++){
-             add_message_queue("test message");
+             add_message_queue("graph_test message");
          }
     /******************end temp room hack**********/
 
