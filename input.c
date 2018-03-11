@@ -19,19 +19,27 @@ int get_input(void){
                             break;
                             
                         case SDLK_UP:
-                            return 2;
+                            move_piece(current_room->monsters[0], MVUP);
+                            add_message_queue("You Moved Up");
+                            return 1;
                             break;
                             
                         case SDLK_DOWN:
-                            return 3;
+                            move_piece(current_room->monsters[0], MVDOWN);
+                            add_message_queue("You Moved Down");
+                            return 1;
                             break;
 
                         case SDLK_LEFT:
-                            return 4;
+                            move_piece(current_room->monsters[0], MVLEFT);
+                            add_message_queue("You Moved Left");
+                            return 1;
                             break;
                         
                         case SDLK_RIGHT:
-                            return 5;
+                            move_piece(current_room->monsters[0], MVRIGHT);
+                            add_message_queue("You Moved Right");
+                            return 1;
                             break;
                     }
                 break;

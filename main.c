@@ -18,6 +18,7 @@ room * current_room;  //this needs to be parked in the maps module eventually
 int main(void){
     
     init_video();      //open the screen
+    int running = 1;
 
     int seed = time(NULL); // set random number gernerator
     srand(seed);
@@ -74,38 +75,14 @@ int main(void){
     room1.monsters[0] = create_piece(5, 5, PLAYER_TYPE);
     set_player_health(room1.monsters[0], 50);
     //main loop 
-    while(1){
-        
+    while(1){        
 
-        //parse input from sdl event, needs own function
-        switch(get_input()){
-            case 0:
-                cleanup();
-                return 0;
-                break;
-                
-            case 2:
-                move_piece(current_room->monsters[0], MVUP);
-                add_message_queue("You Moved Up");
-                break;
-                
-            case 3:
-                move_piece(current_room->monsters[0], MVDOWN);
-                add_message_queue("You Moved Down");
-                break;
-                
-            case 5:
-                move_piece(current_room->monsters[0], MVRIGHT);
-                add_message_queue("You Moved Right");
-                break;
-                
-            case 4:
-                move_piece(current_room->monsters[0], MVLEFT);
-                add_message_queue("You Moved Left");
-                break;
+        if(get_input() == 0){
+            break;
         }
         
         render_all();
+
         //hold up a sec to not hog the cpu
         SDL_Delay(5);
     }
