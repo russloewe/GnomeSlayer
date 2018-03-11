@@ -81,6 +81,7 @@ int checker_test1(){
      printf("checker_testing checker->player_on_item  ");
      
      room room1 = {.walls = {NULL}}; //init walls array to null pointers
+     set_current_room(&room1);
      
      room1.monsters[0] = create_piece(5, 5,  PLAYER_TYPE); // add player to (5,5)
      room1.bounty[0] = create_piece(5, 5,  SWORD_TYPE);
@@ -88,19 +89,28 @@ int checker_test1(){
      room1.bounty[2] = create_piece(6, 5,  SHIELD_TYPE);
      room1.bounty[3] = create_piece(5, 6,  SWORD_TYPE);
      
-     if( player_on_item(&room1) != SWORD_TYPE){
+     int  temp_item;
+     temp_item = player_on_item(&room1);
+     
+     if(temp_item != 1){
          printf("Fail 1\n");
          return -1;
      }
+
      room1.monsters[0]->x = 6;
      room1.monsters[0]->y = 6;
-     if(player_on_item(&room1) != POTION_TYPE){
+     temp_item = player_on_item();
+     
+      if(temp_item != 1){
          printf("Fail 2\n");
          return -1;
      }
+          
      room1.monsters[0]->x = 10;
      room1.monsters[0]->y = 10;
-     if(player_on_item(&room1) != PLAYER_TYPE){
+     temp_item = player_on_item();
+     
+     if(temp_item != 0){
          printf("Fail 3\n");
          return -1;
      }

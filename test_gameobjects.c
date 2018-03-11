@@ -34,7 +34,7 @@ int run_obj_tests(){
     printf("running GameObject obj_tests now\n");
     printf("**********************************************\n");
     int (*obj_test_suit[])() = {obj_test1, obj_test2, 
-                                obj_test3, obj_test4, 
+                                obj_test3, obj_test4, obj_test5,
                             cleanobj_test};                      //array of all obj_tests to run - cleanobj_test must be at the end of this array
     const int obj_test_len = sizeof(obj_test_suit) / sizeof(obj_test_suit[0]);  //variable to tell obj_test runner how many obj_tests there are
 
@@ -205,9 +205,14 @@ int obj_test4(){
 
 int obj_test5(){
     /*
-     * obj_test equip item to player
+     * test creating and destroying many pieces
      */
-     printf("obj_testing   ");
+     printf("obj_testing  gameobjects->create/destroy_piece(stress): ");
+     
+     for(int i = 0; i < 5000000; i++){
+         gamepiece * temp = create_piece(rand()%38+2, rand()%15+2, POTION_TYPE);
+         destroy_piece(temp);
+     }
    return 1;
 }
 

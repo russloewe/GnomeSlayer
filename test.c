@@ -5,6 +5,7 @@
 int run_checker_tests();
 int run_graph_tests();
 int run_obj_tests();
+int run_input_tests();
 
 
 int main(){
@@ -13,6 +14,7 @@ int main(){
     run_checker_tests();
     run_graph_tests();
     run_obj_tests();
+    run_input_tests();
     
     return 0;
 }

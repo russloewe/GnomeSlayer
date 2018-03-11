@@ -26,7 +26,6 @@ static SDL_Window * Main_Screen = NULL;
 static SDL_Renderer * Main_Renderer  = NULL;
 static Textline * _text_head = NULL;          //message queue
 static SDL_Texture * images[10] = {NULL};
-extern room * current_room;            //replace wit get current room interface
 static SDL_Texture * _bitmap_font;    //pointer for font sheet
 
 int init_video(void){
@@ -91,6 +90,13 @@ int render_all(){
      * I like this better then having to use extern Main_Renderer
      * in main.c
      */
+     room * current_room = get_current_room();
+     
+     if(current_room == NULL){
+         printf("No room context, unable to render \n");
+         return 1;
+     }
+     
     if( render_background_image(images[BACKGROUND]) != 0){
         printf("graphics->render all: Error rendering background image\n");
         return 1;
@@ -408,7 +414,7 @@ int render_player_stats(room * curroom){
     
     char  player_health[15];
     
-    //gamepiece * player = get_player(); // when interface is done
+    gamepiece * player = get_player(); // when interface is done
     int health = get_piece_val(curroom->monsters[0]);
     
     sprintf(player_health, "Health: %d", health);
@@ -417,12 +423,17 @@ int render_player_stats(room * curroom){
         printf("graphics->render_player_sats(): Error with render text line\n");
         return 1;
     }
-    
-    if((player_on_item(current_room) == SWORD_TYPE)  ||
-       (player_on_item(current_room) == SHIELD_TYPE) ||
-       (player_on_item(current_room) == POTION_TYPE)){
-        render_text_line("Press Space Bar to", 26, 23);
-        render_text_line("pick up item", 26, 24);
+    int on_item = player_on_item(curroom);
+    if(on_item == 0){
+        return 0;
+    }else{
+        gamepiece * item = grab_item_reference(get_piece_x(player), get_piece_y(player)); //grab pointer to item player is on
+        if((get_piece_type(item) == SWORD_TYPE)  ||
+           (get_piece_type(item) == SHIELD_TYPE) ||
+           (get_piece_type(item) == POTION_TYPE)){
+            render_text_line("Press Space Bar to", 26, 23);
+            render_text_line("pick up item", 26, 24);
+        }
     }
             
     return 0;

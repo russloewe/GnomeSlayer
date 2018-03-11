@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <time.h>
 #include "SDL2/SDL.h"
 #include "./headers/graphics.h"
 #include "./headers/gameobjects.h"
@@ -52,6 +53,7 @@ int graph_test9();
 int graph_test10();
 int graph_test11();
 int graph_test12();
+
 
 
 int graph_test_graphics(void){
@@ -388,7 +390,8 @@ int graph_test11(){
      
     /***********temp room hack***************/
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
-        current_room = &room1;          //set current room pointer to room1
+        set_current_room(&room1);
+        room * current_room = &room1;          //set current room pointer to room1
         //make some walls
         for(int i = 0; i < 40; i++){
         gamepiece * wall = create_piece(i, 0, WALL_TYPE);
@@ -447,13 +450,13 @@ int graph_test12(){
     //try to overload message render
     printf("Testing graphics->render_message_queue(stress test) ");
     
-    for(int i = 0; i < 2000; i++){
+    for(int i = 0; i < 200000; i++){
         if( add_message_queue("test mesage") != 0){
             printf("Fail 1\n");
             return -1;
         }
-        if(i%100 == 0){
-            if(render_message_queue(5, 10 , 20) != 0){
+        if(i%1000 == 0){
+            if(render_message_queue(5, 10 , 1000) != 0){
                 printf("Fail 2 \n");
                 return -1;
             }
@@ -465,3 +468,4 @@ int graph_test12(){
     printf("Pass\n");
     return 1;
 }
+

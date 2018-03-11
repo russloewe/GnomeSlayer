@@ -13,18 +13,20 @@
 #include "./headers/graphics.h"
 #include "./headers/maps.h"
 
-room * current_room;  //this needs to be parked in the maps module eventually
+//room * current_room;  //this needs to be parked in the maps module eventually
 
 int main(void){
     
     init_video();      //open the screen
+    int running = 1;
 
     int seed = time(NULL); // set random number gernerator
     srand(seed);
 
         /***********temp room hack***************/
         room room1 = {.walls = {NULL}}; //init walls array to null pointers
-        current_room = &room1;          //set current room pointer to room1
+        set_current_room(&room1);
+        room * current_room = &room1;          //set current room pointer to room1
         //make some walls
         for(int i = 0; i < 40; i++){
         gamepiece * wall = create_piece(i, 0,  WALL_TYPE);
@@ -53,10 +55,22 @@ int main(void){
         //add some items
         gamepiece * potion = create_piece(rand()%38+2, rand()%15+2,  POTION_TYPE);
         room1.bounty[0] = potion;
+       
+        //make 2 swords
         gamepiece * sword = create_piece(rand()%38+2, rand()%15+2,  SWORD_TYPE);
+        set_piece_name(sword, "Big Sword");
+        gamepiece * sword2 = create_piece(rand()%38+2, rand()%15+2,  SWORD_TYPE);
+        set_piece_name(sword2, "Big Dagger");
         room1.bounty[1] = sword;
+        room1.bounty[2] = sword2;
+        
+        //make two shields
         gamepiece * shield = create_piece(rand()%38+2, rand()%15+2,  SHIELD_TYPE);
-        room1.bounty[2] = shield;
+        set_piece_name(shield, "Iron Shield");
+        room1.bounty[3] = shield;
+        gamepiece * shield2 = create_piece(rand()%38+2, rand()%15+2,  SHIELD_TYPE);
+        set_piece_name(shield2, "Bronze Shield");
+        room1.bounty[4] = shield2;
        
         //add the two doors;
         gamepiece * d1 = create_piece(0, 10,  DOOR_TYPE);
@@ -74,38 +88,14 @@ int main(void){
     room1.monsters[0] = create_piece(5, 5, PLAYER_TYPE);
     set_player_health(room1.monsters[0], 50);
     //main loop 
-    while(1){
-        
+    while(1){        
 
-        //parse input from sdl event, needs own function
-        switch(get_input()){
-            case 0:
-                cleanup();
-                return 0;
-                break;
-                
-            case 2:
-                move_piece(current_room->monsters[0], MVUP);
-                add_message_queue("You Moved Up");
-                break;
-                
-            case 3:
-                move_piece(current_room->monsters[0], MVDOWN);
-                add_message_queue("You Moved Down");
-                break;
-                
-            case 5:
-                move_piece(current_room->monsters[0], MVRIGHT);
-                add_message_queue("You Moved Right");
-                break;
-                
-            case 4:
-                move_piece(current_room->monsters[0], MVLEFT);
-                add_message_queue("You Moved Left");
-                break;
+        if(get_input() == 0){
+            break;
         }
         
         render_all();
+
         //hold up a sec to not hog the cpu
         SDL_Delay(5);
     }
