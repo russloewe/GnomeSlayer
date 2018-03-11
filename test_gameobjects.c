@@ -129,7 +129,7 @@ int test3(){
      */
      printf("Testing  gameobjects->(various stats) ");
      
-     piece1->player.health = 50;
+     set_piece_health(piece1, 50);
      
      if(get_piece_health(piece1) != 50){
          printf("Fail 1\n");
