@@ -88,19 +88,34 @@ int checker_test1(){
      room1.bounty[2] = create_piece(6, 5,  SHIELD_TYPE);
      room1.bounty[3] = create_piece(5, 6,  SWORD_TYPE);
      
-     if( player_on_item(&room1) != SWORD_TYPE){
-         printf("Fail 1\n");
+     gamepiece * temp_item;
+     temp_item = player_on_item(&room1);
+     
+     if(temp_item == NULL){
+         printf("Fail 1.1\n");
+         return -1;
+     }
+     if( get_piece_type(temp_item) != SWORD_TYPE){
+         printf("Fail 1.2\n");
          return -1;
      }
      room1.monsters[0]->x = 6;
      room1.monsters[0]->y = 6;
-     if(player_on_item(&room1) != POTION_TYPE){
-         printf("Fail 2\n");
+     temp_item = player_on_item(&room1);
+     
+      if(temp_item == NULL){
+         printf("Fail 2.1\n");
          return -1;
      }
+     if(get_piece_type(temp_item) != POTION_TYPE){
+         printf("Fail 2.2\n");
+         return -1;
+     }
+     
      room1.monsters[0]->x = 10;
      room1.monsters[0]->y = 10;
-     if(player_on_item(&room1) != PLAYER_TYPE){
+     temp_item = player_on_item(&room1);
+     if(temp_item != NULL){
          printf("Fail 3\n");
          return -1;
      }
