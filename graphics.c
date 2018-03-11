@@ -22,12 +22,12 @@ int render_message_queue(int lines, int x, int y);
 Textline * get_message_queue();
 
 //pointers to stuff internal stuff
-SDL_Window * Main_Screen = NULL;
-SDL_Renderer * Main_Renderer  = NULL;
-Textline * _text_head = NULL;          //message queue
-SDL_Texture * images[10] = {NULL};
+static SDL_Window * Main_Screen = NULL;
+static SDL_Renderer * Main_Renderer  = NULL;
+static Textline * _text_head = NULL;          //message queue
+static SDL_Texture * images[10] = {NULL};
 extern room * current_room;            //replace wit get current room interface
-SDL_Texture * _bitmap_font = NULL;    //pointer for font sheet
+static SDL_Texture * _bitmap_font;    //pointer for font sheet
 
 int init_video(void){
     /*
