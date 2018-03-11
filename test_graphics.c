@@ -51,6 +51,7 @@ int graph_test8();
 int graph_test9();
 int graph_test10();
 int graph_test11();
+int graph_test12();
 
 
 int graph_test_graphics(void){
@@ -65,9 +66,9 @@ int graph_test_graphics(void){
 int run_graph_tests(){
     printf("running Graphics graph_tests now\n");
     printf("**********************************************\n");
-    int (*graph_test_suit[])() = {graph_test1, graph_test2, graph_test3, graph_test4, 
-                            graph_test5, graph_test6, graph_test7, graph_test8,
-                            graph_test9, graph_test10, graph_test11, cleangraph_test};                      //array of all graph_tests to run - cleangraph_test must be at the end of this array
+    int (*graph_test_suit[])() = {graph_test1,  graph_test2,  graph_test3,  graph_test4, 
+                                  graph_test5,  graph_test6,  graph_test7,  graph_test8,
+                                  graph_test9,  graph_test10, graph_test11, graph_test12, cleangraph_test};                      //array of all graph_tests to run - cleangraph_test must be at the end of this array
     const int graph_test_len = sizeof(graph_test_suit) / sizeof(graph_test_suit[0]);  //variable to tell graph_test runner how many graph_tests there are
 
     
@@ -373,6 +374,8 @@ int graph_test10(){
          //clear queue before loop repeats
          trim_message_queue(0);
      }
+     
+     
      printf("Pass \n");
      return 1;
  }
@@ -437,5 +440,28 @@ int graph_test11(){
     }
     
     printf("Pass \n");
+    return 1;
+}
+
+int graph_test12(){
+    //try to overload message render
+    printf("Testing graphics->render_message_queue(stress test) ");
+    
+    for(int i = 0; i < 2000; i++){
+        if( add_message_queue("test mesage") != 0){
+            printf("Fail 1\n");
+            return -1;
+        }
+        if(i%100 == 0){
+            if(render_message_queue(5, 10 , 20) != 0){
+                printf("Fail 2 \n");
+                return -1;
+            }
+            trim_message_queue(20);
+        }
+        
+    }
+    
+    printf("Pass\n");
     return 1;
 }
