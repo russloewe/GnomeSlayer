@@ -5,3 +5,4 @@ test_graphics
 test_maps
 test gameobjects
 test_checker
+test_gameobjects

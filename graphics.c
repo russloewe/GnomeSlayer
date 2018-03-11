@@ -385,7 +385,7 @@ int render_player_stats(room * curroom){
     char  player_health[15];
     
     //gamepiece * player = get_player(); // when interface is done
-    int health = get_piece_health(curroom->monsters[0]);
+    int health = get_piece_val(curroom->monsters[0]);
     
     sprintf(player_health, "Health: %d", health);
     
