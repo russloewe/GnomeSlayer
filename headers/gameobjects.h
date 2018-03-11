@@ -3,9 +3,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "SDL2/SDL.h"
+#include <string.h>
+//#include "SDL2/SDL.h"
 
-enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, DOOR_TYPE};
+enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, DOOR_TYPE, BACKGROUND};
 enum direction{MVUP, MVDOWN, MVLEFT, MVRIGHT};
 
 
@@ -14,7 +15,6 @@ struct gamepiece{
     int x;
     int y;
     int val;
-    SDL_Texture * img;
     enum piecetype type;
     struct gamepiece * shield;
     struct gamepiece * sword;
@@ -25,7 +25,7 @@ typedef struct gamepiece gamepiece;
 typedef enum piecetype piecetype;
 
 //create and destroy objects
-gamepiece * create_piece(int x, int y, SDL_Texture * img, piecetype type);
+gamepiece * create_piece(int x, int y, piecetype type);
 int destroy_piece(gamepiece * piece);
 
 //getters
@@ -36,7 +36,6 @@ char * get_piece_name(gamepiece * piece);
 
 gamepiece * get_player_sword(gamepiece * piece);
 gamepiece * get_player_shield(gamepiece * piece);
-SDL_Texture * get_piece_image(gamepiece *p);
 piecetype get_piece_type(gamepiece *piece);
 
 

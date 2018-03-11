@@ -2,9 +2,9 @@
  * date:   9 mar 2018
  * file:   
  * Purpose:
- *         This file contains all of the tests to run in this suit.
- *         each of these tests needs to  have their function name put 
- *         in the function pointer array of tests.
+ *         This file contains all of the checker_tests to run in this suit.
+ *         each of these checker_tests needs to  have their function name put 
+ *         in the function pointer array of checker_tests.
  */
 
 #include <stdio.h>
@@ -16,49 +16,44 @@
 #include "./headers/checker.h"
 
 
-int run_tests();
-int cleantest();
-int test1();
-int test2();
-int test3();
-int test4();
-int test5();
-int test6();
-int test7();
+int run_checker_tests();
+int cleanchecker_test();
+int checker_test1();
+int checker_test2();
+int checker_test3();
+int checker_test4();
+int checker_test5();
+int checker_test6();
+int checker_test7();
 
 
 
-int main(void){
+
+
+int run_checker_tests(){
+    printf("running Checker checker_tests now\n");
+    printf("**********************************************\n");
     
-    printf("running tests now\n");
-    run_tests();
-    
-    return 0;
-}
-
-int run_tests(){
-    
-    int (*test_suit[])() = {test1, test2, 
-                            test3, test4, 
-                            test5, test6,
-                            cleantest};                      //array of all tests to run - cleantest must be at the end of this array
-    const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
+    int (*checker_test_suit[])() = {checker_test1, checker_test2, 
+                                    cleanchecker_test};                      //array of all checker_tests to run - cleanchecker_test must be at the end of this array
+    const int checker_test_len = sizeof(checker_test_suit) / sizeof(checker_test_suit[0]);  //variable to tell checker_test runner how many checker_tests there are
 
     
     int success = 0;
     int failure = 0;
     
-    for(int i = 0; i < test_len; i++){
+    for(int i = 0; i < checker_test_len; i++){
         int response;
         
-        response = test_suit[i]();
+        response = checker_test_suit[i]();
         
         switch(response){
             
             case 0:
-                //Last test is supposed to return 0 to indicate tests are done
-                printf("Finished Runnig all tests. Success: %i\n", success);
-                printf("                           Failure: %i\n", failure);
+                //Last checker_test is supposed to return 0 to indicate checker_tests are done
+                printf("Finished Runnig all checker_tests. Success: %i\n", success);
+                printf("                                   Failure: %i\n", failure);
+                printf("**********************************************\n");
                 return 0;
             
             case 1:
@@ -70,28 +65,28 @@ int run_tests(){
                 break;
         }
     }
-    printf("Error: test.c -> run_tests() -> not cleanup at end\n");
+    printf("Error: checker_test.c -> run_checker_tests() -> not cleanup at end\n");
     return 1;
 }
-/***************************** Begin Test Functions ********************/
-int cleantest(){
-    printf("cleaning up tests\n");
+/***************************** Begin checker_test Functions ********************/
+int cleanchecker_test(){
+    printf("cleaning up checker_tests\n");
     return 0;
 }
 
-int test1(){
+int checker_test1(){
     /*
-     * test player_on_item checker, and get item type
+     * checker_test player_on_item checker, and get item type
      */
-     printf("Testing checker->player_on_item  ");
+     printf("checker_testing checker->player_on_item  ");
      
      room room1 = {.walls = {NULL}}; //init walls array to null pointers
      
-     room1.monsters[0] = create_piece(5, 5, NULL, PLAYER_TYPE); // add player to (5,5)
-     room1.bounty[0] = create_piece(5, 5, NULL, SWORD_TYPE);
-     room1.bounty[1] = create_piece(6, 6, NULL, POTION_TYPE);
-     room1.bounty[2] = create_piece(6, 5, NULL, SHIELD_TYPE);
-     room1.bounty[3] = create_piece(5, 6, NULL, SWORD_TYPE);
+     room1.monsters[0] = create_piece(5, 5,  PLAYER_TYPE); // add player to (5,5)
+     room1.bounty[0] = create_piece(5, 5,  SWORD_TYPE);
+     room1.bounty[1] = create_piece(6, 6,  POTION_TYPE);
+     room1.bounty[2] = create_piece(6, 5,  SHIELD_TYPE);
+     room1.bounty[3] = create_piece(5, 6,  SWORD_TYPE);
      
      if( player_on_item(&room1) != SWORD_TYPE){
          printf("Fail 1\n");
@@ -115,18 +110,18 @@ int test1(){
  }
 
 
-int test2(){
+int checker_test2(){
     /*
-     * test is_player_dead function
+     * checker_test is_player_dead function
      */
-     printf("Testing  checker->is_player_dead ");
+     printf("checker_testing  checker->is_player_dead ");
      
-     gamepiece * piece1 = create_piece(5, 5, NULL, PLAYER_TYPE);
-     gamepiece * piece2 = create_piece(5, 5, NULL, MONSTER_TYPE);
-     gamepiece * piece3 = create_piece(5, 5, NULL, SWORD_TYPE);
+     gamepiece * piece1 = create_piece(5, 5,  PLAYER_TYPE);
+     gamepiece * piece2 = create_piece(5, 5,  MONSTER_TYPE);
+     gamepiece * piece3 = create_piece(5, 5,  SWORD_TYPE);
      
-     piece1->player.health = 50;
-     piece2->player.health = 50;
+     set_player_health(piece1, 50);
+     set_player_health(piece2, 50);
      
      if(is_player_dead(piece1) != 0){
          printf("Fail 1\n");
@@ -137,8 +132,8 @@ int test2(){
          return -1;
      }
      
-     piece1->player.health = 0;
-     piece2->player.health = 0;
+     set_player_health(piece1, 0);
+     set_player_health(piece2, 0);
      
     if(is_player_dead(piece1) != 1){
          printf("Fail 3\n");
@@ -158,35 +153,35 @@ int test2(){
 }
 
     
-int test3(){
+int checker_test3(){
     /*
      * 
      */
-     printf("Testing   ");
+     printf("checker_testing   ");
    return 1;
 }
     
-int test4(){
+int checker_test4(){
     /*
      * 
      */
-     printf("Testing   ");
+     printf("checker_testing   ");
    return 1;
 }
 
-int test5(){
+int checker_test5(){
     /*
      * 
      */
-     printf("Testing   ");
+     printf("checker_testing   ");
    return 1;
 }
 
-int test6(){
+int checker_test6(){
       /*
      * 
      */
-     printf("Testing   ");
+     printf("checker_testing   ");
    return 1;
 }
     
