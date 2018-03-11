@@ -11,7 +11,7 @@ enum direction{MVUP, MVDOWN, MVLEFT, MVRIGHT};
 
 
 struct gamepiece{
-    char name[25];
+    char name[15];
     int x;
     int y;
     int val;
@@ -25,7 +25,7 @@ typedef struct gamepiece gamepiece;
 typedef enum piecetype piecetype;
 
 //create and destroy objects
-gamepiece * create_piece(int x, int y, piecetype type);
+gamepiece * create_piece(int x, int y, char * name, int val, piecetype type);
 int destroy_piece(gamepiece * piece);
 
 //getters

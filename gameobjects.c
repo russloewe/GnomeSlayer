@@ -9,15 +9,18 @@
 #include "./headers/gameobjects.h"
 #define GAMESQUARE 16
 
-gamepiece * create_piece(int x, int y, enum piecetype type){
+gamepiece * create_piece(int x, int y, char * name, int val, piecetype type){
 //need to check alloc
     gamepiece * newpiece = (gamepiece *)malloc(sizeof(gamepiece));
 
     newpiece->x = x;
     newpiece->y = y;
+    newpiece->val = val;
     newpiece->type = type;
     newpiece->sword = NULL; //init pointers to null
     newpiece->shield = NULL;
+    
+    strncpy(newpiece->name, name, 15);    
     
     return newpiece;
 }
@@ -175,7 +178,7 @@ int set_piece_name(gamepiece * piece, char * string){
     
     if(piece == NULL){return 1;}
     
-        if(strncpy(piece->name, string, 25) == NULL){
+        if(strncpy(piece->name, string, 15) == NULL){
             return 1;
         }else{
             return 0;
