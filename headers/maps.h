@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include "gameobjects.h"
+#include "graphics.h"
 
 
 struct room{
@@ -27,10 +28,14 @@ int load_next_room();       //copy player from current room to next room, then p
 
 gamepiece * get_player();   // copy pointer to player struct from current room and return it
 
-gamepiece * get_item(int x, int y); // return item located at (x,y), null if empty
+int pickup_item();          // swap item on ground with item in player inventory 
+
+gamepiece * grab_item_reference(int x, int y); //like pickup item, but leaves it on ground
 
 gamepiece * get_adjacent_item(enum direction dir); //get adjacent item in "dir" direction
 
-gamepiece * swap_item(gamepiece * in_item, int x, int y); //pop item from coord (x,y) and return, replace with in item. if no item return in_item
+int remove_item_from_map(gamepiece * item);
+
+int add_item_to_map(gamepiece * item);
 
 #endif
