@@ -10,7 +10,7 @@ OBJ=  input.o graphics.o gameobjects.o checker.o
 all: $(OBJ) main.o
 	gcc -o main $^ -g $(LIBS)
 	
-test: $(OBJ) test_graphics.o test_gameobjects.o test_checker.o test.o
+test: $(OBJ) test_graphics.o test_gameobjects.o test_checker.o test_input.o test.o
 	gcc -o test $^ -g $(LIBS)
 	
 test-graphics: $(OBJ) test_graphics.o
