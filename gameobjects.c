@@ -9,24 +9,26 @@
 #include "./headers/gameobjects.h"
 #define GAMESQUARE 16
 
-gamepiece * create_piece(int x, int y, SDL_Texture * img, enum piecetype type){
-    //need to auto add image to this function, remove imge input
-    if(img == NULL){
-       // printf("Error: gameobjects.c->creat_piece()-> img is NULL\n");
-    }
+gamepiece * create_piece(int x, int y, enum piecetype type){
+//need to check alloc
     gamepiece * newpiece = (gamepiece *)malloc(sizeof(gamepiece));
 
     newpiece->x = x;
     newpiece->y = y;
     newpiece->type = type;
-    newpiece->img = img;
+    newpiece->sword = NULL; //init pointers to null
+    newpiece->shield = NULL;
     
     return newpiece;
 }
 
 int destroy_piece(gamepiece * piece){
-    if(piece->img != NULL){
-        SDL_DestroyTexture(piece->img);
+    //recusicly free sub structs
+    if(piece->sword != NULL){
+        destroy_piece(piece->sword);
+    }
+    if(piece->shield != NULL){
+        destroy_piece(piece->shield);
     }
     free(piece);
     return 0;
@@ -110,14 +112,6 @@ gamepiece * get_player_shield(gamepiece * piece){
     }
 }
 
-SDL_Texture * get_piece_image(gamepiece *p){
-    //interface to access gamepiece img pointer
-    if(p == NULL){return NULL;} //check for null pointer first
-    SDL_Texture * image;    
-    image = p->img;    
-    return image;
-}
-
 piecetype get_piece_type(gamepiece *piece){
     //super quick dirty function
         return piece->type;
@@ -188,7 +182,7 @@ int set_piece_name(gamepiece * piece, char * string){
     
 gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item){
     //take an item and add it to player stuct, pop current item and return
-    if(item == NULL){
+    if( (item == NULL) || (player == NULL) ){
         return NULL;
     }
     if( (get_piece_type(player) != PLAYER_TYPE) && (get_piece_type(player) != MONSTER_TYPE) ){

@@ -84,8 +84,8 @@ int test1(){
      */
      printf("Testing gameobjects->create_piece()  ");
      
-     piece1 = create_piece(5, 5, NULL, PLAYER_TYPE);
-     piece2 = create_piece(5, 5, NULL, SWORD_TYPE);
+     piece1 = create_piece(5, 5, PLAYER_TYPE);
+     piece2 = create_piece(5, 5, SWORD_TYPE);
      
      if((piece1 == NULL) || (piece2 == NULL)){
          printf("Fail 1\n");
@@ -181,8 +181,8 @@ int test4(){
      */
      printf("Testing  gameobjects->get_player_shield/sword() ");
      //create sword and shield
-     gamepiece * sword = create_piece(5, 5, NULL, SWORD_TYPE);
-     gamepiece * shield = create_piece(5, 5, NULL, SHIELD_TYPE);
+     gamepiece * sword = create_piece(5, 5,  SWORD_TYPE);
+     gamepiece * shield = create_piece(5, 5,  SHIELD_TYPE);
      set_piece_name(sword, "Big Sword");
      set_piece_val(sword, 100);
      set_piece_name(shield, "Big Shield");
