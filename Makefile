@@ -14,20 +14,5 @@ all: $(OBJ) main.o
 test: $(OBJ) $(TESTS)
 	gcc -o test $^ -g $(LIBS)
 	
-test-graphics: $(OBJ) test_graphics.o
-	gcc -o test_graphics $^ -g $(LIBS)
-	
-test-gameobjects: $(OBJ) test_gameobjects.o
-	gcc -o test_gameobjects $^ -g $(LIBS)
-	
-test-input: $(OBJ) test_input.o
-	gcc -o test_input $^ -g $(LIBS)
-	
-test-maps: $(OBJ) test_maps.o
-	gcc -o test_maps $^ -g $(LIBS)
-
-test-checker: $(OBJ) test_checker.o
-	gcc -o test_checker $^ -g $(LIBS)
-	
 clean:
 	rm -rf *o

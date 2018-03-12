@@ -209,7 +209,7 @@ int obj_test5(){
      */
      printf("obj_testing - create/destroy_piece(stress): ");
      
-     for(int i = 0; i < 5000000; i++){
+     for(int i = 0; i < 500000; i++){
          gamepiece * temp = create_piece(rand()%38+2, rand()%15+2, "tmp", 100, POTION_TYPE);
          destroy_piece(temp);
      }

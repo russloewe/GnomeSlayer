@@ -72,9 +72,58 @@ int cleanmaps_test(){
 
 int maps_test1(){
     /*
-     * 
+     * Setup current room
      */
-     printf("maps_testing   ");
+     printf("maps_testing init_room()   ");
+     int result = 1; // for testing return values
+          /***********temp room hack***************/
+        room room1 = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}}; //init walls array to null pointers
+        set_current_room(&room1);
+                
+        //make some walls
+        for(int i = 0; i < 300; i++){
+            int result;
+            result= add_wall_to_map(create_piece(1i, 0, "wall", 1, WALL_TYPE));  
+            if(result != 0){
+                printf("Fail 1\n");
+                return -1;
+            }
+        }
+        
+        for(int i = 0; i < 300; i++){
+            
+            result= add_wall_to_map(create_piece(1i, 0, "wall", 1, WALL_TYPE));
+            if(result != 1){
+                printf("Fail 1\n");
+                return -1;
+            }
+        }        
+        
+        //spawn some monsters
+        for(int i = 0; i < 9; i++){
+            result = add_monster_to_map(create_piece(random_x(), random_y(), "monster", 100, MONSTER_TYPE));
+            if(result != 0){
+                printf("Fail 2\n");
+                return -1;
+            }
+        }
+        //add some items
+        for(int i = 0; i < 9; i++){ 
+            result = add_item_to_map(create_piece(random_x(), random_y(), "potion", 40, POTION_TYPE));
+            if(result != 0){
+                printf("Fail 3\n");
+                return -1;
+            }
+        }      
+       
+        //add the two doors;
+        room1.doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
+        room1.doors[1] = create_piece(get_max_x(), 5, "door", 1, DOOR_TYPE);
+
+    /******************end temp room hack**********/
+    
+    
+    printf("Pass \n");
    return 1;
 }
 
