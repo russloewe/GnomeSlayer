@@ -29,8 +29,8 @@ int maps_test7();
 int run_maps_tests(){
         printf("running maps_tests now\n");
     printf("**********************************************\n");
-    int (*maps_test_suit[])() = {maps_test1,
-                            cleanmaps_test};                      //array of all maps_tests to run - cleanmaps_test must be at the end of this array
+    int (*maps_test_suit[])() = {maps_test1, maps_test2, maps_test3,
+                                 maps_test4, cleanmaps_test};                      //array of all maps_tests to run - cleanmaps_test must be at the end of this array
     const int maps_test_len = sizeof(maps_test_suit) / sizeof(maps_test_suit[0]);  //variable to tell maps_test runner how many maps_tests there are
 
     
@@ -83,7 +83,7 @@ int maps_test1(){
         //make some walls
         for(int i = 0; i < 300; i++){
             int result;
-            result= add_wall_to_map(create_piece(1i, 0, "wall", 1, WALL_TYPE));  
+            result= add_wall_to_current_room(create_piece(1, 0, "wall", 1, WALL_TYPE));  
             if(result != 0){
                 printf("Fail 1\n");
                 return -1;
@@ -92,7 +92,7 @@ int maps_test1(){
         
         for(int i = 0; i < 300; i++){
             
-            result= add_wall_to_map(create_piece(1i, 0, "wall", 1, WALL_TYPE));
+            result= add_wall_to_current_room(create_piece(1, 0, "wall", 1, WALL_TYPE));
             if(result != 1){
                 printf("Fail 1\n");
                 return -1;
@@ -100,8 +100,8 @@ int maps_test1(){
         }        
         
         //spawn some monsters
-        for(int i = 0; i < 9; i++){
-            result = add_monster_to_map(create_piece(random_x(), random_y(), "monster", 100, MONSTER_TYPE));
+        for(int i = 1; i < 9; i++){
+            result = add_monster_to_current_room(create_piece(i+1, i+1, "monster", 100, MONSTER_TYPE));
             if(result != 0){
                 printf("Fail 2\n");
                 return -1;
@@ -109,7 +109,7 @@ int maps_test1(){
         }
         //add some items
         for(int i = 0; i < 9; i++){ 
-            result = add_item_to_map(create_piece(random_x(), random_y(), "potion", 40, POTION_TYPE));
+            result = add_item_to_current_room(create_piece(i, i, "potion", 40, POTION_TYPE));
             if(result != 0){
                 printf("Fail 3\n");
                 return -1;
@@ -122,33 +122,87 @@ int maps_test1(){
 
     /******************end temp room hack**********/
     
-    
+    if(get_current_room() != &room1){
+        printf("Fail 1\n");
+        return -1;
+    }
     printf("Pass \n");
    return 1;
 }
 
 int maps_test2(){
     /*
-     * 
+     * test set player get player 
      */
-     printf("maps_testing   ");
+     printf("maps_testing  get/set_player(): ");
+     
+     gamepiece * player = create_piece(2, 3, "test", 100, PLAYER_TYPE);
+     
+     add_player_to_current_room(player);
+     
+     gamepiece * second = get_player();
+     
+     if(second == NULL){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
+      if(second != player){
+         printf("Fail 2\n");
+         return -1;
+     }
+     printf("Pass \n");
+     
    return 1;
 }
 
     
 int maps_test3(){
     /*
-     * 
+     * test grab reference to item
      */
-     printf("maps_testing   ");
+     printf("maps_testing grab_item_reference(): ");
+     room * current_room = get_current_room();
+     set_piece_x(current_room->bounty[0], 5);
+     set_piece_y(current_room->bounty[0], 5);
+     
+     gamepiece * item = grab_item_reference(5, 5);
+     
+     if(item != current_room->bounty[0]){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
+     printf("Pass \n");
    return 1;
 }
     
 int maps_test4(){
     /*
-     * 
+     * test adjectent getter
      */
-     printf("maps_testing   ");
+     printf("maps_testing get_adjacent_item():  ");
+     
+     room * current_room = get_current_room();
+     gamepiece * player = get_player();
+     
+     //make sure player and item areadacent
+     set_piece_x(player, 4);
+     set_piece_y(player, 5);
+     set_piece_x(current_room->bounty[0], 5);
+     set_piece_y(current_room->bounty[0], 5);
+     
+     gamepiece * item = get_adjacent_item(player, RIGHT);
+     
+     if(item == NULL){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
+     if(item != current_room->bounty[0]){
+         printf("Fail 2\n");
+         return -1;
+     }
    return 1;
 }
 

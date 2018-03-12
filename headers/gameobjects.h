@@ -14,7 +14,7 @@ enum Icon{BACKGROUND_ICO, WALL_ICO,   DOOR_ICO,
           MONSTER_ICO_1, MONSTER_ICO_2, MONSTER_ICO_3,
           PLAYER_ICO_1, PLAYER_ICO_2, PLAYER_ICO_3, LAST_ICO };
           
-enum direction{MVUP, MVDOWN, MVLEFT, MVRIGHT};
+enum direction{UP, DOWN, LEFT, RIGHT};
 
 
 struct gamepiece{
