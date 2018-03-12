@@ -98,16 +98,16 @@ int obj_test2(){
      */
      printf("obj_testing  gameobjects->move_piece() ");
      
-     move_piece(piece1, MVRIGHT);
-     move_piece(piece1, MVUP);
+     move_piece(piece1, RIGHT);
+     move_piece(piece1, UP);
      
      if( (get_piece_x(piece1) != 6 ) || (get_piece_y(piece1) != 4)){
          printf("Fail 1\n");
          return -1;
      }
      
-     move_piece(piece2, MVLEFT);
-     move_piece(piece2, MVDOWN);
+     move_piece(piece2, LEFT);
+     move_piece(piece2, DOWN);
      
     if( (get_piece_x(piece2) != 4 ) || (get_piece_y(piece2) != 6)){
          printf("Fail 2\n");

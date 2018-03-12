@@ -282,16 +282,16 @@ gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item){
 int move_piece(gamepiece * piece, enum direction direc){
     animate(piece);
     switch(direc){
-        case MVUP:
+        case UP:
             (piece->y) -= 1;
             break;
-        case MVDOWN:
+        case DOWN:
             (piece->y) += 1;
             break;
-        case MVLEFT:
+        case LEFT:
             (piece->x) -= 1;
             break;
-        case MVRIGHT:
+        case RIGHT:
             (piece->x) += 1;
             break;
             

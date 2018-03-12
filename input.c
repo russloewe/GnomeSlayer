@@ -21,22 +21,22 @@ int get_input(void){
                         break;
                         
                     case SDLK_UP:
-                        move_piece(current_room->monsters[0], MVUP); //ned to replace with room interface to get player
+                        move_piece(current_room->monsters[0], UP); //ned to replace with room interface to get player
                         return 1;
                         break;
                         
                     case SDLK_DOWN:
-                        move_piece(current_room->monsters[0], MVDOWN);
+                        move_piece(current_room->monsters[0], DOWN);
                         return 1;
                         break;
 
                     case SDLK_LEFT:
-                        move_piece(current_room->monsters[0], MVLEFT);
+                        move_piece(current_room->monsters[0], LEFT);
                         return 1;
                         break;
                     
                     case SDLK_RIGHT:
-                        move_piece(current_room->monsters[0], MVRIGHT);
+                        move_piece(current_room->monsters[0], RIGHT);
                         return 1;
                         break;
                          
