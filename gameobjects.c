@@ -7,7 +7,7 @@
  */
  
 #include "./headers/gameobjects.h"
-#define GAMESQUARE 16
+
 
 gamepiece * create_piece(int x, int y, char * name, int val, piecetype type){
 //need to check alloc
@@ -280,6 +280,7 @@ gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item){
 /************ACTION ***********************/
 
 int move_piece(gamepiece * piece, enum direction direc){
+    animate(piece);
     switch(direc){
         case MVUP:
             (piece->y) -= 1;
@@ -295,6 +296,24 @@ int move_piece(gamepiece * piece, enum direction direc){
             break;
             
         }
+        
+    return 0;
+}
+
+int animate(gamepiece * player){
+    //animate the player icon with the  three difffernt icons
+    Icon current_ico = get_piece_icon(player);
+    switch(current_ico){
+        case PLAYER_ICO_1:
+            set_piece_icon(player, PLAYER_ICO_2);
+            break;
+        case PLAYER_ICO_2:
+            set_piece_icon(player, PLAYER_ICO_3);
+            break;
+        case PLAYER_ICO_3:
+            set_piece_icon(player, PLAYER_ICO_1);
+            break;
+    }
     return 0;
 }
 

@@ -60,7 +60,7 @@ gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item);
 
 //actions
 int move_piece(gamepiece * piece, enum direction direc);
-
+int animate(gamepiece * player);
 
 
 int attack(gamepiece *attaker, gamepiece *defender);

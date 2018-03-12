@@ -44,4 +44,7 @@ int add_player_to_map(gamepiece * player);        //look for empty slot for play
 
 int add_wall_to_map(gamepiece * wall);             //look for empty slot for walls
 
+int random_x();
+
+int random_y();
 #endif

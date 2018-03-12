@@ -160,3 +160,15 @@ gamepiece * get_player(){
     return _current_room->monsters[0];
 }
 
+int random_x(){
+    int max = get_max_x();
+    int random =  ( rand() % (max - 2) ) + 1;
+    return random;
+}
+
+int random_y(){
+    int max = get_max_y();
+    int random =  ( rand() % (max - 2) ) + 1;
+    return random;
+}
+    
