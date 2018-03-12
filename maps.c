@@ -18,7 +18,7 @@ int set_current_room(room * curroom){
     return 1;
 }
 
-int remove_item_from_map(gamepiece * item){
+int remove_item_from_current_room(gamepiece * item){
     int x = get_piece_x(item);
     int y = get_piece_y(item);
     
@@ -37,7 +37,7 @@ int remove_item_from_map(gamepiece * item){
     return 1;
 }
 
-int add_item_to_map(gamepiece * item){
+int add_item_to_current_room(gamepiece * item){
     //look for empty slot to add item to room struct
     for(int i = 0; i < 10; i++){
         if(_current_room->bounty[i] == NULL){
@@ -48,7 +48,7 @@ int add_item_to_map(gamepiece * item){
     return 1;
 }
 
-int add_monster_to_map(gamepiece * monster){
+int add_monster_to_current_room(gamepiece * monster){
     //look for empty slot to add monster to room    
     for(int i = 1; i < 10; i++){
         if(_current_room->monsters[i] == NULL){
@@ -59,7 +59,7 @@ int add_monster_to_map(gamepiece * monster){
     return 1;
 }
 
-int add_wall_to_map(gamepiece * wall){
+int add_wall_to_current_room(gamepiece * wall){
     //look for empty slot to add monster to room    
     for(int i = 0; i < 300; i++){
         if(_current_room->walls[i] == NULL){
@@ -70,7 +70,7 @@ int add_wall_to_map(gamepiece * wall){
     return 1;
 }
 
-int add_player_to_map(gamepiece * player){
+int add_player_to_current_room(gamepiece * player){
     //add player to front of monster aray
     _current_room->bounty[0] = player;   //look for empty slot to add item
     return 1;

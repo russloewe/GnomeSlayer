@@ -83,7 +83,7 @@ int maps_test1(){
         //make some walls
         for(int i = 0; i < 300; i++){
             int result;
-            result= add_wall_to_map(create_piece(1i, 0, "wall", 1, WALL_TYPE));  
+            result= add_wall_to_current_room(create_piece(1, 0, "wall", 1, WALL_TYPE));  
             if(result != 0){
                 printf("Fail 1\n");
                 return -1;
@@ -92,7 +92,7 @@ int maps_test1(){
         
         for(int i = 0; i < 300; i++){
             
-            result= add_wall_to_map(create_piece(1i, 0, "wall", 1, WALL_TYPE));
+            result= add_wall_to_current_room(create_piece(1, 0, "wall", 1, WALL_TYPE));
             if(result != 1){
                 printf("Fail 1\n");
                 return -1;
@@ -100,8 +100,8 @@ int maps_test1(){
         }        
         
         //spawn some monsters
-        for(int i = 0; i < 9; i++){
-            result = add_monster_to_map(create_piece(random_x(), random_y(), "monster", 100, MONSTER_TYPE));
+        for(int i = 1; i < 9; i++){
+            result = add_monster_to_current_room(create_piece(i+1, i+1, "monster", 100, MONSTER_TYPE));
             if(result != 0){
                 printf("Fail 2\n");
                 return -1;
@@ -109,7 +109,7 @@ int maps_test1(){
         }
         //add some items
         for(int i = 0; i < 9; i++){ 
-            result = add_item_to_map(create_piece(random_x(), random_y(), "potion", 40, POTION_TYPE));
+            result = add_item_to_current_room(create_piece(i, i, "potion", 40, POTION_TYPE));
             if(result != 0){
                 printf("Fail 3\n");
                 return -1;
@@ -129,9 +129,11 @@ int maps_test1(){
 
 int maps_test2(){
     /*
-     * 
+     * test get item 
      */
-     printf("maps_testing   ");
+     printf("maps_testing  get_item/place_item ");
+     
+     
    return 1;
 }
 
