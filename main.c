@@ -25,6 +25,7 @@ int main(void){
     srand(seed);
 
         /***********temp room hack***************/
+
         room room1 = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}}; //init walls array to null pointers
         set_current_room(&room1);
         room * current_room = &room1;          //set current room pointer to room1
@@ -45,6 +46,7 @@ int main(void){
         
         
         //spawn some monsters
+
         for(int i = 0; i < 6; i++){
             add_monster_to_current_room(create_piece(random_x(), random_y(), "monster", 100, MONSTER_TYPE));
         }
@@ -64,7 +66,11 @@ int main(void){
         room1.doors[1] = create_piece(get_max_x(), 5, "door", 1, DOOR_TYPE);
         
     /******************end temp room hack**********/
-        
+       
+//   room room1 = {.walls = {NULL}}; 
+    room room1; 
+   //RK: Attempting to call create_room function
+    room1 = create_room();
 
     /*
      * Create a player piece add it to array
