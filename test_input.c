@@ -1,10 +1,10 @@
 /* author: russ loewe
  * date:   20 feb 2018
- * file:   test_suit.c
+ * file:   input_test_suit.c
  * Purpose:
- *         This file contains all of the tests to run in this suit.
- *         each of these tests needs to  have their function name put 
- *         in the function pointer array of tests.
+ *         This file contains all of the input_tests to run in this suit.
+ *         each of these input_tests needs to  have their function name put 
+ *         in the function pointer array of input_tests.
  */
 
 #include <stdio.h>
@@ -14,52 +14,45 @@
 #include "./headers/gameobjects.h"
 #include "./headers/maps.h"
 #include "./headers/input.h"
-#define GAMESQUARE 16
-
-int run_tests();
-int cleantest();
-int test1();
-int test2();
-int test3();
-int test4();
-int test5();
-int test6();
-int test7();
 
 
+int run_input_tests();
+int cleaninput_test();
+int input_test1();
+int input_test2();
+int input_test3();
+int input_test4();
+int input_test5();
+int input_test6();
+int input_test7();
 
-int main(void){
-    
-    printf("running tests now\n");
-    run_tests();
-    
-    return 0;
-}
 
-int run_tests(){
-    
-    int (*test_suit[])() = {test1, test2, 
-                            test3, test4, 
-                            test5, test6,
-                            cleantest};                      //array of all tests to run - cleantest must be at the end of this array
-    const int test_len = sizeof(test_suit) / sizeof(test_suit[0]);  //variable to tell test runner how many tests there are
+
+
+int run_input_tests(){
+    printf("running input_tests now\n");
+    printf("**********************************************\n");
+    int (*input_test_suit[])() = {input_test1,
+                                  cleaninput_test};                      //array of all input_tests to run - cleaninput_test must be at the end of this array
+    const int input_test_len = sizeof(input_test_suit) / sizeof(input_test_suit[0]);  //variable to tell input_test runner how many input_tests there are
 
     
     int success = 0;
     int failure = 0;
     
-    for(int i = 0; i < test_len; i++){
+    for(int i = 0; i < input_test_len; i++){
         int response;
         
-        response = test_suit[i]();
+        response = input_test_suit[i]();
         
         switch(response){
             
             case 0:
-                //Last test is supposed to return 0 to indicate tests are done
-                printf("Finished Runnig all tests. Success: %i\n", success);
-                printf("                           Failure: %i\n", failure);
-                return 0;
+                //Last input_test is supposed to return 0 to indicate input_tests are done
+                printf("Finished Runnig all input_tests. Success: %i\n", success);
+                printf("                                 Failure: %i\n", failure);
+                printf("**********************************************\n");
+                return (success*1000) + failure;
             
             case 1:
                 success++;
@@ -70,61 +63,62 @@ int run_tests(){
                 break;
         }
     }
-    printf("Error: test.c -> run_tests() -> not cleanup at end\n");
+    printf("Error: input_test.c -> run_input_tests() -> not cleanup at end\n");
+    printf("**********************************************\n");
     return 1;
 }
-/***************************** Begin Test Functions ********************/
-int cleantest(){
-    printf("cleaning up tests\n");
+/***************************** Begin input_test Functions ********************/
+int cleaninput_test(){
+    printf("cleaning up input_tests\n");
     return 0;
 }
 
-int test1(){
+int input_test1(){
     /*
      * 
      */
-     printf("Testing   ");
+     printf("input_testing   ");
    return 1;
 }
 
-int test2(){
+int input_test2(){
     /*
      * 
      */
-     printf("Testing   ");
+     printf("input_testing   ");
    return 1;
 }
 
     
-int test3(){
+int input_test3(){
     /*
      * 
      */
-     printf("Testing   ");
+     printf("input_testing   ");
    return 1;
 }
     
-int test4(){
+int input_test4(){
     /*
      * 
      */
-     printf("Testing   ");
+     printf("input_testing   ");
    return 1;
 }
 
-int test5(){
+int input_test5(){
     /*
      * 
      */
-     printf("Testing   ");
+     printf("input_testing   ");
    return 1;
 }
 
-int test6(){
+int input_test6(){
       /*
      * 
      */
-     printf("Testing   ");
+     printf("input_testing   ");
    return 1;
 }
     
