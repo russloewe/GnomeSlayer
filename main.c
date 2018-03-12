@@ -17,7 +17,7 @@ int main(void){
     
        init_video();      //open the screen
         /***********temp room hack***************/
-        room room1 = {.walls = {NULL}}; //init walls array to null pointers
+/*        room room1 = {.walls = {NULL}}; //init walls array to null pointers
         //make some walls
         for(int i = 1; i < 11; i++){
         gamepiece * wall = create_piece(5, i, load_image("./img/wall.bmp") , WALL_TYPE);
@@ -28,9 +28,13 @@ int main(void){
         for(int i = 0; i<5; i++){
         monst = create_piece(rand()%10+8, rand()%10+8, load_image("./img/player.bmp"), MONSTER_TYPE);
         room1.monsters[i] =monst;
-    }
+    }*/
     /******************end temp room hack**********/
-        
+       
+//   room room1 = {.walls = {NULL}}; 
+    room room1; 
+   //RK: Attempting to call create_room function
+    room1 = create_room();
 
     /*
      * Create a player piece add it to array
