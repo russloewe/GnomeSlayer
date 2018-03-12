@@ -75,7 +75,7 @@ int pickup_item(){
             //equip item and grab pointer to formerly equipped item         
             gamepiece * tmp_item = equip_item_to_player(player, item);   
             
-            if(remove_item_from_map(item) != 0){
+            if(remove_item_from_current_room(item) != 0){
                 printf("couldn't remove item from map\n");
                 return 1;
             }
@@ -84,7 +84,7 @@ int pickup_item(){
                 //copy coords to item being dropped
                 set_piece_x(tmp_item, x);                                
                 set_piece_y(tmp_item, y);
-                add_item_to_map(tmp_item);
+                add_item_to_current_room(tmp_item);
             }
             
             //construct and add message to queue
@@ -109,7 +109,7 @@ int pickup_item(){
             add_message_queue(message);
             
             //remove item from map and destroy potion
-            remove_item_from_map(item);
+            remove_item_from_current_room(item);
             destroy_piece(item);            
         }
     }
