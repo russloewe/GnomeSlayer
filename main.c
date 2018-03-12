@@ -31,33 +31,33 @@ int main(void){
         
         //make some walls
         for(int i = 0; i < get_max_x(); i++){
-            add_wall_to_map(create_piece(i, 0, "wall", 1, WALL_TYPE));
+            add_wall_to_current_room(create_piece(i, 0, "wall", 1, WALL_TYPE));
         }
         for(int i = 0; i < get_max_y(); i++){        
-            add_wall_to_map(create_piece(0, i, "wall", 1, WALL_TYPE));
+            add_wall_to_current_room(create_piece(0, i, "wall", 1, WALL_TYPE));
         }
         for(int i = 0; i < get_max_x(); i++){
-            add_wall_to_map(create_piece(i, get_max_y(), "wall", 1, WALL_TYPE));
+            add_wall_to_current_room(create_piece(i, get_max_y(), "wall", 1, WALL_TYPE));
         }
         for(int i = 0; i < get_max_y()+1; i++){
-            add_wall_to_map(create_piece(get_max_x(), i, "wall", 1, WALL_TYPE));
+            add_wall_to_current_room(create_piece(get_max_x(), i, "wall", 1, WALL_TYPE));
         }
         
         
         //spawn some monsters
         for(int i = 0; i < 6; i++){
-            add_monster_to_map(create_piece(random_x(), random_y(), "monster", 100, MONSTER_TYPE));
+            add_monster_to_current_room(create_piece(random_x(), random_y(), "monster", 100, MONSTER_TYPE));
         }
         //add some items 
-        add_item_to_map(create_piece(random_x(), random_y(), "potion", 40, POTION_TYPE));
+        add_item_to_current_room(create_piece(random_x(), random_y(), "potion", 40, POTION_TYPE));
        
         //make 2 swords
-        add_item_to_map(create_piece(random_x(), random_y(), "Big Sword", 25, SWORD_TYPE));
-        add_item_to_map(create_piece(random_x(), random_y(), "Big Dagger", 25,  SWORD_TYPE));
+        add_item_to_current_room(create_piece(random_x(), random_y(), "Big Sword", 25, SWORD_TYPE));
+        add_item_to_current_room(create_piece(random_x(), random_y(), "Big Dagger", 25,  SWORD_TYPE));
         
         //make two shields
-        add_item_to_map(create_piece(random_x(), random_y(), "Iron Shield", 20, SHIELD_TYPE));
-        add_item_to_map(create_piece(random_x(), random_y(), "Bronze Shield", 40, SHIELD_TYPE));
+        add_item_to_current_room(create_piece(random_x(), random_y(), "Iron Shield", 20, SHIELD_TYPE));
+        add_item_to_current_room(create_piece(random_x(), random_y(), "Bronze Shield", 40, SHIELD_TYPE));
        
         //add the two doors;
         room1.doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
