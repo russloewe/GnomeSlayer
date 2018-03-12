@@ -14,5 +14,9 @@ void cleanup();
 int render_all();
 int render_text_line(char * text, int x, int y);
 int add_message_queue(char * string);
-
+int get_screen_height();
+int get_screen_width();
+int get_gamesquare();
+int get_max_x();
+int get_max_y();
 #endif
