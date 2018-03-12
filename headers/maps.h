@@ -28,7 +28,7 @@ int load_next_room();       //copy player from current room to next room, then p
 
 gamepiece * get_player();   // copy pointer to player struct from current room and return it
 
-int pickup_item();          // swap item on ground with item in player inventory 
+
 
 gamepiece * grab_item_reference(int x, int y); //like pickup item, but leaves it on ground
 
