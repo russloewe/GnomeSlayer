@@ -32,9 +32,7 @@ int input_test7();
 int run_input_tests(){
     printf("running input_tests now\n");
     printf("**********************************************\n");
-    int (*input_test_suit[])() = {input_test1, input_test2, 
-                                  input_test3, input_test4, 
-                                  input_test5, input_test6,
+    int (*input_test_suit[])() = {input_test1,
                                   cleaninput_test};                      //array of all input_tests to run - cleaninput_test must be at the end of this array
     const int input_test_len = sizeof(input_test_suit) / sizeof(input_test_suit[0]);  //variable to tell input_test runner how many input_tests there are
 
@@ -54,7 +52,7 @@ int run_input_tests(){
                 printf("Finished Runnig all input_tests. Success: %i\n", success);
                 printf("                                 Failure: %i\n", failure);
                 printf("**********************************************\n");
-                return 0;
+                return (success*1000) + failure;
             
             case 1:
                 success++;

@@ -54,7 +54,7 @@ int run_obj_tests(){
                 printf("Finished Runnig all obj_tests. Success: %i\n", success);
                 printf("                               Failure: %i\n", failure);
                 printf("**********************************************\n");
-                return 0;
+                return (success*1000) + failure;
             
             case 1:
                 success++;
