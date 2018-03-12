@@ -1,5 +1,6 @@
 #include "./headers/graphics.h"
 
+
 //internal data structures
 struct Textline{
     char text[40];
@@ -27,6 +28,9 @@ static SDL_Renderer * Main_Renderer  = NULL;
 static Textline * _text_head = NULL;          //message queue
 static SDL_Texture * images[20] = {NULL};
 static SDL_Texture * _bitmap_font;    //pointer for font sheet
+static int _screen_width = 800;
+static int _screen_height = 600;
+static int _gamesquare = 25;
 
 int init_video(void){
     /*
@@ -44,7 +48,7 @@ int init_video(void){
     Main_Screen = SDL_CreateWindow("PCC CS133 Final",
                           SDL_WINDOWPOS_UNDEFINED,
                           SDL_WINDOWPOS_UNDEFINED,
-                          800, 600,
+                          _screen_width, _screen_height,
                           SDL_WINDOW_OPENGL);
                           
     if(Main_Screen == NULL){
@@ -83,6 +87,33 @@ void cleanup(){
     SDL_DestroyWindow(Main_Screen);
     SDL_Quit();
 }
+
+int get_screen_height(){
+    return _screen_height;
+}
+
+int get_screen_width(){
+    return _screen_width;
+}
+
+int get_max_x(){
+    int width = get_screen_width();
+    int square = get_gamesquare();
+    int max = (width / square) - 1;
+    return max;
+}
+
+int get_max_y(){
+    int width = get_screen_height();
+    int square = get_gamesquare();
+    int max = (width / square) - 10;
+    return max;
+}
+
+int get_gamesquare(){
+    return _gamesquare;
+}
+
 
 int render_all(){
     /*
@@ -164,9 +195,9 @@ int load_images(){
     images[MONSTER_ICO_1] = load_image("./img/monster.bmp");
     images[MONSTER_ICO_2] = load_image("./img/monster.bmp");
     images[MONSTER_ICO_3] = load_image("./img/monster.bmp");
-    images[PLAYER_ICO_1] = load_image("./img/toby.bmp");
-    images[PLAYER_ICO_2] = load_image("./img/toby.bmp");
-    images[PLAYER_ICO_3] = load_image("./img/toby.bmp");
+    images[PLAYER_ICO_1] = load_image("./img/player1.bmp");
+    images[PLAYER_ICO_2] = load_image("./img/player2.bmp");
+    images[PLAYER_ICO_3] = load_image("./img/player3.bmp");
     
     for(int i = 0; i < 8; i++){
         if(images[i] == NULL){
@@ -185,14 +216,14 @@ int render_objects( gamepiece * pieces[], int range){
      * ---return 0 on success---
      */
     SDL_Rect  rect;             //holder for rect
-    rect.w = 20;                //height and width can be defiend now
-    rect.h = 20;
+    rect.w = get_gamesquare();                //height and width can be defiend now
+    rect.h = get_gamesquare();
     
     for(int i = 0; i < range; i++){ 
         if(pieces[i] != NULL){
             //set dest rect x,y coords
-            rect.x = get_piece_x(pieces[i]) * 20; //get rect.x and rect.y with gamepiece interface functions
-            rect.y = get_piece_y(pieces[i]) * 20; // multiply by 16 to convert from game square to pixel coordinates
+            rect.x = get_piece_x(pieces[i]) * get_gamesquare(); //get rect.x and rect.y with gamepiece interface functions
+            rect.y = get_piece_y(pieces[i]) * get_gamesquare(); // multiply by 16 to convert from game square to pixel coordinates
             
             //get piece ICON
             Icon icon = get_piece_icon(pieces[i]);
@@ -275,16 +306,16 @@ int render_room(room * cur_room){
         printf("graphics.c->render_room(): Error rendering walls\n");
         return 1;
     }
-    if( render_objects(cur_room->monsters, 10) != 0){
-        printf("graphics.c->render_room(): Error rendering monsters\n");
-        return 1;
-    }
     if( render_objects(cur_room->bounty, 10) != 0){
         printf("graphics.c->render_room(): Error rendering bounty\n");
         return 1;
     }
     if( render_objects(cur_room->doors, 2) != 0){
         printf("graphics.c->render_room(): Error rendering doors\n");
+        return 1;
+    }
+    if( render_objects(cur_room->monsters, 10) != 0){
+        printf("graphics.c->render_room(): Error rendering monsters\n");
         return 1;
     }
     return 0;
@@ -297,7 +328,7 @@ int render_text_line(char * text, int x, int y){
      * 
      * ----returns 0 on success-------
      */
-    SDL_Rect dest_rect = {.h = 20, .w = 12, .x = x*20, .y = y*20};  //set dest rect to where line will start
+    SDL_Rect dest_rect = {.h = 15, .w = 8, .x = x*20, .y = y*20};  //set dest rect to where line will start
     SDL_Rect src_rect; 
     
     
@@ -313,7 +344,7 @@ int render_text_line(char * text, int x, int y){
         if( SDL_RenderCopy(Main_Renderer, _bitmap_font, &src_rect, &dest_rect) != 0){
             printf("graphics.c->render_text_line(): Error copying font texture to main renderer\n");
         }
-        dest_rect.x = dest_rect.x + 12;  //move over 1 before looping to draw next char
+        dest_rect.x = dest_rect.x + 8;  //move over 1 before looping to draw next char
     }  
     
     return 0;

@@ -89,7 +89,7 @@ int run_graph_tests(){
                 printf("Finished Runnig all graph_tests. Success: %i\n", success);
                 printf("                                 Failure: %i\n", failure);
                 printf("**********************************************\n");
-                return 0;
+                return (success*1000) + failure;
             
             case 1:
                 success++;
