@@ -29,7 +29,7 @@ int maps_test7();
 int run_maps_tests(){
         printf("running maps_tests now\n");
     printf("**********************************************\n");
-    int (*maps_test_suit[])() = {maps_test1,
+    int (*maps_test_suit[])() = {maps_test1, maps_test2,
                             cleanmaps_test};                      //array of all maps_tests to run - cleanmaps_test must be at the end of this array
     const int maps_test_len = sizeof(maps_test_suit) / sizeof(maps_test_suit[0]);  //variable to tell maps_test runner how many maps_tests there are
 
@@ -122,17 +122,36 @@ int maps_test1(){
 
     /******************end temp room hack**********/
     
-    
+    if(get_current_room() != &room1){
+        printf("Fail 1\n");
+        return -1;
+    }
     printf("Pass \n");
    return 1;
 }
 
 int maps_test2(){
     /*
-     * test get item 
+     * test set player get player 
      */
-     printf("maps_testing  get_item/place_item ");
+     printf("maps_testing  get/set_player(): ");
      
+     gamepiece * player = create_piece(2, 3, "test", 100, PLAYER_TYPE);
+     
+     add_player_to_current_room(player);
+     
+     gamepiece * second = get_player();
+     
+     if(second == NULL){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
+      if(second != player){
+         printf("Fail 2\n");
+         return -1;
+     }
+     printf("Pass \n");
      
    return 1;
 }

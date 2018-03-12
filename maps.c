@@ -72,7 +72,7 @@ int add_wall_to_current_room(gamepiece * wall){
 
 int add_player_to_current_room(gamepiece * player){
     //add player to front of monster aray
-    _current_room->bounty[0] = player;   //look for empty slot to add item
+    _current_room->monsters[0] = player;   //look for empty slot to add item
     return 1;
 }
 
