@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include "gameobjects.h"
 
+//RK: Adding prototype for create_room
+//struct room create_room(void);
+
 struct room{
     char name[50];
     gamepiece * monsters[5];
@@ -20,5 +23,8 @@ struct door{
 
 typedef struct room room;
 typedef struct door door;
+
+//RK: Adding prototype for create_room
+struct room create_room(void);
 
 #endif
