@@ -25,20 +25,26 @@ int pickup_item(){
    int x = get_piece_x(player);
    int y = get_piece_y(player);
     
-    gamepiece * item = grab_item_reference(x, y);                        //pick up the item 
-        
-    if(item != NULL){
-        piecetype type = get_piece_type(item);                          //grab the type
+    //pick up the item
+    gamepiece * item = grab_item_reference(x, y);                         
     
-        if( (type == SWORD_TYPE) || (type == SHIELD_TYPE) ){             //only for sword and shield for now
-            gamepiece * tmp_item = equip_item_to_player(player, item);   //equip item and grab pointer to formerly equipped item
+    //grab the type
+    if(item != NULL){
+        piecetype type = get_piece_type(item);                          
+    
+        //for swords and shields
+        if( (type == SWORD_TYPE) || (type == SHIELD_TYPE) ){    
+            //equip item and grab pointer to formerly equipped item         
+            gamepiece * tmp_item = equip_item_to_player(player, item);   
             
             if(remove_item_from_map(item) != 0){
                 printf("couldn't remove item from map\n");
                 return 1;
             }
+            
             if(tmp_item != NULL){
-                set_piece_x(tmp_item, x);                                //copy coords to item being dropped
+                //copy coords to item being dropped
+                set_piece_x(tmp_item, x);                                
                 set_piece_y(tmp_item, y);
                 add_item_to_map(tmp_item);
             }
@@ -49,7 +55,27 @@ int pickup_item(){
             strncat(message, get_piece_name(item), 20);
             add_message_queue(message);
         }
+        //for potions
+        if(type == POTION_TYPE){
+            int player_health = get_piece_val(player);
+            int potion_val = get_piece_val(item);
+            
+            //calculate new player health and apply new value
+            player_health = player_health + potion_val;
+            set_player_health(player, player_health);
+            
+            //make message
+            char message[40];
+            char * potion_name = get_piece_name(item);
+            sprintf(message, "You drank %s for %d LP", potion_name, potion_val);
+            add_message_queue(message);
+            
+            //remove item from map and destroy potion
+            remove_item_from_map(item);
+            destroy_piece(item);            
+        }
     }
+        
     return 0;
 }
 
