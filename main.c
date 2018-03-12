@@ -68,7 +68,7 @@ int main(void){
     /*
      * Create a player piece add it to array
      */
-    room1.monsters[0] = create_piece(5, 5, "Toby", 100, PLAYER_TYPE);
+    room1.monsters[0] = create_piece(5, 5, "Toby", 50, PLAYER_TYPE);
     
     //main loop 
     while(1){        

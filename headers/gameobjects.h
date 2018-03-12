@@ -6,7 +6,14 @@
 #include <string.h>
 //#include "SDL2/SDL.h"
 
-enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, DOOR_TYPE, BACKGROUND};
+enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, DOOR_TYPE};
+enum Icon{BACKGROUND_ICO, WALL_ICO,   DOOR_ICO,  
+          SWORD_ICO_1,  SWORD_ICO_2,  SWORD_ICO_3, 
+          SHIELD_ICO_1, SHIELD_ICO_2, SHIELD_ICO_3,  
+          POTION_ICO_1, POTION_ICO_2, POTION_ICO_3,
+          MONSTER_ICO_1, MONSTER_ICO_2, MONSTER_ICO_3,
+          PLAYER_ICO_1, PLAYER_ICO_2 };
+          
 enum direction{MVUP, MVDOWN, MVLEFT, MVRIGHT};
 
 
@@ -15,6 +22,7 @@ struct gamepiece{
     int x;
     int y;
     int val;
+    enum Icon icon;
     enum piecetype type;
     struct gamepiece * shield;
     struct gamepiece * sword;
@@ -23,6 +31,7 @@ struct gamepiece{
 
 typedef struct gamepiece gamepiece;
 typedef enum piecetype piecetype;
+typedef enum Icon Icon;
 
 //create and destroy objects
 gamepiece * create_piece(int x, int y, char * name, int val, piecetype type);
@@ -37,6 +46,7 @@ char * get_piece_name(gamepiece * piece);
 gamepiece * get_player_sword(gamepiece * piece);
 gamepiece * get_player_shield(gamepiece * piece);
 piecetype get_piece_type(gamepiece *piece);
+Icon get_piece_icon(gamepiece *piece);
 
 
 //setters
@@ -45,6 +55,7 @@ int set_piece_y(gamepiece * piece, int y);
 int set_piece_val(gamepiece* player, int a);
 int set_player_health(gamepiece* player, int a);
 int set_piece_name(gamepiece * piece, char * string);
+int set_piece_icon(gamepiece * piece, Icon icon);
 gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item);
 
 //actions
