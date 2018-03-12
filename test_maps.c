@@ -29,8 +29,8 @@ int maps_test7();
 int run_maps_tests(){
         printf("running maps_tests now\n");
     printf("**********************************************\n");
-    int (*maps_test_suit[])() = {maps_test1, maps_test2,
-                            cleanmaps_test};                      //array of all maps_tests to run - cleanmaps_test must be at the end of this array
+    int (*maps_test_suit[])() = {maps_test1, maps_test2, maps_test3,
+                                 maps_test4, cleanmaps_test};                      //array of all maps_tests to run - cleanmaps_test must be at the end of this array
     const int maps_test_len = sizeof(maps_test_suit) / sizeof(maps_test_suit[0]);  //variable to tell maps_test runner how many maps_tests there are
 
     
@@ -159,17 +159,50 @@ int maps_test2(){
     
 int maps_test3(){
     /*
-     * 
+     * test grab reference to item
      */
-     printf("maps_testing   ");
+     printf("maps_testing grab_item_reference(): ");
+     room * current_room = get_current_room();
+     set_piece_x(current_room->bounty[0], 5);
+     set_piece_y(current_room->bounty[0], 5);
+     
+     gamepiece * item = grab_item_reference(5, 5);
+     
+     if(item != current_room->bounty[0]){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
+     printf("Pass \n");
    return 1;
 }
     
 int maps_test4(){
     /*
-     * 
+     * test adjectent getter
      */
-     printf("maps_testing   ");
+     printf("maps_testing get_adjacent_item():  ");
+     
+     room * current_room = get_current_room();
+     gamepiece * player = get_player();
+     
+     //make sure player and item areadacent
+     set_piece_x(player, 4);
+     set_piece_y(player, 5);
+     set_piece_x(current_room->bounty[0], 5);
+     set_piece_y(current_room->bounty[0], 5);
+     
+     gamepiece * item = get_adjacent_item(player, RIGHT);
+     
+     if(item == NULL){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
+     if(item != current_room->bounty[0]){
+         printf("Fail 2\n");
+         return -1;
+     }
    return 1;
 }
 
