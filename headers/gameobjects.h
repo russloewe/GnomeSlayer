@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 //#include "SDL2/SDL.h"
 
 enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, DOOR_TYPE, LAST_TYPE};
@@ -63,6 +64,6 @@ int move_piece(gamepiece * piece, enum direction direc);
 int animate(gamepiece * player);
 
 
-int attack(gamepiece *attaker, gamepiece *defender);
+int attack(gamepiece *attacker, gamepiece *defender);
 
 #endif
