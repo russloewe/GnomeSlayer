@@ -166,6 +166,7 @@ int load_images(){
     images[MONSTER_ICO_3] = load_image("./img/monster.bmp");
     images[PLAYER_ICO_1] = load_image("./img/toby.bmp");
     images[PLAYER_ICO_2] = load_image("./img/toby.bmp");
+    images[PLAYER_ICO_3] = load_image("./img/toby.bmp");
     
     for(int i = 0; i < 8; i++){
         if(images[i] == NULL){
