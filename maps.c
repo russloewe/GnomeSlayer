@@ -77,6 +77,9 @@ int add_player_to_current_room(gamepiece * player){
 }
 
 
+gamepiece * get_adjacent_item(gamepiece * ref_piece, enum direction dir){
+    return NULL;
+}
 
 gamepiece * grab_item_reference(int x, int y){
     //look for item at x,y and return pointer, leave in bounty list

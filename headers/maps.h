@@ -30,7 +30,7 @@ gamepiece * get_player();   // copy pointer to player struct from current room a
 
 gamepiece * grab_item_reference(int x, int y); //like pickup item, but leaves it on ground
 
-gamepiece * get_adjacent_item(enum direction dir); //get adjacent item in "dir" direction
+gamepiece * get_adjacent_item(gamepiece * ref_piece, enum direction dir); //get adjacent item in "dir" direction
 
 int remove_item_from_current_room(gamepiece * item);       //remove item pointer from bounty array, compares x,y coords to find item in list
 
