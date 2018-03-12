@@ -83,11 +83,11 @@ int checker_test1(){
      room room1 = {.walls = {NULL}}; //init walls array to null pointers
      set_current_room(&room1);
      
-     room1.monsters[0] = create_piece(5, 5,  PLAYER_TYPE); // add player to (5,5)
-     room1.bounty[0] = create_piece(5, 5,  SWORD_TYPE);
-     room1.bounty[1] = create_piece(6, 6,  POTION_TYPE);
-     room1.bounty[2] = create_piece(6, 5,  SHIELD_TYPE);
-     room1.bounty[3] = create_piece(5, 6,  SWORD_TYPE);
+     room1.monsters[0] = create_piece(5, 5, "player", 100, PLAYER_TYPE); // add player to (5,5)
+     room1.bounty[0] = create_piece(5, 5, "sword", 22, SWORD_TYPE);
+     room1.bounty[1] = create_piece(6, 6, "potion", 12, POTION_TYPE);
+     room1.bounty[2] = create_piece(6, 5, "sdf", 23, SHIELD_TYPE);
+     room1.bounty[3] = create_piece(5, 6, "234e", 23, SWORD_TYPE);
      
      int  temp_item;
      temp_item = player_on_item(&room1);
@@ -126,9 +126,9 @@ int checker_test2(){
      */
      printf("checker_testing  checker->is_player_dead ");
      
-     gamepiece * piece1 = create_piece(5, 5,  PLAYER_TYPE);
-     gamepiece * piece2 = create_piece(5, 5,  MONSTER_TYPE);
-     gamepiece * piece3 = create_piece(5, 5,  SWORD_TYPE);
+     gamepiece * piece1 = create_piece(5, 5, "ert", 34, PLAYER_TYPE);
+     gamepiece * piece2 = create_piece(5, 5, "sg", 45,  MONSTER_TYPE);
+     gamepiece * piece3 = create_piece(5, 5, "asdf", 34, SWORD_TYPE);
      
      set_player_health(piece1, 50);
      set_player_health(piece2, 50);

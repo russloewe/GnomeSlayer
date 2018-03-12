@@ -9,15 +9,48 @@
 #include "./headers/gameobjects.h"
 #define GAMESQUARE 16
 
-gamepiece * create_piece(int x, int y, enum piecetype type){
+gamepiece * create_piece(int x, int y, char * name, int val, piecetype type){
 //need to check alloc
     gamepiece * newpiece = (gamepiece *)malloc(sizeof(gamepiece));
 
     newpiece->x = x;
     newpiece->y = y;
+    newpiece->val = val;
     newpiece->type = type;
     newpiece->sword = NULL; //init pointers to null
-    newpiece->shield = NULL;
+    newpiece->shield = NULL;    
+    strncpy(newpiece->name, name, 15);
+    
+    //auto set icon
+    switch(type){
+        case PLAYER_TYPE:
+            newpiece->icon = PLAYER_ICO_1;
+            break;
+        
+        case MONSTER_TYPE:
+            newpiece->icon = MONSTER_ICO_1;
+            break;
+        
+        case DOOR_TYPE:
+            newpiece->icon = DOOR_ICO;
+            break;
+            
+        case SWORD_TYPE:
+            newpiece->icon = SWORD_ICO_1;
+            break;
+            
+        case SHIELD_TYPE:
+            newpiece->icon = SHIELD_ICO_1;
+            break;
+            
+        case POTION_TYPE:
+            newpiece->icon = POTION_ICO_1;
+            break;
+            
+        case WALL_TYPE:
+            newpiece->icon = WALL_ICO;
+            break;
+    }
     
     return newpiece;
 }
@@ -121,6 +154,12 @@ piecetype get_piece_type(gamepiece *piece){
  
 }
 
+Icon get_piece_icon(gamepiece *piece){
+    //super quick dirty function
+    return piece->icon;
+ 
+}
+
 /****************SETTERS**********************/
 
 int set_piece_x(gamepiece * piece, int x){
@@ -175,13 +214,20 @@ int set_piece_name(gamepiece * piece, char * string){
     
     if(piece == NULL){return 1;}
     
-        if(strncpy(piece->name, string, 25) == NULL){
+        if(strncpy(piece->name, string, 15) == NULL){
             return 1;
         }else{
             return 0;
         }
 }
 
+int set_piece_icon(gamepiece * piece, Icon icon){
+    //change icon
+    
+    if(piece == NULL){return 1;}
+    piece->icon = icon;
+    return 0;
+}
 
     
 gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item){

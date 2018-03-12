@@ -8,9 +8,9 @@
 
 struct room{
     char name[50];
-    gamepiece * monsters[5];
-    gamepiece * bounty[5];
-    gamepiece * walls[200];
+    gamepiece * monsters[10];
+    gamepiece * bounty[10];
+    gamepiece * walls[300];
     gamepiece * doors[2];
 };
 
@@ -34,8 +34,14 @@ gamepiece * grab_item_reference(int x, int y); //like pickup item, but leaves it
 
 gamepiece * get_adjacent_item(enum direction dir); //get adjacent item in "dir" direction
 
-int remove_item_from_map(gamepiece * item);
+int remove_item_from_map(gamepiece * item);       //remove item pointer from bounty array, compares x,y coords to find item in list
 
-int add_item_to_map(gamepiece * item);
+int add_item_to_map(gamepiece * item);             //look for empty slot for item
+
+int add_monster_to_map(gamepiece * monster);      //look for empty slot for monster
+
+int add_player_to_map(gamepiece * player);        //look for empty slot for player
+
+int add_wall_to_map(gamepiece * wall);             //look for empty slot for walls
 
 #endif

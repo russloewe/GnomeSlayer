@@ -33,9 +33,9 @@ gamepiece * piece2;
 int run_obj_tests(){
     printf("running GameObject obj_tests now\n");
     printf("**********************************************\n");
-    int (*obj_test_suit[])() = {obj_test1, obj_test2, 
-                                obj_test3, obj_test4, obj_test5,
-                            cleanobj_test};                      //array of all obj_tests to run - cleanobj_test must be at the end of this array
+    int (*obj_test_suit[])() = {obj_test1, obj_test2, obj_test3, 
+                                obj_test4, obj_test5, obj_test6,
+                                 cleanobj_test};                      //array of all obj_tests to run - cleanobj_test must be at the end of this array
     const int obj_test_len = sizeof(obj_test_suit) / sizeof(obj_test_suit[0]);  //variable to tell obj_test runner how many obj_tests there are
 
     
@@ -81,8 +81,8 @@ int obj_test1(){
      */
      printf("obj_testing gameobjects->create_piece()  ");
      
-     piece1 = create_piece(5, 5, PLAYER_TYPE);
-     piece2 = create_piece(5, 5, SWORD_TYPE);
+     piece1 = create_piece(5, 5, "platey", 100, PLAYER_TYPE);
+     piece2 = create_piece(5, 5, "sword", 30, SWORD_TYPE);
      
      if((piece1 == NULL) || (piece2 == NULL)){
          printf("Fail 1\n");
@@ -178,8 +178,8 @@ int obj_test4(){
      */
      printf("obj_testing  gameobjects->get_player_shield/sword() ");
      //create sword and shield
-     gamepiece * sword = create_piece(5, 5,  SWORD_TYPE);
-     gamepiece * shield = create_piece(5, 5,  SHIELD_TYPE);
+     gamepiece * sword = create_piece(5, 5, "sword", 20, SWORD_TYPE);
+     gamepiece * shield = create_piece(5, 5, "shield", 40, SHIELD_TYPE);
      set_piece_name(sword, "Big Sword");
      set_piece_val(sword, 100);
      set_piece_name(shield, "Big Shield");
@@ -207,20 +207,45 @@ int obj_test5(){
     /*
      * test creating and destroying many pieces
      */
-     printf("obj_testing  gameobjects->create/destroy_piece(stress): ");
+     printf("obj_testing - create/destroy_piece(stress): ");
      
      for(int i = 0; i < 5000000; i++){
-         gamepiece * temp = create_piece(rand()%38+2, rand()%15+2, POTION_TYPE);
+         gamepiece * temp = create_piece(rand()%38+2, rand()%15+2, "tmp", 100, POTION_TYPE);
          destroy_piece(temp);
      }
+     printf("Pass\n");
    return 1;
 }
 
 int obj_test6(){
       /*
-     * 
+     * check icon assignment
      */
-     printf("obj_testing   ");
+     printf("obj_testing - icon assignment(): ");
+     
+    gamepiece * test_pieces[7];
+    piecetype types[7] = {SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, DOOR_TYPE};
+    Icon icons[7] = {SWORD_ICO_1, SHIELD_ICO_1, POTION_ICO_1, WALL_ICO, PLAYER_ICO_1, MONSTER_ICO_1, DOOR_ICO};
+     
+    for(int i = 0; i < 7; i++){
+        test_pieces[i] = create_piece(5, 5, "test", 100, types[i]);
+    }
+    for(int i = 0; i < 7; i++){
+        if(get_piece_icon(test_pieces[i]) != icons[i]){
+            printf("Fail 1\n");
+            return -1;
+        }
+    }
+    
+    for(int i = 0; i < LAST_ICO; i++){
+        set_piece_icon(test_pieces[0], i);
+       if(get_piece_icon(test_pieces[0]) != i){
+            printf("Fail 2\n");
+            return -1;
+        }
+    }
+    printf("Pass \n");
+     
    return 1;
 }
     

@@ -25,7 +25,7 @@ Textline * get_message_queue();
 static SDL_Window * Main_Screen = NULL;
 static SDL_Renderer * Main_Renderer  = NULL;
 static Textline * _text_head = NULL;          //message queue
-static SDL_Texture * images[10] = {NULL};
+static SDL_Texture * images[20] = {NULL};
 static SDL_Texture * _bitmap_font;    //pointer for font sheet
 
 int init_video(void){
@@ -97,7 +97,7 @@ int render_all(){
          return 1;
      }
      
-    if( render_background_image(images[BACKGROUND]) != 0){
+    if( render_background_image(images[BACKGROUND_ICO]) != 0){
         printf("graphics->render all: Error rendering background image\n");
         return 1;
     }
@@ -149,14 +149,24 @@ SDL_Texture * load_image(char * filename){
 
 int load_images(){
     //load an array of images that are going to be used in game
-    images[BACKGROUND] = load_image("./img/background2.bmp");
-    images[WALL_TYPE] = load_image("./img/wall.bmp");
-    images[DOOR_TYPE] = load_image("./img/door.bmp");
-    images[SWORD_TYPE] = load_image("./img/sword.bmp");
-    images[SHIELD_TYPE] = load_image("./img/shield.bmp");
-    images[POTION_TYPE] = load_image("./img/potion.bmp");
-    images[MONSTER_TYPE] = load_image("./img/monster.bmp");
-    images[PLAYER_TYPE] = load_image("./img/toby.bmp");
+    images[BACKGROUND_ICO] = load_image("./img/background2.bmp");
+    images[WALL_ICO] = load_image("./img/wall.bmp");
+    images[DOOR_ICO] = load_image("./img/door.bmp");
+    images[SWORD_ICO_1] = load_image("./img/sword.bmp");
+    images[SWORD_ICO_2] = load_image("./img/sword.bmp");
+    images[SWORD_ICO_3] = load_image("./img/sword.bmp");
+    images[SHIELD_ICO_1] = load_image("./img/shield.bmp");
+    images[SHIELD_ICO_2] = load_image("./img/shield.bmp");
+    images[SHIELD_ICO_3] = load_image("./img/shield.bmp");
+    images[POTION_ICO_1] = load_image("./img/potion.bmp");
+    images[POTION_ICO_2] = load_image("./img/potion.bmp");
+    images[POTION_ICO_3] = load_image("./img/potion.bmp");
+    images[MONSTER_ICO_1] = load_image("./img/monster.bmp");
+    images[MONSTER_ICO_2] = load_image("./img/monster.bmp");
+    images[MONSTER_ICO_3] = load_image("./img/monster.bmp");
+    images[PLAYER_ICO_1] = load_image("./img/toby.bmp");
+    images[PLAYER_ICO_2] = load_image("./img/toby.bmp");
+    images[PLAYER_ICO_3] = load_image("./img/toby.bmp");
     
     for(int i = 0; i < 8; i++){
         if(images[i] == NULL){
@@ -184,9 +194,9 @@ int render_objects( gamepiece * pieces[], int range){
             rect.x = get_piece_x(pieces[i]) * 20; //get rect.x and rect.y with gamepiece interface functions
             rect.y = get_piece_y(pieces[i]) * 20; // multiply by 16 to convert from game square to pixel coordinates
             
-            //get piece type 
-            piecetype type = get_piece_type(pieces[i]);
-            if(SDL_RenderCopy(Main_Renderer, images[type], NULL, &rect) != 0){
+            //get piece ICON
+            Icon icon = get_piece_icon(pieces[i]);
+            if(SDL_RenderCopy(Main_Renderer, images[icon], NULL, &rect) != 0){
                 printf("display.c->render_objects()->SDL_RenderCopy()\n");
                 return 1;
             }
@@ -261,15 +271,15 @@ int render_room(room * cur_room){
      * take a pointer to a room and render all of the parts of the room to the screen
      * test return value each time render_objects is called
      */
-    if( render_objects(cur_room->walls, 200) != 0){
+    if( render_objects(cur_room->walls, 300) != 0){
         printf("graphics.c->render_room(): Error rendering walls\n");
         return 1;
     }
-    if( render_objects(cur_room->monsters, 5) != 0){
+    if( render_objects(cur_room->monsters, 10) != 0){
         printf("graphics.c->render_room(): Error rendering monsters\n");
         return 1;
     }
-    if( render_objects(cur_room->bounty, 5) != 0){
+    if( render_objects(cur_room->bounty, 10) != 0){
         printf("graphics.c->render_room(): Error rendering bounty\n");
         return 1;
     }
@@ -358,6 +368,7 @@ int add_message_queue(char * string){
 }
 
 int trim_message_queue(int n){
+    //leave the first n nodes in queue, free the rest
     Textline * cur = _text_head;
     
     for(int i = 0; i < n; i++){ //step n steps through linked list
