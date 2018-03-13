@@ -320,7 +320,10 @@ int animate(gamepiece * player){
 int attack(gamepiece *attacker, gamepiece *defender){
     int valS;   //sword
     int valSH;  //shield
-
+    int damage;
+    int healthD;    //defender health
+    int healthA;    //attacker health
+    int new_healthD;
     srand(time(NULL));
     int r = (rand()% 100) + 1;      //Generates random numbers between 1 & 100
 
@@ -337,5 +340,16 @@ int attack(gamepiece *attacker, gamepiece *defender){
     else{
         valSH = get_piece_val(shield);
     }
+
+    if(valS == 0 && valSH == 0){
+        damage = 0;
+    }
+    else{
+        damage = valS - valSH;
+    }
+
+    healthD = get_piece_val(defender);
+    healthD = healthD - damage;
+    new_healthD = set_player_health(defender, healthD);
 
 }
