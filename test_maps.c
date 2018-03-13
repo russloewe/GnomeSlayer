@@ -78,7 +78,9 @@ int maps_test1(){
      int result = 1; // for testing return values
           /***********temp room hack***************/
         room room1 = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}}; //init walls array to null pointers
-        set_current_room(&room1);
+        room * roomc = (room*)malloc(sizeof(room));
+        memcpy(roomc, &room1, sizeof(room));
+        set_current_room(roomc);
                 
         //make some walls
         for(int i = 0; i < 300; i++){
@@ -122,7 +124,7 @@ int maps_test1(){
 
     /******************end temp room hack**********/
     
-    if(get_current_room() != &room1){
+    if(get_current_room() != roomc){
         printf("Fail 1\n");
         return -1;
     }

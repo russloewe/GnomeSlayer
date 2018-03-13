@@ -6,6 +6,7 @@
 #include "graphics.h"
 
 
+
 struct room{
     char name[50];
     gamepiece * monsters[10];
@@ -19,11 +20,15 @@ struct room{
 typedef struct room room;
 
 
+//RK: Adding prototype for create_room
+//struct room create_room(void);
 
 room * get_current_room();   //return pointer to current room
 room * create_room(void); //RK: Adding prototype for create_room
 
 /*****************GETTERS*******************/
+
+room * get_current_room();   //return pointer to current room
 
 int load_next_room();       //copy player from current room to next room, then point current_room pointer to next room
 
@@ -50,4 +55,5 @@ int add_wall_to_current_room(gamepiece * wall);             //look for empty slo
 int random_x();
 
 int random_y();
+
 #endif

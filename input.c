@@ -1,60 +1,100 @@
 #include "./headers/input.h"
 
 int pickup_item();          // swap item on ground with item in player inventory 
+int proccess_arrow_key(enum direction dir);
 
 int get_input(void){
     
     SDL_Event event;    //event handler or something
         
     while(SDL_PollEvent(&event)){
-        room * current_room = get_current_room();
+        room * current_room = get_current_room();  //grab a couple of relevent pointers
+        gamepiece * player = get_player();
         switch(event.type){
             case SDL_QUIT:
-                return 0;
-                break;
+            return 0;
+            break;
                 
             case SDL_KEYDOWN:
-                switch(event.key.keysym.sym){
+            switch(event.key.keysym.sym){
+                
+                case SDLK_ESCAPE:         //exit key
+                return 0;
                     
-                    case SDLK_ESCAPE:         //exit key
-                        return 0;
-                        break;
-                        
-                    case SDLK_UP:
-                        move_piece(current_room->monsters[0], UP); //ned to replace with room interface to get player
-                        return 1;
-                        break;
-                        
-                    case SDLK_DOWN:
-                        move_piece(current_room->monsters[0], DOWN);
-                        return 1;
-                        break;
+                case SDLK_UP:
+                proccess_arrow_key(UP); //ned to replace with room interface to get player
+                return 1;
+                    
+                case SDLK_DOWN:
+                proccess_arrow_key(DOWN);
+                return 1;
 
-                    case SDLK_LEFT:
-                        move_piece(current_room->monsters[0], LEFT);
-                        return 1;
-                        break;
-                    
-                    case SDLK_RIGHT:
-                        move_piece(current_room->monsters[0], RIGHT);
-                        return 1;
-                        break;
-                         
-                    case SDLK_SPACE: ;
-                        if(player_on_item(current_room)){
-                            pickup_item();                            
-                        } 
-                        return 1;
-                        break;
-                            
-                }
+                case SDLK_LEFT:
+                proccess_arrow_key(LEFT);
+                return 1;
+                
+                case SDLK_RIGHT:
+                proccess_arrow_key(RIGHT);
+                return 1;
+                     
+                case SDLK_SPACE: ;
+                if(player_on_item(current_room)){
+                    pickup_item();                            
+                } 
+                return 1;
+                        
+            }
             break;
         }
         }
     return 1;
 }
 
+int proccess_arrow_key(enum direction dir){
+    
+    int result;          //needed for the message
+    char message[40];     
+    char message2[40];
+    
+    //grab the player then try to grab item in path
+    gamepiece * player = get_player();
+    gamepiece * piece = get_adjacent_item(player, dir);
+    if(piece == NULL){
+        move_piece(player, dir);
+        return 1;
+    }else{
+        switch(get_piece_type(piece)){
+            
+            case WALL_TYPE:
+            add_message_queue("Something blocks your way...");
+            return 1;
+            
+            case DOOR_TYPE:
+            //function to get next room goes here
+            add_message_queue("The door is locked");
+            return 1;
+            
+            case MONSTER_TYPE:
+            //attack the monster                   
+            sprintf(message, "You attack a %s", get_piece_name(piece));
+            add_message_queue(message);
+            
+            result = attack(player, piece);
+            
+            sprintf(message2, "You did %d damage", result);
+            add_message_queue(message2);            
+            return 1;
+            
+            default:
+            move_piece(player, dir);
+            return 1;
+        }
+    }
+}
 
+    
+    
+    
 int pickup_item(){
     //grab player reference
    gamepiece * player = get_player();

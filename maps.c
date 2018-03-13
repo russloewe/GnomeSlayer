@@ -1,10 +1,37 @@
+
+/*************************************************************
+Author: Rebecca Kennedy
+Date: 3/7/18
+Filename: maps.c
+This is the room module for the final project in CS133u.
+***************************************************************/
+
 #include "./headers/maps.h"
 
 //local protytypes
-
-
-
 static room * _current_room;        //this points to current room
+
+/*
+struct room create_room(void) {
+    room room1 = {.walls = {NULL}}; //init walls array to null pointers
+    //make some walls
+        for(int i = 1; i < 11; i++){
+        gamepiece * wall = create_piece(5, i, load_image("./img/wall.bmp") , WALL_TYPE);
+        room1.walls[i-1] = wall;
+        }
+        //spawn some monsters
+        gamepiece * monst;
+        for(int i = 0; i<5; i++){
+        monst = create_piece(rand()%10+8, rand()%10+8, load_image("./img/player.bmp"), MONSTER_TYPE);
+        room1.monsters[i] =monst;
+
+    return room1;
+    }
+*/
+
+struct room create_room(void) {
+
+    struct room room1 = { .walls = {NULL} };
 
 room * create_room(void) {
 
@@ -80,8 +107,6 @@ room * create_room(void) {
         return newroom;
 }
         
-        
-
 room * get_current_room(){
     //interface to get room
     return _current_room;
@@ -153,12 +178,57 @@ int add_player_to_current_room(gamepiece * player){
 
 
 gamepiece * get_adjacent_item(gamepiece * ref_piece, enum direction dir){
-    return NULL;
+    //get base coords
+    int x = get_piece_x(ref_piece);
+    int y = get_piece_y(ref_piece);
+    
+    gamepiece * item = NULL;
+    
+    //attempt to pick up an item in the correct direction
+    switch(dir){
+        case UP:
+        item = grab_item_reference(x, y-1);
+        break;
+        
+        case DOWN:
+        item = grab_item_reference(x, y+1);
+        break;
+        
+        case LEFT:
+        item = grab_item_reference(x-1, y);
+        break;
+        
+        case RIGHT:
+        item = grab_item_reference(x+1, y);
+        break;
+        
+        default:
+        item = NULL;
+    }
+    
+    //return the pointer, no need to check value first
+    return item;
 }
 
 gamepiece * grab_item_reference(int x, int y){
-    //look for item at x,y and return pointer, leave in bounty list
-    for(int i = 0; i < 5; i++){
+    //look for item at x,y and return pointer, leave in in the room
+    //i made a mess trying to expand this function so o juat copied the internals 3 times
+    
+        //door - do this first so the "this door is locked" message appears
+    for(int i = 0; i < 2; i++){
+        gamepiece * temp = _current_room->doors[i];
+        if( temp != NULL){
+            int it_x = get_piece_x(temp);
+            int it_y = get_piece_y(temp);
+            
+            if( (it_x == x) && (it_y == y) ){
+                return temp;
+            }
+        }
+    }   
+    
+    //items
+    for(int i = 0; i < 10; i++){
         gamepiece * temp = _current_room->bounty[i];
         if( temp != NULL){
             int it_x = get_piece_x(temp);
@@ -169,8 +239,34 @@ gamepiece * grab_item_reference(int x, int y){
             }
         }
     }
+    //monster
+    for(int i = 1; i < 10; i++){
+        gamepiece * temp = _current_room->monsters[i];
+        if( temp != NULL){
+            int it_x = get_piece_x(temp);
+            int it_y = get_piece_y(temp);
+            
+            if( (it_x == x) && (it_y == y) ){
+                return temp;
+            }
+        }
+    }
+    //wall
+    for(int i = 0; i < 300; i++){
+        gamepiece * temp = _current_room->walls[i];
+        if( temp != NULL){
+            int it_x = get_piece_x(temp);
+            int it_y = get_piece_y(temp);
+            
+            if( (it_x == x) && (it_y == y) ){
+                return temp;
+            }
+        }
+    }
+
     return NULL;
 }
+
 
 gamepiece * get_player(){
     //super quick interface

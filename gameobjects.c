@@ -317,7 +317,39 @@ int animate(gamepiece * player){
     return 0;
 }
 
-int attack(gamepiece *attaker, gamepiece *defender){
+int attack(gamepiece *attacker, gamepiece *defender){
+    int valS;   //sword
+    int valSH;  //shield
+    int damage;
+    int healthD;    //defender health
+    int healthA;    //attacker health
+    int new_healthD;
+    srand(time(NULL));
+    int r = (rand()% 100) + 1;      //Generates random numbers between 1 & 100
 
+    gamepiece * sword = get_player_sword(attacker);
+    if(sword == NULL){
+        valS = 0;}
+    else{
+        valS = get_piece_val(sword);
+    }
+
+    gamepiece * shield = get_player_shield(defender);
+    if(shield == NULL){
+        valSH = 0;}
+    else{
+        valSH = get_piece_val(shield);
+    }
+
+    if(valS == 0 && valSH == 0){
+        damage = 0;
+    }
+    else{
+        damage = valS - valSH;
+    }
+
+    healthD = get_piece_val(defender);
+    healthD = healthD - damage;
+    new_healthD = set_player_health(defender, healthD);
 
 }
