@@ -11,16 +11,16 @@ room * create_room(void) {
 //    struct room room1;
 
 //need to check alloc
-    room * room1 = (room *)malloc(sizeof(room));
+    room * newroom = (room *)malloc(sizeof(room));
 
 //Second attempt
   //OLD     room room1 = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}}; //init walls array to null pointers
      //   room1 = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}}; //init walls array
      struct room room_tmp = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}};
-     memcpy(room1, &room_tmp, sizeof(struct room));
+     memcpy(newroom, &room_tmp, sizeof(struct room));
     //    set_current_room(&room1);
-        set_current_room(room1);
-        room * current_room = room1;          //set current room pointer to room1
+        set_current_room(newroom);
+        room * current_room = newroom;          //set current room pointer to room1
    //     room * current_room = &room1;          //set current room pointer to room1
     //    room * current_room;
     //    current_room = room1;          //set current room pointer to room1
@@ -57,8 +57,8 @@ room * create_room(void) {
         //add the two doors;        
      //   room1.doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
      //   room1.doors[1] = create_piece(get_max_x(), 5, "door", 1, DOOR_TYPE);  
-        room1->doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
-        room1->doors[1] = create_piece(get_max_x(), 5, "door", 1, DOOR_TYPE); 
+        newroom->doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
+        newroom->doors[1] = create_piece(get_max_x(), 5, "door", 1, DOOR_TYPE); 
 
 
 
@@ -77,7 +77,7 @@ room * create_room(void) {
         monst = create_piece(rand()%10+8, rand()%10+8, load_image("./img/player.bmp"), MONSTER_TYPE);
         room1.monsters[i] =monst; */
         
-        return room1;
+        return newroom;
 }
         
         
