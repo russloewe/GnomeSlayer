@@ -34,7 +34,7 @@ int run_checker_tests(){
     printf("running Checker checker_tests now\n");
     printf("**********************************************\n");
     
-    int (*checker_test_suit[])() = {checker_test1, checker_test2, 
+    int (*checker_test_suit[])() = {checker_test1, checker_test2, checker_test3,
                                     cleanchecker_test};                      //array of all checker_tests to run - cleanchecker_test must be at the end of this array
     const int checker_test_len = sizeof(checker_test_suit) / sizeof(checker_test_suit[0]);  //variable to tell checker_test runner how many checker_tests there are
 
@@ -165,9 +165,24 @@ int checker_test2(){
     
 int checker_test3(){
     /*
-     * 
+     * check monster remover function
      */
-     printf("checker_testing   ");
+     printf("checker_testing  check_for_dead_monsters() ");
+     room * croom = get_current_room();
+     
+     for(int i = 0; i < 10; i++){ //fill the room with monsters
+         gamepiece * piece2 = create_piece(random_x(), random_y(), "sg", 45,  MONSTER_TYPE);
+         add_monster_to_current_room(piece2);
+     }
+     
+     set_player_health(croom->monsters[2], 0);
+     set_player_health(croom->monsters[4], 0);
+     
+     if(check_for_dead_monsters() != 2){
+         printf("Fail 1\n");
+     }
+     
+     printf("Pass\n");
    return 1;
 }
     
