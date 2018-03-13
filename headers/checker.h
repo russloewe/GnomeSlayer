@@ -13,5 +13,5 @@
 int player_on_door();
 int player_on_item();
 int is_player_dead(gamepiece *piece);
-
+int check_for_dead_monsters();
 #endif

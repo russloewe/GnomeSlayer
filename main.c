@@ -87,7 +87,7 @@ int main(void){
         if(get_input() == 0){
             break;
         }
-        
+        check_for_dead_monsters();
         render_all();
 
         //hold up a sec to not hog the cpu

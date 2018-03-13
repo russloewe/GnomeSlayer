@@ -49,3 +49,19 @@ int is_player_dead(gamepiece * piece){
 }
     
     
+int check_for_dead_monsters(){
+    room * room1 = get_current_room();
+    
+    gamepiece * monster;
+    
+    for(int i = 1; i < 10; i++){
+        monster = room1->monsters[i];
+        if(monster != NULL){
+            if(is_player_dead(monster)){
+                destroy_piece(monster);
+                room1->monsters[i] = NULL;
+            }
+        }
+    }
+    return 0;
+}
