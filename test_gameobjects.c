@@ -34,7 +34,7 @@ int run_obj_tests(){
     printf("running GameObject obj_tests now\n");
     printf("**********************************************\n");
     int (*obj_test_suit[])() = {obj_test1, obj_test2, obj_test3, 
-                                obj_test4, obj_test5, obj_test6,
+                                obj_test4, obj_test5, obj_test6, obj_test7,
                                  cleanobj_test};                      //array of all obj_tests to run - cleanobj_test must be at the end of this array
     const int obj_test_len = sizeof(obj_test_suit) / sizeof(obj_test_suit[0]);  //variable to tell obj_test runner how many obj_tests there are
 
@@ -248,4 +248,34 @@ int obj_test6(){
      
    return 1;
 }
+
+int obj_test7(){
+    /*
+     * test the attack function
+     */
+     printf("obj_testing attack(): ");
+     
+     //make a sword and shield
+     
+     gamepiece * sword = create_piece(random_x(), random_y(), "Big Sword", 50, SWORD_TYPE);
+     gamepiece * shield = create_piece(random_x(), random_y(), "Big Sword", 25, SHIELD_TYPE);
+     
+     //make some player
+     gamepiece * p1 = create_piece(random_x(), random_y(), "monster", 100, MONSTER_TYPE);
+     gamepiece * p2 = create_piece(random_x(), random_y(), "monster", 100,PLAYER_TYPE);
+     
+     equip_item_to_player(p1, sword);
+     equip_item_to_player(p2, shield);
+     
+     attack(p1, p2);
+     
+     if(get_piece_val(p2) != 75){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
+     printf("Pass\n");
+     return 1;
+ }
+     
     

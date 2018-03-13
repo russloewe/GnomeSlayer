@@ -67,10 +67,7 @@ int main(void){
         
     /******************end temp room hack**********/
        
-//   room room1 = {.walls = {NULL}}; 
-    room room1; 
-   //RK: Attempting to call create_room function
-    room1 = create_room();
+
 
     /*
      * Create a player piece add it to array
