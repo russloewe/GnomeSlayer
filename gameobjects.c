@@ -329,7 +329,7 @@ int attack(gamepiece *attacker, gamepiece *defender){
 
     gamepiece * sword = get_player_sword(attacker);
     if(sword == NULL){
-        valS = 0;}
+        valS = 2;}
     else{
         valS = get_piece_val(sword);
     }
@@ -352,4 +352,5 @@ int attack(gamepiece *attacker, gamepiece *defender){
     healthD = healthD - damage;
     new_healthD = set_player_health(defender, healthD);
 
+    return damage;
 }
