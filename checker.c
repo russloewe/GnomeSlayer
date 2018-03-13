@@ -50,6 +50,7 @@ int is_player_dead(gamepiece * piece){
     
     
 int check_for_dead_monsters(){
+    int killcount = 0;
     room * room1 = get_current_room();
     
     gamepiece * monster;
@@ -60,8 +61,9 @@ int check_for_dead_monsters(){
             if(is_player_dead(monster)){
                 destroy_piece(monster);
                 room1->monsters[i] = NULL;
+                killcount++;
             }
         }
     }
-    return 0;
+    return killcount;
 }
