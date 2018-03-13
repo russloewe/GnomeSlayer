@@ -11,46 +11,19 @@ This is the room module for the final project in CS133u.
 //local protytypes
 static room * _current_room;        //this points to current room
 
-/*
-struct room create_room(void) {
-    room room1 = {.walls = {NULL}}; //init walls array to null pointers
-    //make some walls
-        for(int i = 1; i < 11; i++){
-        gamepiece * wall = create_piece(5, i, load_image("./img/wall.bmp") , WALL_TYPE);
-        room1.walls[i-1] = wall;
-        }
-        //spawn some monsters
-        gamepiece * monst;
-        for(int i = 0; i<5; i++){
-        monst = create_piece(rand()%10+8, rand()%10+8, load_image("./img/player.bmp"), MONSTER_TYPE);
-        room1.monsters[i] =monst;
 
-    return room1;
-    }
-*/
-
-struct room create_room(void) {
-
-    struct room room1 = { .walls = {NULL} };
 
 room * create_room(void) {
-
-//    struct room room1;
 
 //need to check alloc
     room * newroom = (room *)malloc(sizeof(room));
 
-//Second attempt
-  //OLD     room room1 = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}}; //init walls array to null pointers
-     //   room1 = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}}; //init walls array
      struct room room_tmp = {.walls = {NULL}, .monsters = {NULL}, .bounty = {NULL}};
      memcpy(newroom, &room_tmp, sizeof(struct room));
-    //    set_current_room(&room1);
+
         set_current_room(newroom);
         room * current_room = newroom;          //set current room pointer to room1
-   //     room * current_room = &room1;          //set current room pointer to room1
-    //    room * current_room;
-    //    current_room = room1;          //set current room pointer to room1
+
         //make some walls
         for(int i = 0; i < get_max_x(); i++){
             add_wall_to_current_room(create_piece(i, 0, "wall", 1, WALL_TYPE));
@@ -82,28 +55,11 @@ room * create_room(void) {
         add_item_to_current_room(create_piece(random_x(), random_y(), "Bronze Shield", 40, SHIELD_TYPE));
        
         //add the two doors;        
-     //   room1.doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
-     //   room1.doors[1] = create_piece(get_max_x(), 5, "door", 1, DOOR_TYPE);  
+
         newroom->doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
         newroom->doors[1] = create_piece(get_max_x(), 5, "door", 1, DOOR_TYPE); 
 
 
-
-//First attempt
-
- /*   room1 = {.walls = {NULL}}; //init walls array to null pointers
-
-    //make some walls
-        for(int i = 1; i < 11; i++){
-        gamepiece * wall = create_piece(5, i, load_image("./img/wall.bmp") , WALL_TYPE);
-        room1.walls[i-1] = wall;
-        }
-        //spawn some monsters
-        gamepiece * monst;
-        for(int i = 0; i<5; i++){
-        monst = create_piece(rand()%10+8, rand()%10+8, load_image("./img/player.bmp"), MONSTER_TYPE);
-        room1.monsters[i] =monst; */
-        
         return newroom;
 }
         
