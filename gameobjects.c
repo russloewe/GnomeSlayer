@@ -326,7 +326,7 @@ int attack(gamepiece *attacker, gamepiece *defender){
 
     gamepiece * sword = get_player_sword(attacker);
     if(sword == NULL){
-        valeS = 0;}
+        valS = 0;}
     else{
         valS = get_piece_val(sword);
     }
