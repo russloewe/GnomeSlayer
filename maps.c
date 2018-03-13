@@ -162,8 +162,24 @@ gamepiece * get_adjacent_item(gamepiece * ref_piece, enum direction dir){
 }
 
 gamepiece * grab_item_reference(int x, int y){
-    //look for item at x,y and return pointer, leave in bounty list
-    for(int i = 0; i < 5; i++){
+    //look for item at x,y and return pointer, leave in in the room
+    //i made a mess trying to expand this function so o juat copied the internals 3 times
+    
+        //door - do this first so the "this door is locked" message appears
+    for(int i = 0; i < 2; i++){
+        gamepiece * temp = _current_room->doors[i];
+        if( temp != NULL){
+            int it_x = get_piece_x(temp);
+            int it_y = get_piece_y(temp);
+            
+            if( (it_x == x) && (it_y == y) ){
+                return temp;
+            }
+        }
+    }   
+    
+    //items
+    for(int i = 0; i < 10; i++){
         gamepiece * temp = _current_room->bounty[i];
         if( temp != NULL){
             int it_x = get_piece_x(temp);
@@ -174,8 +190,34 @@ gamepiece * grab_item_reference(int x, int y){
             }
         }
     }
+    //monster
+    for(int i = 1; i < 10; i++){
+        gamepiece * temp = _current_room->monsters[i];
+        if( temp != NULL){
+            int it_x = get_piece_x(temp);
+            int it_y = get_piece_y(temp);
+            
+            if( (it_x == x) && (it_y == y) ){
+                return temp;
+            }
+        }
+    }
+    //wall
+    for(int i = 0; i < 300; i++){
+        gamepiece * temp = _current_room->walls[i];
+        if( temp != NULL){
+            int it_x = get_piece_x(temp);
+            int it_y = get_piece_y(temp);
+            
+            if( (it_x == x) && (it_y == y) ){
+                return temp;
+            }
+        }
+    }
+
     return NULL;
 }
+
 
 gamepiece * get_player(){
     //super quick interface
