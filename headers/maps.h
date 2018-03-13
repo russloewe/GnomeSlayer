@@ -23,7 +23,8 @@ typedef struct room room;
 //RK: Adding prototype for create_room
 //struct room create_room(void);
 
-struct room create_room(void);  //RK: Adding prototype for create_room
+room * get_current_room();   //return pointer to current room
+room * create_room(void); //RK: Adding prototype for create_room
 
 /*****************GETTERS*******************/
 
