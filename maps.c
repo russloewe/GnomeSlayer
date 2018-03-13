@@ -129,7 +129,36 @@ int add_player_to_current_room(gamepiece * player){
 
 
 gamepiece * get_adjacent_item(gamepiece * ref_piece, enum direction dir){
-    return NULL;
+    //get base coords
+    int x = get_piece_x(ref_piece);
+    int y = get_piece_y(ref_piece);
+    
+    gamepiece * item = NULL;
+    
+    //attempt to pick up an item in the correct direction
+    switch(dir){
+        case UP:
+        item = grab_item_reference(x, y-1);
+        break;
+        
+        case DOWN:
+        item = grab_item_reference(x, y+1);
+        break;
+        
+        case LEFT:
+        item = grab_item_reference(x-1, y);
+        break;
+        
+        case RIGHT:
+        item = grab_item_reference(x+1, y);
+        break;
+        
+        default:
+        item = NULL;
+    }
+    
+    //return the pointer, no need to check value first
+    return item;
 }
 
 gamepiece * grab_item_reference(int x, int y){
