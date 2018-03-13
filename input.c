@@ -53,8 +53,9 @@ int get_input(void){
 int proccess_arrow_key(enum direction dir){
     
     int result;          //needed for the message
-    char message[40];     
-    char message2[40];
+    char message[50];     
+    char message2[50];
+    char message3[50];
     
     //grab the player then try to grab item in path
     gamepiece * player = get_player();
@@ -75,14 +76,29 @@ int proccess_arrow_key(enum direction dir){
             return 1;
             
             case MONSTER_TYPE:
-            //attack the monster                   
-            sprintf(message, "You attack a %s", get_piece_name(piece));
-            add_message_queue(message);
-            
+            //attack the monster              
+                        
             result = attack(player, piece);
+
+
+            gamepiece * sword = get_player_sword(player);
+            if(sword == NULL){
+                sprintf(message, "You attack a %s with bare hands", get_piece_name(piece));
+                add_message_queue(message);
+            }else{
+                sprintf(message, "You attack a %s with your %s ", get_piece_name(piece), get_piece_name(sword));
+                add_message_queue(message);
+            }
+            if(result == 0){
+                add_message_queue("Your attack was blocked!");
+            }else{
+                sprintf(message2, "You did %d damage", result);
+                add_message_queue(message2);
+            }    
             
-            sprintf(message2, "You did %d damage", result);
-            add_message_queue(message2);            
+            sprintf(message3, "The monster has %d health left.", get_piece_val(piece));
+            add_message_queue(message3);
+                    
             return 1;
             
             default:
