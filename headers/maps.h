@@ -21,6 +21,7 @@ typedef struct room room;
 
 
 room * get_current_room();   //return pointer to current room
+room * create_room(void); //RK: Adding prototype for create_room
 
 /*****************GETTERS*******************/
 
