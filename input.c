@@ -95,10 +95,12 @@ int proccess_arrow_key(enum direction dir){
                 sprintf(message2, "You did %d damage", result);
                 add_message_queue(message2);
             }    
-            
-            sprintf(message3, "The monster has %d health left.", get_piece_val(piece));
-            add_message_queue(message3);
-                    
+            if(is_player_dead(piece)){
+                add_message_queue("You slay your foe!");
+            }else{
+                sprintf(message3, "The monster has %d health left.", get_piece_val(piece));
+                add_message_queue(message3);
+            }       
             return 1;
             
             default:
