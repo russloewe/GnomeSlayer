@@ -7,6 +7,7 @@ int run_graph_tests();
 int run_obj_tests();
 int run_input_tests();
 int run_maps_tests();
+int run_ai_tests();
 
 
 int main(){
@@ -21,6 +22,7 @@ int main(){
     result += run_obj_tests();
     result += run_input_tests();
     result += run_maps_tests();
+    result += run_ai_tests();
     
     if(result > 0){
         success = result / 1000;

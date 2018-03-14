@@ -26,7 +26,8 @@ int ai_test5();
 int ai_test6();
 int ai_test7();
 
-
+//internal ai prototype
+int move_monster_random(gamepiece * monster);
 
 
 
@@ -34,7 +35,7 @@ int run_ai_tests(){
     printf("running Checker ai_tests now\n");
     printf("**********************************************\n");
     
-    int (*ai_test_suit[])() = {ai_test1, ai_test2, ai_test3,
+    int (*ai_test_suit[])() = {ai_test1, 
                                     cleanai_test};                      //array of all ai_tests to run - cleanai_test must be at the end of this array
     const int ai_test_len = sizeof(ai_test_suit) / sizeof(ai_test_suit[0]);  //variable to tell ai_test runner how many ai_tests there are
 
@@ -76,10 +77,19 @@ int cleanai_test(){
 
 int ai_test1(){
     /*
-     * 
+     * test random move
      */
-     printf("ai_testing c");
+     printf("ai_testing move_monster_rand():");
      
+     gamepiece * monster = create_piece(5, 5, "monster", 1, MONSTER_TYPE);
+     
+     for(int i = 0; i < 100; i++){
+         move_monster_random(monster);
+     }
+     if( (get_piece_x(monster) == 5) && (get_piece_x(monster) == 5) ){
+         printf("Fail 1 \n");
+         return -1;
+     }    
    
      printf("Pass \n");
      return 1;

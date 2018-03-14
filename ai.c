@@ -14,9 +14,12 @@ int ai(){
 }
 
 int move_monster_random(gamepiece * monster){
-    int rand_dir = rand() % 3;
+    int rand_dir = rand() % 5;
     
-    move_piece(monster, rand_dir);
-    
+    if(rand_dir > 3){
+        return 0;
+    }else{
+        move_piece(monster, rand_dir);
+    }
     return 0;
 }
