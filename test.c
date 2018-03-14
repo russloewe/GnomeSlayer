@@ -1,71 +1,38 @@
-/*
- * author    : russ loewe
- * date      : 20 feb 2018
- * file      : test.c
- * purpose:
- *          This is the entry point for the unit testing. This calls all
- *          the test functions defined in test_suit.h .
- *          To invoke the test, run
- * 
- *               make test
- * 
- *          This is compile all of the included source files except main.c
- *          with the testing code. Main in test.c will replace main.c.
- *          The exceutable 'test' will be made. 
- * 
- *          build test, upload it to the PCC linux server, then run the
- *          test remotly, displying result on local terminal
- * 
- *              make uptest
- * 
- *          Good idea to run clean with all of these test commands
- * 
- *              make clean uptest
- */
 #include <stdio.h>
-#include <assert.h>
 #include <stdlib.h>
-#include "SDL2/SDL.h"
-#include "./headers/test_suit.h"
 
-extern const int test_len;
-extern int (*test_suit[])();
 
-int run_tests();
+int run_checker_tests();
+int run_graph_tests();
+int run_obj_tests();
+int run_input_tests();
+int run_maps_tests();
+int run_ai_tests();
 
-int main(void){
+
+int main(){
+    if(system("clear") == 0 ){}
     
-    printf("running tests now\n");
-    run_tests();
-    
-    return 0;
-}
-
-int run_tests(){
     int success = 0;
     int failure = 0;
+    int result = 0;
+
+    result += run_checker_tests();
+    result += run_graph_tests();
+    result += run_obj_tests();
+    result += run_input_tests();
+    result += run_maps_tests();
+    result += run_ai_tests();
     
-    for(int i = 0; i < test_len; i++){
-        int response;
-        
-        response = test_suit[i]();
-        
-        switch(response){
-            
-            case 0:
-                printf("Finished Runnig all tests. Success: %i\n", success);
-                printf("                           Failure: %i\n", failure);
-                return 0;
-            
-            case 1:
-                success++;
-                break;
-            
-            default:
-                failure++;
-                break;
-        }
+    if(result > 0){
+        success = result / 1000;
+        failure = result % 1000;
     }
-    printf("Error: test.c -> run_tests() -> not cleanup at end\n");
-    return 1;
+    
+    printf("\nTest Totales: \n");
+    printf("                  Success: %d\n", success);
+    printf("                  Failure: %d\n", failure);
+    printf("**********************************************\n");
+    
+    return 0;
 }

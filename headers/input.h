@@ -4,6 +4,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "gameobjects.h"
+#include "graphics.h"
+#include "checker.h"
+#include "maps.h"
 #include "SDL2/SDL.h"
 
 int get_input(void);

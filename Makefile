@@ -1,26 +1,18 @@
 CC=gcc
-CFLAGS= -g -I/home/student/russell.loewe/libs/include
-LIBS=   -L/home/student/russell.loewe/libs/lib64/ `/home/student/russell.loewe/libs/bin/sdl2-config --libs`  -l:libSDL2.a    
-OBJ=  init.o input.o display.o gameobjects.o
+CFLAGS= -g --std=c99  -O3
+LIBS=    `sdl2-config --libs`  -l:libSDL2.a  
 
-%.o: %.c $(DEPS)
+OBJ=  input.o graphics.o gameobjects.o checker.o maps.o ai.o
+TESTS= test_graphics.o test_gameobjects.o test_checker.o test_ai.o test_input.o test_maps.o test.o
+
+%.o: %.c 
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 all: $(OBJ) main.o
 	gcc -o main $^ -g $(LIBS)
 	
-test: $(OBJ) test.o test_suit.o
+test: $(OBJ) $(TESTS)
 	gcc -o test $^ -g $(LIBS)
-	
-runtest: test
-	./test
-	
-uptest: test
-	scp ./test russell.loewe@syccuxas01.pcc.edu:~/project/
-	ssh -X russell.loewe@syccuxas01.pcc.edu "cd ~/project && ./test"
-	
-upmain: main
-	scp ./main russell.loewe@syccuxas01.pcc.edu:~/project/
 	
 clean:
 	rm -rf *o
