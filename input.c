@@ -23,25 +23,25 @@ int get_input(void){
                     
                 case SDLK_UP:
                 proccess_arrow_key(UP); //ned to replace with room interface to get player
-                return 1;
+                return 2;               // return 2 tells game loop that the player has moved
                     
                 case SDLK_DOWN:
                 proccess_arrow_key(DOWN);
-                return 1;
+                return 2;
 
                 case SDLK_LEFT:
                 proccess_arrow_key(LEFT);
-                return 1;
+                return 2;
                 
                 case SDLK_RIGHT:
                 proccess_arrow_key(RIGHT);
-                return 1;
+                return 2;
                      
                 case SDLK_SPACE: ;
                 if(player_on_item(current_room)){
                     pickup_item();                            
                 } 
-                return 1;
+                return 2;
                         
             }
             break;
