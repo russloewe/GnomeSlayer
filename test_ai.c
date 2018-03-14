@@ -35,7 +35,7 @@ int run_ai_tests(){
     printf("running Checker ai_tests now\n");
     printf("**********************************************\n");
     
-    int (*ai_test_suit[])() = {ai_test1, 
+    int (*ai_test_suit[])() = {ai_test1, ai_test2,
                                     cleanai_test};                      //array of all ai_tests to run - cleanai_test must be at the end of this array
     const int ai_test_len = sizeof(ai_test_suit) / sizeof(ai_test_suit[0]);  //variable to tell ai_test runner how many ai_tests there are
 
@@ -98,10 +98,28 @@ int ai_test1(){
 
 int ai_test2(){
     /*
-     * 
+     * test ai() function
      */
-     printf("ai_testing   ");
+     printf("ai_testing  ai():  ");
      
+     //make a bunch of monsters at the same space
+     for(int i = 1; i < 10; i++){
+         get_current_room()->monsters[i] = create_piece(5, 5, "monster", 1, MONSTER_TYPE);
+     }
+     
+     //run the ai a bunch of times
+     for(int i = 0; i< 10000; i++){
+         ai();
+     }
+     
+     //very low chance that any pieces will be in the same spot anymore
+     for(int i = 1; i < 10; i++){
+         gamepiece * monster = get_current_room()->monsters[i];
+        if( (get_piece_x(monster) == 5) && (get_piece_x(monster) == 5) ){
+            printf("Fail 1 \n");
+            return -1;
+        }
+     }
      
      printf("Pass \n");
    return 1;

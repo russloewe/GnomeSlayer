@@ -8,7 +8,9 @@ int ai(){
     room * curoom = get_current_room();
     for(int i = 1; i < 10; i++){
         monster = monster_iter();
-        move_monster_random(monster);
+        if(monster != NULL){
+            move_monster_random(monster);
+        }
     }
     return 0;
 }
