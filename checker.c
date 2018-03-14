@@ -79,16 +79,16 @@ direction is_player_near(gamepiece * monster, int i){
     int mx = get_piece_x(monster);
     int my = get_piece_y(monster);
     
-    if( (mx > px) && abs(mx - px) <= i ) {
+    if( ( (mx > px) && (abs(mx - px) <= i) ) && (abs(my - py) <= i) ) {
         return LEFT;
     }
-    if( (mx < px) && abs(mx - px) <= i ) {
+    if( ( (mx < px) && (abs(mx - px) <= i) ) && (abs(my - py) <= i) ) {
         return RIGHT;
     }
-    if( (my > py) && abs(my - py) <= i ) {
+    if( ( (my > py) && (abs(my - py) <= i) ) && (abs(mx - px) <= i) ) {
         return UP;
     }
-    if( (my < py) && (my - py) <= i ) {
+    if( ( (my < py) && (abs(my - py) <= i) ) && (abs(mx - px) <= i)) {
         return DOWN;
     }
     

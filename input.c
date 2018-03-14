@@ -90,15 +90,15 @@ int proccess_arrow_key(enum direction dir){
                 add_message_queue(message);
             }
             if(result == 0){
-                add_message_queue("Your attack was blocked!");
+                add_message_queue("         Your attack was blocked!");
             }else{
-                sprintf(message2, "You did %d damage", result);
+                sprintf(message2, "         You did %d damage", result);
                 add_message_queue(message2);
             }    
             if(is_player_dead(piece)){
-                add_message_queue("You slay your foe!");
+                add_message_queue("         You slay your foe!");
             }else{
-                sprintf(message3, "The monster has %d health left.", get_piece_val(piece));
+                sprintf(message3, "          The monster has %d health left.", get_piece_val(piece));
                 add_message_queue(message3);
             }       
             return 1;

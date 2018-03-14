@@ -107,6 +107,10 @@ int ai_test2(){
          get_current_room()->monsters[i] = create_piece(5, 5, "monster", 1, MONSTER_TYPE);
      }
      
+     //make sure player is not near
+     set_piece_x(get_player(), 100);
+     set_piece_y(get_player(), 100);
+     
      //run the ai a bunch of times
      for(int i = 0; i< 10000; i++){
          ai();

@@ -230,6 +230,22 @@ int checker_test4(){
          return -1;
      }
      
+      set_piece_x(monster, 3);
+      set_piece_y(monster, 5);
+      
+      if(is_player_near(monster, 1) != NONE){
+         printf("Fail 5 \n");
+         return -1;
+     }
+     
+      set_piece_x(monster, 9);
+      set_piece_y(monster, 4);
+      
+      if(is_player_near(monster, 1) != NONE){
+         printf("Fail 6 \n");
+         return -1;
+     }
+     
      printf("Pass\n");
    return 1;
 }
