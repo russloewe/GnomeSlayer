@@ -10,6 +10,7 @@ This is the room module for the final project in CS133u.
 
 //local protytypes
 static room * _current_room;        //this points to current room
+int _monster_iter_index = 0;
 
 
 
@@ -241,3 +242,16 @@ int random_y(){
     return random;
 }
     
+int init_monster_iter(){
+    _monster_iter_index = 1;
+    return 0;
+}
+
+gamepice * monster_iter(){
+    if( (_monster_iter_index < 0) || (_monster_iter_index > 10)){
+        return NULL;
+    }else{
+        gamepiece * monster = _current_room->monsters[_monster_iter_index];
+        return monster;
+    }
+}

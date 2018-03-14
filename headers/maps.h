@@ -25,6 +25,7 @@ typedef struct room room;
 
 room * get_current_room();   //return pointer to current room
 room * create_room(void); //RK: Adding prototype for create_room
+int init_monster_iter();
 
 /*****************GETTERS*******************/
 
@@ -40,6 +41,7 @@ gamepiece * get_adjacent_item(gamepiece * ref_piece, enum direction dir); //get 
 
 int remove_item_from_current_room(gamepiece * item);       //remove item pointer from bounty array, compares x,y coords to find item in list
 
+gamepiece * monster_iter();  //returns a new monster on each call
 /**************SETTERS************************/
 
 int set_current_room(room * curroom);
