@@ -17,11 +17,30 @@ int ai(){
 
 int move_monster_random(gamepiece * monster){
     int rand_dir = rand() % 5;
+    int attk_result;
+    char message[50];
+    char message2[50];
     
     if(rand_dir > 3){
         return 0;
     }else{
-        move_piece(monster, rand_dir);
+        //see if there is a gamepiece in the way
+        gamepiece * piece = get_adjacent_item(monster, rand_dir);
+        if(piece == NULL){
+            move_piece(monster, rand_dir);
+        }else{
+            piecetype type = get_piece_type(piece);
+            switch(type){
+                case WALL_TYPE:
+                case DOOR_TYPE:
+                case MONSTER_TYPE:
+                return 0;      // don't travel into walls or other monsters
+                
+                default:
+                move_piece(monster, rand_dir);
+                return 0;
+            }
+        }
     }
     return 0;
 }
