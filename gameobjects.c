@@ -341,11 +341,9 @@ int attack(gamepiece *attacker, gamepiece *defender){
         valSH = get_piece_val(shield);
     }
 
-    if(valS == 0 && valSH == 0){
+    damage = valS - valSH;
+    if(damage < 0 ){
         damage = 0;
-    }
-    else{
-        damage = valS - valSH;
     }
 
     healthD = get_piece_val(defender);

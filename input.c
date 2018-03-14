@@ -23,25 +23,25 @@ int get_input(void){
                     
                 case SDLK_UP:
                 proccess_arrow_key(UP); //ned to replace with room interface to get player
-                return 1;
+                return 2;               // return 2 tells game loop that the player has moved
                     
                 case SDLK_DOWN:
                 proccess_arrow_key(DOWN);
-                return 1;
+                return 2;
 
                 case SDLK_LEFT:
                 proccess_arrow_key(LEFT);
-                return 1;
+                return 2;
                 
                 case SDLK_RIGHT:
                 proccess_arrow_key(RIGHT);
-                return 1;
+                return 2;
                      
                 case SDLK_SPACE: ;
                 if(player_on_item(current_room)){
                     pickup_item();                            
                 } 
-                return 1;
+                return 2;
                         
             }
             break;
@@ -90,15 +90,15 @@ int proccess_arrow_key(enum direction dir){
                 add_message_queue(message);
             }
             if(result == 0){
-                add_message_queue("Your attack was blocked!");
+                add_message_queue("         Your attack was blocked!");
             }else{
-                sprintf(message2, "You did %d damage", result);
+                sprintf(message2, "         You did %d damage", result);
                 add_message_queue(message2);
             }    
             if(is_player_dead(piece)){
-                add_message_queue("You slay your foe!");
+                add_message_queue("         You slay your foe!");
             }else{
-                sprintf(message3, "The monster has %d health left.", get_piece_val(piece));
+                sprintf(message3, "          The monster has %d health left.", get_piece_val(piece));
                 add_message_queue(message3);
             }       
             return 1;

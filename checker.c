@@ -67,3 +67,33 @@ int check_for_dead_monsters(){
     }
     return killcount;
 }
+
+direction is_player_near(gamepiece * monster, int i){
+    if(monster == NULL){
+        return NONE;
+    }
+    gamepiece * player = get_player();
+    
+    int px = get_piece_x(player);
+    int py = get_piece_y(player);
+    int mx = get_piece_x(monster);
+    int my = get_piece_y(monster);
+    
+    if( ( (mx > px) && (abs(mx - px) <= i) ) && (abs(my - py) <= i) ) {
+        return LEFT;
+    }
+    if( ( (mx < px) && (abs(mx - px) <= i) ) && (abs(my - py) <= i) ) {
+        return RIGHT;
+    }
+    if( ( (my > py) && (abs(my - py) <= i) ) && (abs(mx - px) <= i) ) {
+        return UP;
+    }
+    if( ( (my < py) && (abs(my - py) <= i) ) && (abs(mx - px) <= i)) {
+        return DOWN;
+    }
+    
+    return NONE;
+}
+    
+    
+

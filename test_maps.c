@@ -30,7 +30,7 @@ int run_maps_tests(){
         printf("running maps_tests now\n");
     printf("**********************************************\n");
     int (*maps_test_suit[])() = {maps_test1, maps_test2, maps_test3,
-                                 maps_test4, cleanmaps_test};                      //array of all maps_tests to run - cleanmaps_test must be at the end of this array
+                                 maps_test4, maps_test5, cleanmaps_test};                      //array of all maps_tests to run - cleanmaps_test must be at the end of this array
     const int maps_test_len = sizeof(maps_test_suit) / sizeof(maps_test_suit[0]);  //variable to tell maps_test runner how many maps_tests there are
 
     
@@ -205,14 +205,64 @@ int maps_test4(){
          printf("Fail 2\n");
          return -1;
      }
+     printf("Pass \n");
    return 1;
 }
 
 int maps_test5(){
     /*
-     * 
+     * test monster iterator
      */
-     printf("maps_testing   ");
+     printf("maps_testing  monster_iter()");
+     room * croom = get_current_room();
+     //make sure that the monster array is full first
+     for(int i = 1; i < 10; i++){
+         add_monster_to_current_room(create_piece(random_x(), random_y(), "test", 1, MONSTER_TYPE));
+     }
+     
+     //init monster iterator
+     init_monster_iter();
+     
+     //make sure a monster is returnd each time
+     for(int i = 1; i < 10; i++){
+         if(monster_iter() == NULL){
+             printf("Fail 1\n");
+             return -1;
+         }
+     }
+     
+     //make sure it returns null at end of list
+     if(monster_iter() != NULL){
+         printf("Fail 2\n");
+         return -1;
+     }
+     
+     //manually assign some pieces
+     gamepiece * m1 = croom->monsters[1];
+     gamepiece * m2 = croom->monsters[2];
+     gamepiece * m8 = croom->monsters[8];
+     gamepiece * m9 = croom->monsters[9];
+     
+     //reset monster iter
+     init_monster_iter();
+     
+     if( (monster_iter() != m1) || (monster_iter() != m2) ){
+         printf("Fail 3\n");
+         return -1;
+     }
+     //advance the monster iter to piece 8 
+     for(int i = 0; i < 5; i++){
+         monster_iter();
+     }
+     
+     //test again
+      if( (monster_iter() != m8) || (monster_iter() != m9) ){
+         printf("Fail 4\n");
+         return -1;
+     }
+     
+     
+     printf("Pass \n");
    return 1;
 }
 

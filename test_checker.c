@@ -34,7 +34,7 @@ int run_checker_tests(){
     printf("running Checker checker_tests now\n");
     printf("**********************************************\n");
     
-    int (*checker_test_suit[])() = {checker_test1, checker_test2, checker_test3,
+    int (*checker_test_suit[])() = {checker_test1, checker_test2, checker_test3,checker_test4,
                                     cleanchecker_test};                      //array of all checker_tests to run - cleanchecker_test must be at the end of this array
     const int checker_test_len = sizeof(checker_test_suit) / sizeof(checker_test_suit[0]);  //variable to tell checker_test runner how many checker_tests there are
 
@@ -188,9 +188,65 @@ int checker_test3(){
     
 int checker_test4(){
     /*
-     * 
+     * is_player_near
      */
-     printf("checker_testing   ");
+     printf("checker_testing  is_player_near(): ");
+     
+     gamepiece * player = get_player();
+     gamepiece * monster = create_piece(5, 5, "sg", 45,  MONSTER_TYPE);
+     
+     set_piece_x(player, 5);
+     set_piece_y(player, 5);
+     set_piece_x(monster, 5);
+     set_piece_y(monster, 6);
+     
+     if(is_player_near(monster, 1) != UP){
+         printf("Fail 1 \n");
+         return -1;
+     }
+     
+      set_piece_x(monster, 5);
+      set_piece_y(monster, 4);
+     
+      if(is_player_near(monster, 1) != DOWN){
+         printf("Fail 2 \n");
+         return -1;
+     }
+
+      set_piece_x(monster, 6);
+      set_piece_y(monster, 5);
+      
+      if(is_player_near(monster, 1) != LEFT){
+         printf("Fail 3 \n");
+         return -1;
+     }
+     
+
+      set_piece_x(monster, 4);
+      set_piece_y(monster, 5);
+     
+      if(is_player_near(monster, 1) != RIGHT){
+         printf("Fail 4 \n");
+         return -1;
+     }
+     
+      set_piece_x(monster, 3);
+      set_piece_y(monster, 5);
+      
+      if(is_player_near(monster, 1) != NONE){
+         printf("Fail 5 \n");
+         return -1;
+     }
+     
+      set_piece_x(monster, 9);
+      set_piece_y(monster, 4);
+      
+      if(is_player_near(monster, 1) != NONE){
+         printf("Fail 6 \n");
+         return -1;
+     }
+     
+     printf("Pass\n");
    return 1;
 }
 

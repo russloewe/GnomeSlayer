@@ -15,7 +15,7 @@ enum Icon{BACKGROUND_ICO, WALL_ICO,   DOOR_ICO,
           MONSTER_ICO_1, MONSTER_ICO_2, MONSTER_ICO_3,
           PLAYER_ICO_1, PLAYER_ICO_2, PLAYER_ICO_3, LAST_ICO };
           
-enum direction{UP, DOWN, LEFT, RIGHT};
+enum direction{UP, DOWN, LEFT, RIGHT, NONE};
 
 
 struct gamepiece{
@@ -33,6 +33,7 @@ struct gamepiece{
 typedef struct gamepiece gamepiece;
 typedef enum piecetype piecetype;
 typedef enum Icon Icon;
+typedef enum direction direction;
 
 //create and destroy objects
 gamepiece * create_piece(int x, int y, char * name, int val, piecetype type);
