@@ -4,9 +4,6 @@
 
 //function prototypes for internal functions
 SDL_Texture * load_image(char * filename);
-int render_object( Icon icon, int x, int y, int w, int h);
-int load_images();
-
 
 //pointers to stuff internal stuff
 static SDL_Window * Main_Screen = NULL;
@@ -117,14 +114,13 @@ SDL_Texture * load_image(char * filename){
     {
         //if the image doesn't load, draw a 
         printf("ERROR: display.c -> load_image -> SDL_loadBMP(): %s\n", SDL_GetError());
-        texture = make_colored_texture(20, 20, 255, 255, 255);
+        
     }else{
         //copy image surface to a texture
         texture = SDL_CreateTextureFromSurface(Main_Renderer, image);
        
        if (texture == NULL){  //fall back if error in creatng texture from image surface
             printf("Error: display.c->load_image()-> SDL_CreateTextureFromSurface()\n");
-            texture = make_colored_texture(20, 20, 255, 255, 255);
        }
     }
 
@@ -134,7 +130,7 @@ SDL_Texture * load_image(char * filename){
     return texture;
 }
 
-int render_object( Icon icon, int x, int y, int w, int h){
+int render_object( int icon, int x, int y, int w, int h){
     /*
      * This function takes an array of pointers to game pieces and
      * loops through, rendering each one that isn't NULL.

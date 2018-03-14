@@ -1,4 +1,4 @@
-#include "./headers/d.h"
+#include "./headers/draw.h"
 //internal data structures
 
 
@@ -10,7 +10,7 @@ typedef struct Textline Textline;
 static int text_line_length = 60;
 static Textline * _text_head = NULL;          //message queue
 
-
+Textline * get_message_queue();
 
 
 int get_max_x(){
@@ -56,7 +56,7 @@ int render_all(){
         printf("graphics->render_all(): Error rendering player stats\n");
         return 1;
     }
-    SDL_RenderPresent(Main_Renderer);
+   render_all()
     return 0;
 }
 
@@ -161,7 +161,7 @@ int render_room(room * cur_room){
     return 0;
 }
 
-SDL_Rect get_char_rect(char c){
+int get_char_rect_x(char c){
     /*
      * take a char and return the rect that represents that letter on the 
      * font bitmap. There is an equation that maps ascii code to (x,y) coordinate 
@@ -172,13 +172,23 @@ SDL_Rect get_char_rect(char c){
     int index = ascii - 32;      //this maps ascii code to index of sprite map
     
     int sprite_x = 17 + (index % 10) * 61;     //map ascii index to x offest of sprite map
-    int sprite_y = 10 + (index / 10) * 65;     //map ascii index to y offset of sprite map
-    rect.h = 50;
-    rect.w = 25;
-    rect.x = sprite_x;
-    rect.y = sprite_y;
+
+    return sprite_x;
+}
+
+int get_char_rect_y(char c){
+    /*
+     * take a char and return the rect that represents that letter on the 
+     * font bitmap. There is an equation that maps ascii code to (x,y) coordinate 
+     * on the bitmap "font1.bmp" that is utilized in this function.
+     */
+    SDL_Rect rect;
+    int ascii = (int)c;          //turn char into ascii code
+    int index = ascii - 32;      //this maps ascii code to index of sprite map
     
-    return rect;
+    int sprite_y = 10 + (index / 10) * 65;     //map ascii index to y offset of sprite map
+    
+    return sprite_y;
 }
 
 Textline * get_message_queue(){

@@ -1,16 +1,21 @@
 #ifndef _DRAW_H
 #define _DRAW_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "gameobjects.h"
+#include "graphics.h"
+#include "maps.h"
 
 int get_max_x();
-
 int get_max_y();
 int render_all();
 int load_images();
 int render_objects( gamepiece * pieces[], int range);
-int render_background_image(SDL_Texture * image);
+
 int render_room(room * cur_room);
-SDL_Rect get_char_rect(char c);
-Textline * get_message_queue();
+int  get_char_rect_x(char c);
+int  get_char_rect_y(char c);
 
 int add_message_queue(char * string);
 int trim_message_queue(int n);

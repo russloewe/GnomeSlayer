@@ -12,5 +12,6 @@ int render_all();
 int get_screen_height();
 int get_screen_width();
 int get_gamesquare();
-int render_object( Icon icon, int x, int y, int w, int h);
+int render_object( int icon, int x, int y, int w, int h);
+int load_image_to_mem(char * filename, int index);
 #endif

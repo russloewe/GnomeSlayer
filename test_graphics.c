@@ -15,6 +15,7 @@
 #include "./headers/graphics.h"
 #include "./headers/gameobjects.h"
 #include "./headers/maps.h"
+#include "./headers/draw.h"
 
 /**********Internal functions and data structures from graphics.c*****/
 //internal data structures
