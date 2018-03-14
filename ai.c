@@ -16,7 +16,7 @@ int ai(){
 }
 
 int move_monster_random(gamepiece * monster){
-    int rand_dir = rand() % 5;
+    int rand_dir = rand() % 8;
     int attk_result;
     char message[50];
     char message2[50];
