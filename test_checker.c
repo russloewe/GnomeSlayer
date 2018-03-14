@@ -220,6 +220,7 @@ int checker_test4(){
          printf("Fail 3 \n");
          return -1;
      }
+     
 
       set_piece_x(monster, 4);
       set_piece_y(monster, 5);
