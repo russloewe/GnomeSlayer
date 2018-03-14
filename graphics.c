@@ -3,10 +3,11 @@
 
 //internal data structures
 struct Textline{
-    char text[40];
+    char text[60];
     struct Textline * nxt;
 };
 typedef struct Textline Textline;
+static int text_line_length = 60;
 
 //function prototypes for internal functions
 SDL_Texture * load_image(char * filename);
@@ -338,7 +339,7 @@ int render_text_line(char * text, int x, int y){
         return 1;
     }
     
-    for(int i = 0; (i < strlen(text)) && (i < 40); i++){
+    for(int i = 0; (i < strlen(text)) && (i < text_line_length); i++){
        // if(text[i] == '\0'){break;} //stop at end of line
         src_rect = get_char_rect(text[i]); // get the rect with coordinates that point to the letter we want to print on the font sheet
         if( SDL_RenderCopy(Main_Renderer, _bitmap_font, &src_rect, &dest_rect) != 0){
@@ -386,7 +387,7 @@ int add_message_queue(char * string){
          return 1;
      }
      
-     strncpy(newline->text, string, 40); //copy text to new struct
+     strncpy(newline->text, string, text_line_length); //copy text to new struct
      newline->nxt = NULL;
      
     if(_text_head == NULL){

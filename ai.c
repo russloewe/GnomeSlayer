@@ -4,8 +4,7 @@ int move_monster_random(gamepiece * monster);
 
 int ai(){
     int attk_result;
-    char message[50];
-    char message2[50];
+    char message[70];  //maybe getter function
     init_monster_iter();
     gamepiece * monster;
     room * curoom = get_current_room();
@@ -15,13 +14,13 @@ int ai(){
             direction dir = is_player_near(monster, 1);
             if(dir != NONE){
                 attk_result = attack(monster, get_player());
-                sprintf(message, "A %s attacks you!", get_piece_name(monster));
-                add_message_queue(message);
+               
                 if(attk_result <= 0){
-                    add_message_queue("          You block the attack.");
+                     sprintf(message, "A %s attacks you and you block the attack", get_piece_name(monster));
+                     add_message_queue(message);
                 }else{
-                    sprintf(message2, "          You take %d damage", attk_result);
-                    add_message_queue(message2);
+                    sprintf(message, "A %s attacks you and you take %d damage", get_piece_name(monster), attk_result);
+                    add_message_queue(message);
                 } 
             }else{
                 move_monster_random(monster);

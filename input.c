@@ -53,7 +53,7 @@ int get_input(void){
 int proccess_arrow_key(enum direction dir){
     
     int result;          //needed for the message
-    char message[50];     
+    char message[70];     
     char message2[50];
     char message3[50];
     
@@ -79,26 +79,28 @@ int proccess_arrow_key(enum direction dir){
             //attack the monster              
                         
             result = attack(player, piece);
-
-
             gamepiece * sword = get_player_sword(player);
+            
             if(sword == NULL){
-                sprintf(message, "You attack a %s with bare hands", get_piece_name(piece));
-                add_message_queue(message);
+                sprintf(message, "You attack a %s with bare hands:", get_piece_name(piece));
+                //add_message_queue(message);
             }else{
-                sprintf(message, "You attack a %s with your %s ", get_piece_name(piece), get_piece_name(sword));
-                add_message_queue(message);
+                sprintf(message, "You attack a %s with your %s:", get_piece_name(piece), get_piece_name(sword));
+                //add_message_queue(message);
             }
             if(result == 0){
-                add_message_queue("         Your attack was blocked!");
+                //add_message_queue("         Your attack was blocked!");
+                strcat(message, " Your attack was blocked");
+                add_message_queue(message);
             }else{
-                sprintf(message2, "         You did %d damage", result);
-                add_message_queue(message2);
+                sprintf(message2, " You did %d damage", result);
+                strcat(message, message2);
+                add_message_queue(message);
             }    
             if(is_player_dead(piece)){
                 add_message_queue("         You slay your foe!");
             }else{
-                sprintf(message3, "          The monster has %d health left.", get_piece_val(piece));
+                sprintf(message3, "      ---The monster has %d health left---", get_piece_val(piece));
                 add_message_queue(message3);
             }       
             return 1;
