@@ -247,7 +247,7 @@ int init_monster_iter(){
     return 0;
 }
 
-gamepice * monster_iter(){
+gamepiece * monster_iter(){
     if( (_monster_iter_index < 0) || (_monster_iter_index > 10)){
         return NULL;
     }else{
