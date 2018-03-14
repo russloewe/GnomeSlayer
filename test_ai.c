@@ -32,7 +32,7 @@ int move_monster_random(gamepiece * monster);
 
 
 int run_ai_tests(){
-    printf("running Checker ai_tests now\n");
+    printf("running  ai_tests now\n");
     printf("**********************************************\n");
     
     int (*ai_test_suit[])() = {ai_test1, ai_test2,
