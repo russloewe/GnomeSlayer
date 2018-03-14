@@ -193,10 +193,11 @@ int remove_item_from_current_room(gamepiece * item){
 }
 
 gamepiece * monster_iter(){
-    if( (_monster_iter_index < 0) || (_monster_iter_index > 10)){
+    if( (_monster_iter_index < 0) || (_monster_iter_index >= 10)){
         return NULL;
     }else{
         gamepiece * monster = _current_room->monsters[_monster_iter_index];
+        _monster_iter_index++;
         return monster;
     }
 }
