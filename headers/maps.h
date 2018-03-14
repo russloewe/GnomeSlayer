@@ -20,12 +20,11 @@ struct room{
 typedef struct room room;
 
 
-//RK: Adding prototype for create_room
-//struct room create_room(void);
+/**************INIT************************/
 
-room * get_current_room();   //return pointer to current room
 room * create_room(void); //RK: Adding prototype for create_room
-int init_monster_iter();
+
+int init_monster_iter(); //Set monster index to begining of monster array
 
 /*****************GETTERS*******************/
 
@@ -42,6 +41,11 @@ gamepiece * get_adjacent_item(gamepiece * ref_piece, enum direction dir); //get 
 int remove_item_from_current_room(gamepiece * item);       //remove item pointer from bounty array, compares x,y coords to find item in list
 
 gamepiece * monster_iter();  //returns a new monster on each call
+
+int random_x();   //return a x coord that is in the map boundry
+
+int random_y();   //return a y coord that is in the map boundry
+
 /**************SETTERS************************/
 
 int set_current_room(room * curroom);
@@ -54,8 +58,5 @@ int add_player_to_current_room(gamepiece * player);        //look for empty slot
 
 int add_wall_to_current_room(gamepiece * wall);             //look for empty slot for walls
 
-int random_x();
-
-int random_y();
 
 #endif
