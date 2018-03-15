@@ -334,6 +334,7 @@ int attack(gamepiece *attacker, gamepiece *defender){
     int healthA;    //attacker health
     int new_healthD;
     int r = (rand()% 100) + 1;      //Generates random numbers between 1 & 100
+    enum attack_result result = normal;
 
     gamepiece * sword = get_player_sword(attacker);
     if(sword == NULL){
@@ -349,14 +350,25 @@ int attack(gamepiece *attacker, gamepiece *defender){
         valSH = get_piece_val(shield);
     }
 
-    damage = valS - valSH;
-    if(damage < 0 ){
+    if(r < 15){ //15 % chance of critical strike
+        damage = valS;
+        result = critical;
+    }
+    if(r > 75){ // 25 % chance to block
         damage = 0;
+        result = blocked;
+    }
+    if( (r > 15) && (r < 75)){
+        damage = valS - valSH;
+        if(damage < 0 ){
+            damage = 0;
+        }
+        result = normal;
     }
 
     healthD = get_piece_val(defender);
     healthD = healthD - damage;
     new_healthD = set_player_health(defender, healthD);
 
-    return damage;
+    return result;
 }

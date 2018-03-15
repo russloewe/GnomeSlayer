@@ -79,8 +79,8 @@ room * create_room(void) {
         add_item_to_current_room(create_piece(random_x(), random_y(), "potion", 40, POTION_TYPE));
        
         //make 2 swords
-        add_item_to_current_room(create_piece(random_x(), random_y(), "Sword", rand()%(rnmbr*10), SWORD_TYPE)); //
-        add_item_to_current_room(create_piece(random_x(), random_y(), "Dagger", rand()%(rnmbr*3),  SWORD_TYPE));
+        //add_item_to_current_room(create_piece(random_x(), random_y(), "Sword", rand()%(rnmbr*10), SWORD_TYPE)); //
+        //add_item_to_current_room(create_piece(random_x(), random_y(), "Dagger", rand()%(rnmbr*3),  SWORD_TYPE));
         
         //make two shields
         add_item_to_current_room(create_piece(random_x(), random_y(), "Iron Shield", rand()%(rnmbr*7), SHIELD_TYPE));

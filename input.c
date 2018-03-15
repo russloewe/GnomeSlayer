@@ -105,15 +105,25 @@ int proccess_arrow_key(enum direction dir){
                 sprintf(message, "You attack a %s with your %s:", get_piece_name(piece), get_piece_name(sword));
                 //add_message_queue(message);
             }
-            if(result == 0){
+            switch(result){
+                
+            case blocked:
                 //add_message_queue("         Your attack was blocked!");
-                strcat(message, " Your attack was blocked");
+                strcat(message, "You missed");
                 add_message_queue(message);
-            }else{
-                sprintf(message2, " You did %d damage", result);
+                break;
+            case normal:
+                sprintf(message2, " Your blow landed.");
                 strcat(message, message2);
                 add_message_queue(message);
-            }    
+                break;
+            case critical:
+                sprintf(message2, "critical strike!");
+                strcat(message, message2);
+                add_message_queue(message);
+                break;
+            }
+            
             if(is_player_dead(piece)){
                 add_message_queue("         You slay your foe!");
             }else{

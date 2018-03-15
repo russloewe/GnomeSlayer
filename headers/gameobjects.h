@@ -6,7 +6,7 @@
 #include <string.h>
 
 
-
+enum attack_result{normal, blocked, critical};
 enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, KING_TYPE, DOOR_TYPE, LAST_TYPE};
 enum Icon{BACKGROUND_ICO, WALL_ICO,   DOOR_ICO,  
           SWORD_ICO_1,  SWORD_ICO_2,  SWORD_ICO_3, 
