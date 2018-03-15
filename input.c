@@ -71,8 +71,13 @@ int proccess_arrow_key(enum direction dir){
             return 1;
             
             case DOOR_TYPE:
-            //function to get next room goes here
-            add_message_queue("The door is locked");
+            //check to see if the room is clear of monsters
+            init_monster_iter();
+            if(monster_alive()){
+                add_message_queue("The door is locked");
+            }else{
+                add_message_queue("The door is unlocked");
+            }
             return 1;
             
             case MONSTER_TYPE:
