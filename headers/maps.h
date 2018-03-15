@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include "gameobjects.h"
-#include "draw.h"
+
 
 
 
