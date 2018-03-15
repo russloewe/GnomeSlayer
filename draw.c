@@ -26,7 +26,7 @@ int get_max_y(){
     int max = (width / square) - 10;
     return max;
 }
-int render_all(){
+int draw_all(){
     /*
      * this function is called by main loop to render the screen.
      * I like this better then having to use extern Main_Renderer
@@ -39,7 +39,7 @@ int render_all(){
          return 1;
      }
      
-    if( render_background_image(images[BACKGROUND_ICO]) != 0){
+    if( render_object(BACKGROUND_ICO, 0, 0, get_screen_width(), get_screen_height()) != 0){
         printf("graphics->render all: Error rendering background image\n");
         return 1;
     }
@@ -56,36 +56,46 @@ int render_all(){
         printf("graphics->render_all(): Error rendering player stats\n");
         return 1;
     }
-   render_all()
+   render_all();
+    return 0;
+}
+int start_graphics_module(){
+   if(init_video() != 0){
+        printf("Error loading graphics layer\n");
+        return 1;
+    }
+    if(load_images() != 0){
+        printf("Error loading game icons\n");
+        return 1;
+    }
+ 
     return 0;
 }
 
 int load_images(){
     //load an array of images that are going to be used in game
-    images[BACKGROUND_ICO] = load_image("./img/background2.bmp");
-    images[WALL_ICO] = load_image("./img/wall.bmp");
-    images[DOOR_ICO] = load_image("./img/door.bmp");
-    images[SWORD_ICO_1] = load_image("./img/sword.bmp");
-    images[SWORD_ICO_2] = load_image("./img/sword.bmp");
-    images[SWORD_ICO_3] = load_image("./img/sword.bmp");
-    images[SHIELD_ICO_1] = load_image("./img/shield.bmp");
-    images[SHIELD_ICO_2] = load_image("./img/shield.bmp");
-    images[SHIELD_ICO_3] = load_image("./img/shield.bmp");
-    images[POTION_ICO_1] = load_image("./img/potion.bmp");
-    images[POTION_ICO_2] = load_image("./img/potion.bmp");
-    images[POTION_ICO_3] = load_image("./img/potion.bmp");
-    images[MONSTER_ICO_1] = load_image("./img/monster.bmp");
-    images[MONSTER_ICO_2] = load_image("./img/monster.bmp");
-    images[MONSTER_ICO_3] = load_image("./img/monster.bmp");
-    images[PLAYER_ICO_1] = load_image("./img/player1.bmp");
-    images[PLAYER_ICO_2] = load_image("./img/player2.bmp");
-    images[PLAYER_ICO_3] = load_image("./img/player3.bmp");
-    
-    for(int i = 0; i < 8; i++){
-        if(images[i] == NULL){
-            return 1;
-        }
+    if( load_image_to_mem("./img/font2.bmp", FONT_ICO) ||
+        load_image_to_mem("./img/background2.bmp", BACKGROUND_ICO) ||
+        load_image_to_mem("./img/wall.bmp",   WALL_ICO )           ||
+        load_image_to_mem("./img/door.bmp",   DOOR_ICO )           ||
+        load_image_to_mem("./img/sword.bmp" , SWORD_ICO_1)         ||
+        load_image_to_mem("./img/sword.bmp",  SWORD_ICO_2)         ||
+        load_image_to_mem("./img/sword.bmp",  SWORD_ICO_3 )        ||
+        load_image_to_mem("./img/shield.bmp", SHIELD_ICO_1 )       ||
+        load_image_to_mem("./img/shield.bmp", SHIELD_ICO_2)        ||
+        load_image_to_mem("./img/shield.bmp", SHIELD_ICO_3 )       ||
+        load_image_to_mem("./img/potion.bmp", POTION_ICO_1)        ||
+        load_image_to_mem("./img/potion.bmp", POTION_ICO_2 )       ||
+        load_image_to_mem("./img/potion.bmp", POTION_ICO_3 )       ||
+        load_image_to_mem("./img/monster.bmp",MONSTER_ICO_1 )      ||
+        load_image_to_mem("./img/monster.bmp",MONSTER_ICO_2)       ||
+        load_image_to_mem("./img/monster.bmp",MONSTER_ICO_3 )      ||
+        load_image_to_mem("./img/player1.bmp",PLAYER_ICO_1 )       ||
+        load_image_to_mem("./img/player2.bmp",PLAYER_ICO_2 )       ||
+        load_image_to_mem("./img/player3.bmp",PLAYER_ICO_3 ) ){
+        return 1;
     }
+    
     return 0;
 } 
    
@@ -96,20 +106,21 @@ int render_objects( gamepiece * pieces[], int range){
      * 
      * ---return 0 on success---
      */
-    SDL_Rect  rect;             //holder for rect
-    rect.w = get_gamesquare();                //height and width can be defiend now
-    rect.h = get_gamesquare();
+     int x;
+     int y;
+     int w = get_gamesquare();
+     int h = get_gamesquare();
     
     for(int i = 0; i < range; i++){ 
         if(pieces[i] != NULL){
             //set dest rect x,y coords
-            rect.x = get_piece_x(pieces[i]) * get_gamesquare(); //get rect.x and rect.y with gamepiece interface functions
-            rect.y = get_piece_y(pieces[i]) * get_gamesquare(); // multiply by 16 to convert from game square to pixel coordinates
+            x = get_piece_x(pieces[i]) * w; //get rect.x and rect.y with gamepiece interface functions
+            y = get_piece_y(pieces[i]) * h; // multiply by 16 to convert from game square to pixel coordinates
             
             //get piece ICON
             Icon icon = get_piece_icon(pieces[i]);
-            if(SDL_RenderCopy(Main_Renderer, images[icon], NULL, &rect) != 0){
-                printf("display.c->render_objects()->SDL_RenderCopy()\n");
+            if(render_object(icon, x, y, w, h) != 0){
+                printf("display.c->render_objects()->render_object()\n");
                 return 1;
             }
         }
@@ -117,25 +128,6 @@ int render_objects( gamepiece * pieces[], int range){
     return 0;
 }
 
-int render_background_image(SDL_Texture * image){
-    /*
-     * Draw a texture the size of the whole screen to the screen
-     * use this in place of the original render_background(), since
-     * there is no need to clear the screen or black the screen 
-     */
-    SDL_Rect  rect;             //holder for rect
-    rect.w = 800;                //height and width can be defiend now
-    rect.h = 608;
-    rect.x = 0;
-    rect.y = 0; 
-
-    if(SDL_RenderCopy(Main_Renderer, image, NULL, &rect) != 0){
-        printf("display.c->render_background()->SDL_RenderCopy()\n");
-        return 1;
-    }
-
-    return 0;
-}
 
 int render_room(room * cur_room){
     /*
@@ -167,7 +159,6 @@ int get_char_rect_x(char c){
      * font bitmap. There is an equation that maps ascii code to (x,y) coordinate 
      * on the bitmap "font1.bmp" that is utilized in this function.
      */
-    SDL_Rect rect;
     int ascii = (int)c;          //turn char into ascii code
     int index = ascii - 32;      //this maps ascii code to index of sprite map
     
@@ -182,7 +173,6 @@ int get_char_rect_y(char c){
      * font bitmap. There is an equation that maps ascii code to (x,y) coordinate 
      * on the bitmap "font1.bmp" that is utilized in this function.
      */
-    SDL_Rect rect;
     int ascii = (int)c;          //turn char into ascii code
     int index = ascii - 32;      //this maps ascii code to index of sprite map
     
@@ -329,30 +319,30 @@ int render_player_stats(room * curroom){
 }
 
 
-int render_text_line(char * text, int x, int y){
+int render_text_line(char * text, int x_pos, int y_pos){
     /*
      * draw a line of text to string starting at coodrinate x, y
      * renders letters by copying from a bitmap font sheet
      * 
      * ----returns 0 on success-------
      */
-    SDL_Rect dest_rect = {.h = 15, .w = 8, .x = x*20, .y = y*20};  //set dest rect to where line will start
-    SDL_Rect src_rect; 
-    
-    
-    
-    if( _bitmap_font == NULL){
-        printf("graphics.c->render_text_line(): Error loading bitmap font image\n");
-        return 1;
-    }
-    
+     int h_dest = 15;
+     int w_dest = 8;
+     int x_dest = x_pos * 20;
+     int y_dest = y_pos * 20;
+     
+     int h_src = 50;
+     int w_src = 25;
+     int x_src;
+     int y_src;
+
     for(int i = 0; (i < strlen(text)) && (i < text_line_length); i++){
-       // if(text[i] == '\0'){break;} //stop at end of line
-        src_rect = get_char_rect(text[i]); // get the rect with coordinates that point to the letter we want to print on the font sheet
-        if( SDL_RenderCopy(Main_Renderer, _bitmap_font, &src_rect, &dest_rect) != 0){
+        x_src = get_char_rect_x(text[i]);
+        y_src = get_char_rect_x(text[i]);
+        if( render_letter(FONT_ICO, x_dest, y_dest, w_dest, h_dest, x_src, y_src, w_src, h_src) != 0){
             printf("graphics.c->render_text_line(): Error copying font texture to main renderer\n");
         }
-        dest_rect.x = dest_rect.x + 8;  //move over 1 before looping to draw next char
+        x_dest = x_dest + 8;  //move over 1 before looping to draw next char
     }  
     
     return 0;
