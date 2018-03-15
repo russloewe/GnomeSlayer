@@ -8,9 +8,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <time.h>
-#include "SDL2/SDL.h"
 #include "./headers/input.h"
-#include "./headers/graphics.h"
 #include "./headers/maps.h"
 #include "./headers/ai.h"
 
@@ -19,10 +17,10 @@
 
 int main(void){
     
-    init_video();      //open the screen
+    start_graphics_module();      //open the screen
     int running = 1;
 
-    int seed = time(NULL); // set random number gernerator
+   int seed = time(NULL); // set random number gernerator
     srand(seed);
 
    //RK: Attempting to call create_room function
@@ -49,7 +47,7 @@ int main(void){
             ai();
         }
 
-        render_all();
+        draw_all();
 
         //hold up a sec to not hog the cpu
         SDL_Delay(5);

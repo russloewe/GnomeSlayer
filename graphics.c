@@ -9,7 +9,6 @@ SDL_Texture * load_image(char * filename);
 static SDL_Window * Main_Screen = NULL;
 static SDL_Renderer * Main_Renderer  = NULL;
 static SDL_Texture * _images[21] = {NULL};
-//static SDL_Texture * _bitmap_font;    //pointer for font sheet
 static int _screen_width = 800;
 static int _screen_height = 600;
 static int _gamesquare = 25;

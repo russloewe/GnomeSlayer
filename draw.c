@@ -21,9 +21,9 @@ int get_max_x(){
 }
 
 int get_max_y(){
-    int width = get_screen_height();
+    int height = get_screen_height();
     int square = get_gamesquare();
-    int max = (width / square) - 10;
+    int max = (height / square) - 10;
     return max;
 }
 int draw_all(){
@@ -106,8 +106,8 @@ int render_objects( gamepiece * pieces[], int range){
      * 
      * ---return 0 on success---
      */
-     int x;
-     int y;
+     int x = 0;
+     int y = 0;
      int w = get_gamesquare();
      int h = get_gamesquare();
     

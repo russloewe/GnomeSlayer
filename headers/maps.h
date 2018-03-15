@@ -3,9 +3,12 @@
 
 #include <stdio.h>
 #include "gameobjects.h"
+#include <stdlib.h>
 
+//prototype for two functions that are needed here, but can't include te whole header
 
-
+int get_max_x();
+int get_max_y();
 
 struct room{
     char name[50];
