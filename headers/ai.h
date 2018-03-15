@@ -7,6 +7,7 @@
 #include "gameobjects.h"
 #include "maps.h"
 #include "checker.h"
+#include "draw.h"
 
 int ai();
 

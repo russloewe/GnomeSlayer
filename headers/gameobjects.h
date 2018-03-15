@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
-//#include "SDL2/SDL.h"
+
+
 
 enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, DOOR_TYPE, LAST_TYPE};
 enum Icon{BACKGROUND_ICO, WALL_ICO,   DOOR_ICO,  
@@ -13,7 +13,8 @@ enum Icon{BACKGROUND_ICO, WALL_ICO,   DOOR_ICO,
           SHIELD_ICO_1, SHIELD_ICO_2, SHIELD_ICO_3,  
           POTION_ICO_1, POTION_ICO_2, POTION_ICO_3,
           MONSTER_ICO_1, MONSTER_ICO_2, MONSTER_ICO_3,
-          PLAYER_ICO_1, PLAYER_ICO_2, PLAYER_ICO_3, LAST_ICO };
+          PLAYER_ICO_1, PLAYER_ICO_2, PLAYER_ICO_3, LAST_ICO,
+          FONT_ICO };
           
 enum direction{UP, DOWN, LEFT, RIGHT, NONE};
 

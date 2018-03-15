@@ -4,11 +4,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "SDL2/SDL.h"
 #include "gameobjects.h"
 #include "maps.h"
-#include "checker.h"
-
 
 int player_on_door();
 int player_on_item();

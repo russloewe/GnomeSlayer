@@ -15,29 +15,21 @@
 #include "./headers/graphics.h"
 #include "./headers/gameobjects.h"
 #include "./headers/maps.h"
-
-/**********Internal functions and data structures from graphics.c*****/
-//internal data structures
+#include "./headers/draw.h"
+/*************internal prototypes from source **************/
 struct Textline{
-    char text[40];
+    char text[60];
     struct Textline * nxt;
 };
 typedef struct Textline Textline;
+static int text_line_length = 60;
+static Textline * _text_head = NULL;          //message queue
+
+Textline * get_message_queue();
 
 //function prototypes for internal functions
 SDL_Texture * load_image(char * filename);
-int render_objects( gamepiece * pieces[], int range);
-SDL_Texture * make_colored_texture(int height, int width, Uint8 red, Uint8 blue, Uint8 green);
-int render_background();
-int render_background_image(SDL_Texture * img);
-int render_room(room * cur_room);
-SDL_Rect get_char_rect(char c);
-int trim_message_queue(int n);
-int render_player_stats(room * curroom);
-int render_message_queue(int lines, int x, int y);
-Textline * get_message_queue();
-
-/***************End of internal functions and data structures*******/
+/*************end:internal prototypes from source **************/
 
 int run_graph_tests();
 int cleangraph_test();
@@ -116,7 +108,7 @@ int graph_test1(){
      * Check that the graphics will initalize
      */
     printf("graph_testing init.c->init_video() - ");
-    if(init_video() != 0 ){
+    if(start_graphics_module() != 0 ){
         printf("Fail\n");
         return -1;
     }else{
@@ -146,7 +138,7 @@ int graph_test2(){
     
 int graph_test3(){
     printf("graph_testing display->render_background() - ");
-    if(render_background() == 1){
+    if(render_object(BACKGROUND_ICO, 0, 0, get_screen_width(), get_screen_height()) == 1){
         printf("Fail \n");
         return -1;
     }else{
@@ -156,17 +148,9 @@ int graph_test3(){
 }
     
 int graph_test4(){
-    /*Check if the function that renders a colored square works */
-    printf("graph_testing display->make_colored_texture(): ");
-    
-    SDL_Texture * blank_square;
-    
-    blank_square = make_colored_texture(16, 16, 255, 255, 255);
-    
-    if(blank_square == NULL){
-        printf("Fail 1\n");
-        return -1;
-    }
+    /*Check  */
+    printf("graph_testing  ");
+
     printf("Pass \n");
     return 1;
 }

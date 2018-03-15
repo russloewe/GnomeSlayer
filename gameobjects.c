@@ -324,7 +324,6 @@ int attack(gamepiece *attacker, gamepiece *defender){
     int healthD;    //defender health
     int healthA;    //attacker health
     int new_healthD;
-    srand(time(NULL));
     int r = (rand()% 100) + 1;      //Generates random numbers between 1 & 100
 
     gamepiece * sword = get_player_sword(attacker);
