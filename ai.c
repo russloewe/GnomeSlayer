@@ -45,6 +45,11 @@ int move_monster_random(gamepiece * monster){
             piecetype type = get_piece_type(piece);
             switch(type){
                 case WALL_TYPE:
+                if(get_piece_x(piece) < 5 ){ //move opposite direction from door
+                    move_piece(monster, RIGHT);
+                }else{
+                    move_piece(monster, LEFT);
+                }
                 case DOOR_TYPE:
                 case MONSTER_TYPE:
                 return 0;      // don't travel into walls or other monsters

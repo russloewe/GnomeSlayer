@@ -87,11 +87,13 @@ int load_images(){
         load_image_to_mem("./img/potion.bmp", POTION_ICO_1)        ||
         load_image_to_mem("./img/potion.bmp", POTION_ICO_2 )       ||
         load_image_to_mem("./img/potion.bmp", POTION_ICO_3 )       ||
+        load_image_to_mem("./img/king.bmp",   KING_ICO )           ||
         load_image_to_mem("./img/monster.bmp",MONSTER_ICO_1 )      ||
         load_image_to_mem("./img/monster.bmp",MONSTER_ICO_2)       ||
         load_image_to_mem("./img/monster.bmp",MONSTER_ICO_3 )      ||
         load_image_to_mem("./img/player1.bmp",PLAYER_ICO_1 )       ||
         load_image_to_mem("./img/player2.bmp",PLAYER_ICO_2 )       ||
+        
         load_image_to_mem("./img/player3.bmp",PLAYER_ICO_3 ) ){
         return 1;
     }

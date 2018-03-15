@@ -92,6 +92,7 @@ int proccess_arrow_key(enum direction dir){
             return 1;
             
             case MONSTER_TYPE:
+            case KING_TYPE:
             //attack the monster              
                         
             result = attack(player, piece);

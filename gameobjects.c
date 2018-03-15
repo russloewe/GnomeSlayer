@@ -47,6 +47,10 @@ gamepiece * create_piece(int x, int y, char * name, int val, piecetype type){
             newpiece->icon = POTION_ICO_1;
             break;
             
+        case KING_TYPE:
+            newpiece->icon = KING_ICO;
+            break;
+            
         case WALL_TYPE:
             newpiece->icon = WALL_ICO;
             break;
@@ -197,7 +201,9 @@ int set_player_health(gamepiece* player, int a){
     //set the health stat of a player or monster health
     
     //check for correct type first
-    if( (get_piece_type(player) != PLAYER_TYPE) && (get_piece_type(player) != MONSTER_TYPE) ){
+    if( (get_piece_type(player) != PLAYER_TYPE) && 
+        (get_piece_type(player) != MONSTER_TYPE) &&
+        (get_piece_type(player) != KING_TYPE) ){
         return -1;
     }
     if(a <= 100){

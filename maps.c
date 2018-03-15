@@ -11,11 +11,11 @@ This is the room module for the final project in CS133u.
 
 
 /*************GAMESTATE VARIABLES**********/
-room * _map[5] = {NULL};
+room * _map[7] = {NULL};
 static int current_room_index = 0;
 static room * _current_room;        //index of the current room
 int _monster_iter_index = 0;
-
+int _max_room = 2;
 /**************INIT************************/
 
 room * create_room(void) {
@@ -43,16 +43,21 @@ room * create_room(void) {
             add_wall_to_current_room(create_piece(get_max_x(), i, "wall", 1, WALL_TYPE));
         }
         
-        
+        int rnmbr = current_room_index;
         //spawn some monsters
-        for(int i = 0; i < 6; i++){
-            add_monster_to_current_room(create_piece(random_x(), random_y(), "monster", 100, MONSTER_TYPE));
+        for(int i = 1; i <= rnmbr+1; i++){
+            add_monster_to_current_room(create_piece(random_x(), random_y(), "goblin", (rnmbr+1) * 10, MONSTER_TYPE));
+        }
+        if(current_room_index == _max_room-1){  //add goblin king
+            add_monster_to_current_room(create_piece(random_x(), random_y(), "Goblin King", 100, KING_TYPE));
+           // set_piece_icon(king, KING_ICO);
+        //    add_monster_to_current_room(king);
         }
         //add some items 
         add_item_to_current_room(create_piece(random_x(), random_y(), "potion", 40, POTION_TYPE));
        
         //make 2 swords
-        add_item_to_current_room(create_piece(random_x(), random_y(), "Big Sword", 25, SWORD_TYPE));
+        add_item_to_current_room(create_piece(random_x(), random_y(), "Big Sword", 25, SWORD_TYPE)); //rand%(rnmbr*4)
         add_item_to_current_room(create_piece(random_x(), random_y(), "Big Dagger", 25,  SWORD_TYPE));
         
         //make two shields
@@ -62,7 +67,9 @@ room * create_room(void) {
         //add the two doors;        
 
         newroom->doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
-        newroom->doors[1] = create_piece(get_max_x(), 5, "door", 1, DOOR_TYPE); 
+        if(current_room_index != _max_room-1){ //exclude a door on the last room
+            newroom->doors[1] = create_piece(get_max_x(), 5, "door", 1, DOOR_TYPE); 
+        }
 
 
         return newroom;
@@ -70,9 +77,12 @@ room * create_room(void) {
 
 int create_map(){
     //generate 5 rooms and add them to the map
-    for(int i = 0; i < 5; i++){
+    current_room_index = 0;
+    for(int i = 0; i < _max_room; i++){
         _map[i] = create_room();
+        current_room_index++;
     }
+    current_room_index = 0; //reset room index
     _current_room = _map[current_room_index];
     return 0;
 }
@@ -94,7 +104,7 @@ int get_room_index(){
 int load_next_room(){
     //advance index and copy that room pointer _current_room
     gamepiece * player = get_player();
-    if(current_room_index > 5){
+    if(current_room_index > 7){
         return 1;
     }
     current_room_index++;

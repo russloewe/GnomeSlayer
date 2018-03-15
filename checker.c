@@ -48,7 +48,9 @@ int is_player_dead(gamepiece * piece){
     /* check if player or monster is dead
      * return 1 if dead, 0 if not
      */
-     if( (get_piece_type(piece) == PLAYER_TYPE) || (get_piece_type(piece) == MONSTER_TYPE) ){
+     if( (get_piece_type(piece) == PLAYER_TYPE) || 
+         (get_piece_type(piece) == MONSTER_TYPE) || 
+         (get_piece_type(piece) == KING_TYPE) ){
           //get health   
          int health = get_piece_val(piece);         
          if(health <= 0){
