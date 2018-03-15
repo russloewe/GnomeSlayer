@@ -29,9 +29,13 @@ room * create_room(void); //RK: Adding prototype for create_room
 
 int init_monster_iter(); //Set monster index to begining of monster array
 
+int create_map();   //generate some rooms and add them to the map
+
 /*****************GETTERS*******************/
 
 room * get_current_room();   //return pointer to current room
+
+int get_room_index();
 
 int load_next_room();       //copy player from current room to next room, then point current_room pointer to next room
 
@@ -52,6 +56,10 @@ int random_y();   //return a y coord that is in the map boundry
 /**************SETTERS************************/
 
 int set_current_room(room * curroom);
+
+int load_next_room();
+
+int load_prev_room();
 
 int add_item_to_current_room(gamepiece * item);             //look for empty slot for item
 

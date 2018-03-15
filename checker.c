@@ -6,6 +6,19 @@
 
 #include "./headers/checker.h"
 
+int monster_alive(){
+    //return 1 if there is a monster alive in current room
+    init_monster_iter();
+    for(int i = 0; i <10; i++){
+        if(monster_iter() != NULL){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+
 int player_on_item(){
     
     room * curroom = get_current_room();

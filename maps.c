@@ -11,7 +11,9 @@ This is the room module for the final project in CS133u.
 
 
 /*************GAMESTATE VARIABLES**********/
-static room * _current_room;        //this points to current room
+room * _map[5] = {NULL};
+static int current_room_index = 0;
+static room * _current_room;        //index of the current room
 int _monster_iter_index = 0;
 
 /**************INIT************************/
@@ -66,6 +68,15 @@ room * create_room(void) {
         return newroom;
 }
 
+int create_map(){
+    //generate 5 rooms and add them to the map
+    for(int i = 0; i < 5; i++){
+        _map[i] = create_room();
+    }
+    _current_room = _map[current_room_index];
+    return 0;
+}
+
 int init_monster_iter(){
     _monster_iter_index = 1;
     return 0;
@@ -77,10 +88,42 @@ room * get_current_room(){
     return _current_room;
 }
 
+int get_room_index(){
+    return current_room_index;
+}
+int load_next_room(){
+    //advance index and copy that room pointer _current_room
+    gamepiece * player = get_player();
+    if(current_room_index > 5){
+        return 1;
+    }
+    current_room_index++;
+    _current_room = _map[current_room_index];
+    
+    _current_room->monsters[0] = player;     // got to move the player to next room
+    set_piece_x(player, 1 + get_piece_x(_current_room->doors[0]));
+    set_piece_y(player, get_piece_y(_current_room->doors[0]));
+    return 0;
+}
+
+int load_prev_room(){
+    //advance index and copy that room pointer _current_room
+    gamepiece * player = get_player();
+    if(current_room_index <= 0){
+        return 1;
+    }
+    current_room_index--;
+    _current_room = _map[current_room_index];
+    
+    _current_room->monsters[0] = player;     // got to move the player to next room
+    set_piece_x(player, (-1) + get_piece_x(_current_room->doors[1]));
+    set_piece_y(player, get_piece_y(_current_room->doors[1]));
+    return 0;
+}
 
 gamepiece * get_player(){
     //super quick interface
-    return _current_room->monsters[0];
+    return get_current_room()->monsters[0];
 }
 
 gamepiece * grab_item_reference(int x, int y){
@@ -89,7 +132,7 @@ gamepiece * grab_item_reference(int x, int y){
     
         //door - do this first so the "this door is locked" message appears
     for(int i = 0; i < 2; i++){
-        gamepiece * temp = _current_room->doors[i];
+        gamepiece * temp = get_current_room()->doors[i];
         if( temp != NULL){
             int it_x = get_piece_x(temp);
             int it_y = get_piece_y(temp);
@@ -102,7 +145,7 @@ gamepiece * grab_item_reference(int x, int y){
     
     //items
     for(int i = 0; i < 10; i++){
-        gamepiece * temp = _current_room->bounty[i];
+        gamepiece * temp = get_current_room()->bounty[i];
         if( temp != NULL){
             int it_x = get_piece_x(temp);
             int it_y = get_piece_y(temp);
@@ -114,7 +157,7 @@ gamepiece * grab_item_reference(int x, int y){
     }
     //monster
     for(int i = 1; i < 10; i++){
-        gamepiece * temp = _current_room->monsters[i];
+        gamepiece * temp = get_current_room()->monsters[i];
         if( temp != NULL){
             int it_x = get_piece_x(temp);
             int it_y = get_piece_y(temp);
@@ -126,7 +169,7 @@ gamepiece * grab_item_reference(int x, int y){
     }
     //wall
     for(int i = 0; i < 300; i++){
-        gamepiece * temp = _current_room->walls[i];
+        gamepiece * temp = get_current_room()->walls[i];
         if( temp != NULL){
             int it_x = get_piece_x(temp);
             int it_y = get_piece_y(temp);
@@ -180,13 +223,13 @@ int remove_item_from_current_room(gamepiece * item){
     int y = get_piece_y(item);
     
     for(int i = 0; i < 5; i++){
-        gamepiece * temp = _current_room->bounty[i];
+        gamepiece * temp = get_current_room()->bounty[i];
         if( temp != NULL){
             int it_x = get_piece_x(temp);
             int it_y = get_piece_y(temp);
             
             if( (it_x == x) && (it_y == y) ){
-                _current_room->bounty[i] = NULL;
+                get_current_room()->bounty[i] = NULL;
                 return 0;
             }
         }
@@ -198,7 +241,7 @@ gamepiece * monster_iter(){
     if( (_monster_iter_index < 0) || (_monster_iter_index >= 10)){
         return NULL;
     }else{
-        gamepiece * monster = _current_room->monsters[_monster_iter_index];
+        gamepiece * monster = get_current_room()->monsters[_monster_iter_index];
         _monster_iter_index++;
         return monster;
     }
@@ -219,17 +262,17 @@ int random_y(){
 
 /**************SETTERS************************/
 
-int set_current_room(room * curroom){
+int set_current_room(room * croom){
     //interface to set room
-    _current_room = curroom;
+    _current_room = croom;
     return 1;
 }
 
 int add_item_to_current_room(gamepiece * item){
     //look for empty slot to add item to room struct
     for(int i = 0; i < 10; i++){
-        if(_current_room->bounty[i] == NULL){
-            _current_room->bounty[i] = item;   //look for empty slot to add item
+        if(get_current_room()->bounty[i] == NULL){
+            get_current_room()->bounty[i] = item;   //look for empty slot to add item
             return 0;
         }
     }
@@ -239,8 +282,8 @@ int add_item_to_current_room(gamepiece * item){
 int add_monster_to_current_room(gamepiece * monster){
     //look for empty slot to add monster to room    
     for(int i = 1; i < 10; i++){
-        if(_current_room->monsters[i] == NULL){
-            _current_room->monsters[i] = monster;   //look for empty slot to add item
+        if(get_current_room()->monsters[i] == NULL){
+            get_current_room()->monsters[i] = monster;   //look for empty slot to add item
             return 0;
         }
     }
@@ -249,15 +292,15 @@ int add_monster_to_current_room(gamepiece * monster){
 
 int add_player_to_current_room(gamepiece * player){
     //add player to front of monster aray
-    _current_room->monsters[0] = player;   //look for empty slot to add item
+    get_current_room()->monsters[0] = player;   //look for empty slot to add item
     return 1;
 }
 
 int add_wall_to_current_room(gamepiece * wall){
     //look for empty slot to add monster to room    
     for(int i = 0; i < 300; i++){
-        if(_current_room->walls[i] == NULL){
-            _current_room->walls[i] = wall;   //look for empty slot to add item
+        if(get_current_room()->walls[i] == NULL){
+            get_current_room()->walls[i] = wall;   //look for empty slot to add item
             return 0;
         }
     }

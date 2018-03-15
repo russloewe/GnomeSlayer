@@ -71,8 +71,24 @@ int proccess_arrow_key(enum direction dir){
             return 1;
             
             case DOOR_TYPE:
-            //function to get next room goes here
-            add_message_queue("The door is locked");
+            //check to see if the room is clear of monsters
+            if(get_piece_x(piece) < 5){ //left side of the room, let player go back
+                //load previous room
+                if(get_room_index() == 0){
+                    add_message_queue("This door leads outside, but you turn around,");
+                    add_message_queue("You vowed to not return without the Goblin King's gemstone");
+                }else{
+                    load_prev_room();
+                    add_message_queue("The door to the previous room");
+                }
+            }else{ //don't go forward if there are still monsters in the room
+                
+                if(monster_alive()){   
+                    add_message_queue("The door is unlocked");
+                }else{
+                    load_next_room();
+                }
+            }
             return 1;
             
             case MONSTER_TYPE:

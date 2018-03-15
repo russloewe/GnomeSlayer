@@ -318,6 +318,9 @@ int animate(gamepiece * player){
 }
 
 int attack(gamepiece *attacker, gamepiece *defender){
+    if( (attacker == NULL) || (defender == NULL)){
+        return -1234;
+    }
     int valS;   //sword
     int valSH;  //shield
     int damage;
