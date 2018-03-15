@@ -35,6 +35,8 @@ int create_map();   //generate some rooms and add them to the map
 
 room * get_current_room();   //return pointer to current room
 
+int get_room_index();
+
 int load_next_room();       //copy player from current room to next room, then point current_room pointer to next room
 
 gamepiece * get_player();   // copy pointer to player struct from current room and return it

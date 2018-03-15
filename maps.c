@@ -88,6 +88,9 @@ room * get_current_room(){
     return _current_room;
 }
 
+int get_room_index(){
+    return current_room_index;
+}
 int load_next_room(){
     //advance index and copy that room pointer _current_room
     gamepiece * player = get_player();
