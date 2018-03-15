@@ -8,17 +8,19 @@ This is the room module for the final project in CS133u.
 
 #include "./headers/maps.h"
 
-
+int get_item_from_string(char * string);
+int load_items_from_file(char * filename);
 
 /*************GAMESTATE VARIABLES**********/
 room * _map[7] = {NULL};
 static int current_room_index = 0;
 static room * _current_room;        //index of the current room
 int _monster_iter_index = 0;
+int _item_iter_index = 0;
 int _max_room = 5;
 /**************INIT************************/
 
-room * create_room(void) {
+room * create_room(char * filename) {
 
 //need to check alloc
     room * newroom = (room *)malloc(sizeof(room));
@@ -43,51 +45,8 @@ room * create_room(void) {
             add_wall_to_current_room(create_piece(get_max_x(), i, "wall", 1, WALL_TYPE));
         }
         
-        int rnmbr = current_room_index + 1;
-        //spawn some monsters
-        gamepiece * monster;
-        for(int i = 1; i <= rnmbr; i++){
-            if(i%2 == 0){
-                monster = create_piece(random_x(), random_y(), "goblin", (rnmbr) * 10, MONSTER_TYPE);
-                set_piece_icon(monster, MONSTER_ICO_2);
-            }else{
-                monster = create_piece(random_x(), random_y(), "big goblin", (rnmbr) * 15, MONSTER_TYPE);
-                set_piece_icon(monster, MONSTER_ICO_3);
-            }
-            gamepiece * sword = create_piece(random_x(), random_y(), "Dagger", rnmbr*2+rand()%(10),  SWORD_TYPE);
-            equip_item_to_player(monster, sword);
-            add_monster_to_current_room(monster);
-                
-        }
-        monster = create_piece(random_x(), random_y(), "Room Boss", (rnmbr+1) * 15, MONSTER_TYPE);
-        gamepiece * shield = create_piece(random_x(), random_y(), "Iron Shield", rnmbr*3+rand()%(10), SHIELD_TYPE);
-        gamepiece * sword = create_piece(random_x(), random_y(), "Dagger", rnmbr*3+rand()%(10),  SWORD_TYPE);
-        equip_item_to_player(monster, sword);
-        equip_item_to_player(monster, shield);
-        add_monster_to_current_room(monster);
+        load_items_from_file(filename);
         
-        
-        if(current_room_index == _max_room-1){  //add goblin king
-            monster = create_piece(random_x(), random_y(), "Goblin King", 100, KING_TYPE);
-            gamepiece * shield = create_piece(random_x(), random_y(), "Iron Shield", 10+rand()%(20), SHIELD_TYPE);
-            gamepiece * sword = create_piece(random_x(), random_y(), "Sword", rnmbr*2+rand()%(10),  SWORD_TYPE);
-            equip_item_to_player(monster, sword);
-            equip_item_to_player(monster, shield);
-           add_monster_to_current_room(monster);
-        }
-        //add some items 
-        add_item_to_current_room(create_piece(random_x(), random_y(), "potion", 40, POTION_TYPE));
-       
-        //make 2 swords
-        if(current_room_index == 0){
-            add_item_to_current_room(create_piece(random_x(), random_y(), "Sword", 10+rand()%(50), SWORD_TYPE)); //
-        //add_item_to_current_room(create_piece(random_x(), random_y(), "Dagger", rand()%(rnmbr*3),  SWORD_TYPE));
-    }
-        //make two shields
-        add_item_to_current_room(create_piece(random_x(), random_y(), "Iron Shield", rnmbr*5+rand()%(10), SHIELD_TYPE));
-      //  add_item_to_current_room(create_piece(random_x(), random_y(), "Bronze Shield", 40, SHIELD_TYPE));       
-        //add the two doors;        
-
         newroom->doors[0] = create_piece(0, 10, "door", 1, DOOR_TYPE);
         if(current_room_index != _max_room-1){ //exclude a door on the last room
             newroom->doors[1] = create_piece(get_max_x(), 5, "door", 1, DOOR_TYPE); 
@@ -99,11 +58,12 @@ room * create_room(void) {
 
 int create_map(){
     //generate 5 rooms and add them to the map
-    current_room_index = 0;
-    for(int i = 0; i < _max_room; i++){
-        _map[i] = create_room();
-        current_room_index++;
-    }
+        _map[0] = create_room("./rooms/room0.txt");
+        _map[1] = create_room("./rooms/room1.txt");
+        _map[2] = create_room("./rooms/room2.txt");
+        _map[3] = create_room("./rooms/room3.txt");
+        current_room_index = 4;
+        _map[4] = create_room("./rooms/room4.txt");
     current_room_index = 0; //reset room index
     _current_room = _map[current_room_index];
     return 0;
@@ -339,3 +299,138 @@ int add_wall_to_current_room(gamepiece * wall){
     return 1;
 }
 
+
+int load_items_from_file(char * file_name){
+    FILE * fp_in;
+     
+    fp_in = fopen(file_name, "r");
+    
+    if(fp_in == NULL){
+        printf("Cannot load file\n");
+        return 1;
+    }
+    char line [ 128 ]; 
+    
+    while ( fgets ( line, sizeof line, fp_in ) != NULL ) {
+                get_item_from_string(line);
+        }
+    return 0;
+}
+
+int get_item_from_string(char * string){
+    //parse a texxt line and create gamepice with attributes
+    printf("%s\n", string);
+    gamepiece * new;
+    char * token;
+    
+    int x = random_x();
+    int y = random_y();
+    int val;
+    char  name[20];
+    piecetype type;
+    Icon icon;
+    
+    token = strtok(string, ";"); //item
+   
+    
+    token = strtok(NULL, ";");  // val
+    val = atoi(token);
+    
+    token = strtok(NULL, ";");  // name
+    strncpy(name, token, 20 );
+    
+    token = strtok(NULL, ";"); //type
+
+    if(strcmp(token, "potion") == 0){
+        type = POTION_TYPE;
+        token = strtok(NULL, ";");
+        printf("token icon:%s\n",token);
+        switch(atoi(token)){
+            case 1:
+            icon = POTION_ICO_1;
+            break;
+            case 2:
+            icon = POTION_ICO_2;
+            break;
+            case 3:
+            icon = POTION_ICO_3;
+            break;
+        }
+        gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
+        set_piece_icon(new, icon);
+        add_item_to_current_room(new);
+    }
+    
+        if(strcmp(token, "sword")== 0){
+        type = SWORD_TYPE;
+        token = strtok(NULL, ";");
+        switch(atoi(token)){
+            case 1:
+            icon = SWORD_ICO_1;
+            break;
+            case 2:
+            icon = SWORD_ICO_2;
+            break;
+            case 3:
+            icon = SWORD_ICO_3;
+            break;
+        }
+        gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
+        set_piece_icon(new, icon);
+        add_item_to_current_room(new);
+    }
+    
+        if(strcmp(token, "shield")== 0){
+        type = SHIELD_TYPE;
+        token = strtok(NULL, ";");
+        switch(atoi(token)){
+            case 1:
+            icon = SHIELD_ICO_1;
+            break;
+            case 2:
+            icon = SHIELD_ICO_2;
+            break;
+            case 3:
+            icon = SHIELD_ICO_3;
+            break;
+        }
+        gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
+        set_piece_icon(new, icon);
+        add_item_to_current_room(new);
+    }
+    
+        if(strcmp(token, "monster")== 0){
+        type = MONSTER_TYPE;
+        token = strtok(NULL, ";");
+        switch(atoi(token)){
+            case 1:
+            icon = MONSTER_ICO_1;
+            break;
+            case 2:
+            icon = MONSTER_ICO_2;
+            break;
+            case 3:
+            icon = MONSTER_ICO_3;
+            break;
+        }
+        gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
+        char * swordname =  strtok(NULL, ";");
+        int sword_val = atoi(strtok(NULL, ";"));
+        gamepiece * sword = create_piece(1, 1,  swordname, sword_val, SWORD_TYPE);
+        equip_item_to_player(new, sword);
+        set_piece_icon(new, icon);
+        add_monster_to_current_room(new);
+    }
+    
+        if(strcmp(token, "king")== 0){
+        type = KING_TYPE;
+        token = strtok(NULL, ";");
+        icon = KING_ICO;
+        gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
+        set_piece_icon(new, icon);
+        add_monster_to_current_room(new);
+    }
+            
+    
+    return 0;
+} 

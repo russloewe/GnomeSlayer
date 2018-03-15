@@ -25,7 +25,7 @@ typedef struct room room;
 
 /**************INIT************************/
 
-room * create_room(void); //RK: Adding prototype for create_room
+room * create_room(char * filename); //RK: Adding prototype for create_room
 
 int init_monster_iter(); //Set monster index to begining of monster array
 
