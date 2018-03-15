@@ -74,10 +74,13 @@ int check_for_dead_monsters(){
         monster = room1->monsters[i];
         if(monster != NULL){
             if(is_player_dead(monster)){
-                gamepiece * sword = get_player_sword(monster);
-                set_piece_x(sword, get_piece_x(monster));
-                set_piece_y(sword, get_piece_y(monster));
-                add_item_to_current_room(sword);
+                if(rand()%10 > 5){
+                    gamepiece * sword = get_player_sword(monster);
+                    monster->sword = NULL;
+                    set_piece_x(sword, get_piece_x(monster));
+                    set_piece_y(sword, get_piece_y(monster));
+                    add_item_to_current_room(sword);
+                }
                 destroy_piece(monster);
                 room1->monsters[i] = NULL;
                 killcount++;

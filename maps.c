@@ -54,14 +54,14 @@ room * create_room(void) {
                 monster = create_piece(random_x(), random_y(), "big goblin", (rnmbr) * 15, MONSTER_TYPE);
                 set_piece_icon(monster, MONSTER_ICO_3);
             }
-            gamepiece * sword = create_piece(random_x(), random_y(), "Dagger", rand()%(rnmbr*3),  SWORD_TYPE);
+            gamepiece * sword = create_piece(random_x(), random_y(), "Dagger", rnmbr*2+rand()%(10),  SWORD_TYPE);
             equip_item_to_player(monster, sword);
             add_monster_to_current_room(monster);
                 
         }
         monster = create_piece(random_x(), random_y(), "Room Boss", (rnmbr+1) * 15, MONSTER_TYPE);
-        gamepiece * shield = create_piece(random_x(), random_y(), "Iron Shield", rand()%(rnmbr*5), SHIELD_TYPE);
-        gamepiece * sword = create_piece(random_x(), random_y(), "Dagger", rand()%(rnmbr*3),  SWORD_TYPE);
+        gamepiece * shield = create_piece(random_x(), random_y(), "Iron Shield", rnmbr*3+rand()%(10), SHIELD_TYPE);
+        gamepiece * sword = create_piece(random_x(), random_y(), "Dagger", rnmbr*3+rand()%(10),  SWORD_TYPE);
         equip_item_to_player(monster, sword);
         equip_item_to_player(monster, shield);
         add_monster_to_current_room(monster);
@@ -69,8 +69,8 @@ room * create_room(void) {
         
         if(current_room_index == _max_room-1){  //add goblin king
             monster = create_piece(random_x(), random_y(), "Goblin King", 100, KING_TYPE);
-            gamepiece * shield = create_piece(random_x(), random_y(), "Iron Shield", rand()%(rnmbr*7), SHIELD_TYPE);
-            gamepiece * sword = create_piece(random_x(), random_y(), "Sword", rand()%(rnmbr*8),  SWORD_TYPE);
+            gamepiece * shield = create_piece(random_x(), random_y(), "Iron Shield", 10+rand()%(20), SHIELD_TYPE);
+            gamepiece * sword = create_piece(random_x(), random_y(), "Sword", rnmbr*2+rand()%(10),  SWORD_TYPE);
             equip_item_to_player(monster, sword);
             equip_item_to_player(monster, shield);
            add_monster_to_current_room(monster);
@@ -79,11 +79,12 @@ room * create_room(void) {
         add_item_to_current_room(create_piece(random_x(), random_y(), "potion", 40, POTION_TYPE));
        
         //make 2 swords
-        //add_item_to_current_room(create_piece(random_x(), random_y(), "Sword", rand()%(rnmbr*10), SWORD_TYPE)); //
+        if(current_room_index == 0){
+            add_item_to_current_room(create_piece(random_x(), random_y(), "Sword", 10+rand()%(50), SWORD_TYPE)); //
         //add_item_to_current_room(create_piece(random_x(), random_y(), "Dagger", rand()%(rnmbr*3),  SWORD_TYPE));
-        
+    }
         //make two shields
-        add_item_to_current_room(create_piece(random_x(), random_y(), "Iron Shield", rand()%(rnmbr*7), SHIELD_TYPE));
+        add_item_to_current_room(create_piece(random_x(), random_y(), "Iron Shield", rnmbr*5+rand()%(10), SHIELD_TYPE));
       //  add_item_to_current_room(create_piece(random_x(), random_y(), "Bronze Shield", 40, SHIELD_TYPE));       
         //add the two doors;        
 
