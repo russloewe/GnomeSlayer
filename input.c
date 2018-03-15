@@ -72,11 +72,17 @@ int proccess_arrow_key(enum direction dir){
             
             case DOOR_TYPE:
             //check to see if the room is clear of monsters
-            init_monster_iter();
-            if(monster_alive()){
-                add_message_queue("The door is locked");
-            }else{
-                add_message_queue("The door is unlocked");
+            if(get_piece_x(piece) < 5){ //left side of the room, let player go back
+                //load previous room
+                load_prev_room();
+                add_message_queue("The door to the previous room");
+            }else{ //don't go forward if there are still monsters in the room
+                
+                if(monster_alive()){   
+                    add_message_queue("The door is unlocked");
+                }else{
+                    load_next_room();
+                }
             }
             return 1;
             

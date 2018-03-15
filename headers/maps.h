@@ -57,6 +57,8 @@ int set_current_room(room * curroom);
 
 int load_next_room();
 
+int load_prev_room();
+
 int add_item_to_current_room(gamepiece * item);             //look for empty slot for item
 
 int add_monster_to_current_room(gamepiece * monster);      //look for empty slot for monster

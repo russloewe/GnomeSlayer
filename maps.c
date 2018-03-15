@@ -90,11 +90,31 @@ room * get_current_room(){
 
 int load_next_room(){
     //advance index and copy that room pointer _current_room
+    gamepiece * player = get_player();
     if(current_room_index > 5){
         return 1;
     }
     current_room_index++;
     _current_room = _map[current_room_index];
+    
+    _current_room->monsters[0] = player;     // got to move the player to next room
+    set_piece_x(player, 1 + get_piece_x(_current_room->doors[0]));
+    set_piece_y(player, get_piece_y(_current_room->doors[0]));
+    return 0;
+}
+
+int load_prev_room(){
+    //advance index and copy that room pointer _current_room
+    gamepiece * player = get_player();
+    if(current_room_index <= 0){
+        return 1;
+    }
+    current_room_index--;
+    _current_room = _map[current_room_index];
+    
+    _current_room->monsters[0] = player;     // got to move the player to next room
+    set_piece_x(player, (-1) + get_piece_x(_current_room->doors[1]));
+    set_piece_y(player, get_piece_y(_current_room->doors[1]));
     return 0;
 }
 
