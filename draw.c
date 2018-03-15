@@ -338,7 +338,7 @@ int render_text_line(char * text, int x_pos, int y_pos){
 
     for(int i = 0; (i < strlen(text)) && (i < text_line_length); i++){
         x_src = get_char_rect_x(text[i]);
-        y_src = get_char_rect_x(text[i]);
+        y_src = get_char_rect_y(text[i]);
         if( render_letter(FONT_ICO, x_dest, y_dest, w_dest, h_dest, x_src, y_src, w_src, h_src) != 0){
             printf("graphics.c->render_text_line(): Error copying font texture to main renderer\n");
         }
