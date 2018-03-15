@@ -23,11 +23,10 @@ int main(void){
    int seed = time(NULL); // set random number gernerator
     srand(seed);
 
+    create_map();
    //RK: Attempting to call create_room function
-    room * room1;
-    room1 = create_room();
-      
-    set_current_room(room1);
+    room * room1 = get_current_room();
+
 
     /*
      * Create a player piece add it to array

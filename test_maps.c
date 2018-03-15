@@ -30,7 +30,7 @@ int run_maps_tests(){
         printf("running maps_tests now\n");
     printf("**********************************************\n");
     int (*maps_test_suit[])() = {maps_test1, maps_test2, maps_test3,
-                                 maps_test4, maps_test5, cleanmaps_test};                      //array of all maps_tests to run - cleanmaps_test must be at the end of this array
+                                 maps_test4, maps_test5, maps_test6, cleanmaps_test};                      //array of all maps_tests to run - cleanmaps_test must be at the end of this array
     const int maps_test_len = sizeof(maps_test_suit) / sizeof(maps_test_suit[0]);  //variable to tell maps_test runner how many maps_tests there are
 
     
@@ -268,9 +268,17 @@ int maps_test5(){
 
 int maps_test6(){
       /*
-     * 
+     * test create map
      */
-     printf("maps_testing   ");
+     printf("maps_testing create_map()  ");
+     
+     create_map();
+     
+     if(get_current_room() == NULL){
+         printf("Fail 1\n");
+         return -1;
+     }
+     printf("Pass \n");
    return 1;
 }
     
