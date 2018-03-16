@@ -80,15 +80,15 @@ int load_images(){
         load_image_to_mem("./img/dialogwin.bmp", DIALOG_ICO_W) ||
         load_image_to_mem("./img/wall.bmp",   WALL_ICO )           ||
         load_image_to_mem("./img/door.bmp",   DOOR_ICO )           ||
-        load_image_to_mem("./img/sword.bmp" , SWORD_ICO_1)         ||
-        load_image_to_mem("./img/sword.bmp",  SWORD_ICO_2)         ||
-        load_image_to_mem("./img/sword.bmp",  SWORD_ICO_3 )        ||
+        load_image_to_mem("./img/sword1.bmp" , SWORD_ICO_1)         ||
+        load_image_to_mem("./img/sword2.bmp",  SWORD_ICO_2)         ||
+        load_image_to_mem("./img/sword3.bmp",  SWORD_ICO_3 )        ||
         load_image_to_mem("./img/shield.bmp", SHIELD_ICO_1 )       ||
         load_image_to_mem("./img/shield.bmp", SHIELD_ICO_2)        ||
         load_image_to_mem("./img/shield.bmp", SHIELD_ICO_3 )       ||
-        load_image_to_mem("./img/potion.bmp", POTION_ICO_1)        ||
-        load_image_to_mem("./img/potion.bmp", POTION_ICO_2 )       ||
-        load_image_to_mem("./img/potion.bmp", POTION_ICO_3 )       ||
+        load_image_to_mem("./img/potion1.bmp", POTION_ICO_1)        ||
+        load_image_to_mem("./img/potion2.bmp", POTION_ICO_2 )       ||
+        load_image_to_mem("./img/potion3.bmp", POTION_ICO_3 )       ||
         load_image_to_mem("./img/king.bmp",   KING_ICO )           ||
         load_image_to_mem("./img/monster1.bmp",MONSTER_ICO_1 )      ||
         load_image_to_mem("./img/monster2.bmp",MONSTER_ICO_2)       ||
