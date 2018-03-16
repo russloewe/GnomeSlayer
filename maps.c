@@ -76,7 +76,7 @@ int init_monster_iter(){
 
 /*****************GETTERS*******************/
 int on_last_room(){
-    if(current_room_index == _max_room){
+    if(current_room_index == _max_room-1){
         return 1;
     }else{
         return 0;
