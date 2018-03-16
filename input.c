@@ -3,6 +3,29 @@
 int pickup_item();          // swap item on ground with item in player inventory 
 int proccess_arrow_key(enum direction dir);
 
+
+int get_i(void){
+    
+    SDL_Event event;    //event handler or something
+        
+    while(SDL_PollEvent(&event)){
+        switch(event.type){
+            case SDL_QUIT:
+                return 0;
+                break;
+                
+            case SDL_KEYDOWN:
+                switch(event.key.keysym.sym){
+                    case SDLK_ESCAPE:         //exit key
+                    return 0;
+                }
+            break;
+        }
+    }
+    
+    return 1;
+}
+
 int get_input(void){
     
     SDL_Event event;    //event handler or something
@@ -71,11 +94,28 @@ int proccess_arrow_key(enum direction dir){
             return 1;
             
             case DOOR_TYPE:
-            //function to get next room goes here
-            add_message_queue("The door is locked");
+            //check to see if the room is clear of monsters
+            if(get_piece_x(piece) < 5){ //left side of the room, let player go back
+                //load previous room
+                if(get_room_index() == 0){
+                    add_message_queue("This door leads outside, but you turn around,");
+                    add_message_queue("You vowed to not return without the Goblin King's gemstone");
+                }else{
+                    load_prev_room();
+                    add_message_queue("The door to the previous room");
+                }
+            }else{ //don't go forward if there are still monsters in the room
+                
+                if(monster_alive()){   
+                    add_message_queue("The door is unlocked");
+                }else{
+                    load_next_room();
+                }
+            }
             return 1;
             
             case MONSTER_TYPE:
+            case KING_TYPE:
             //attack the monster              
                         
             result = attack(player, piece);
@@ -88,15 +128,25 @@ int proccess_arrow_key(enum direction dir){
                 sprintf(message, "You attack a %s with your %s:", get_piece_name(piece), get_piece_name(sword));
                 //add_message_queue(message);
             }
-            if(result == 0){
+            switch(result){
+                
+            case blocked:
                 //add_message_queue("         Your attack was blocked!");
-                strcat(message, " Your attack was blocked");
+                strcat(message, "You missed");
                 add_message_queue(message);
-            }else{
-                sprintf(message2, " You did %d damage", result);
+                break;
+            case normal:
+                sprintf(message2, " Your blow landed.");
                 strcat(message, message2);
                 add_message_queue(message);
-            }    
+                break;
+            case critical:
+                sprintf(message2, "critical strike!");
+                strcat(message, message2);
+                add_message_queue(message);
+                break;
+            }
+            
             if(is_player_dead(piece)){
                 add_message_queue("         You slay your foe!");
             }else{

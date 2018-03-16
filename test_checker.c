@@ -35,7 +35,7 @@ int run_checker_tests(){
     printf("**********************************************\n");
     
     int (*checker_test_suit[])() = {checker_test1, checker_test2, checker_test3,checker_test4,
-                                    cleanchecker_test};                      //array of all checker_tests to run - cleanchecker_test must be at the end of this array
+                                    checker_test5, cleanchecker_test};                      //array of all checker_tests to run - cleanchecker_test must be at the end of this array
     const int checker_test_len = sizeof(checker_test_suit) / sizeof(checker_test_suit[0]);  //variable to tell checker_test runner how many checker_tests there are
 
     
@@ -252,9 +252,23 @@ int checker_test4(){
 
 int checker_test5(){
     /*
-     * 
+     * monste alive
      */
-     printf("checker_testing   ");
+     printf("checker_testing monster_alive() ");
+     
+     if(monster_alive() != 1){
+         printf("Fail 1\n");
+         return -1;
+     }
+     
+     room room1 = {.monsters = {NULL}}; //init empty room
+     set_current_room(&room1);
+     
+    if(monster_alive() != 0){
+         printf("Fail 2\n");
+         return -1;
+     }
+     printf("Pass\n");
    return 1;
 }
 

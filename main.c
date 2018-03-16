@@ -8,28 +8,25 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <time.h>
-#include "SDL2/SDL.h"
 #include "./headers/input.h"
-#include "./headers/graphics.h"
 #include "./headers/maps.h"
 #include "./headers/ai.h"
-
+#include "./headers/checker.h"
 
 //room * current_room;  //this needs to be parked in the maps module eventually
 
 int main(void){
     
-    init_video();      //open the screen
+    start_graphics_module();      //open the screen
     int running = 1;
 
-    int seed = time(NULL); // set random number gernerator
+   int seed = time(NULL); // set random number gernerator
     srand(seed);
 
+    create_map();
    //RK: Attempting to call create_room function
-    room * room1;
-    room1 = create_room();
-      
-    set_current_room(room1);
+    room * room1 = get_current_room();
+
 
     /*
      * Create a player piece add it to array
@@ -48,13 +45,25 @@ int main(void){
         }else if(input_result == 2){
             ai();
         }
-
-        render_all();
+        
+        draw_all();
+        
+        //break the main loop if player is dead
+        if(is_player_dead(get_player())){
+            draw_loosing_screen();
+            break;
+        }
 
         //hold up a sec to not hog the cpu
         SDL_Delay(5);
     }
     
+    while(1){//loop until player hits exit
+        if(get_i() == 0){
+            break;
+        }
+    }
+        
     
     cleanup();
     

@@ -34,7 +34,7 @@ int run_obj_tests(){
     printf("running GameObject obj_tests now\n");
     printf("**********************************************\n");
     int (*obj_test_suit[])() = {obj_test1, obj_test2, obj_test3, 
-                                obj_test4, obj_test5, obj_test6, obj_test7,
+                                obj_test4, obj_test5, obj_test7,
                                  cleanobj_test};                      //array of all obj_tests to run - cleanobj_test must be at the end of this array
     const int obj_test_len = sizeof(obj_test_suit) / sizeof(obj_test_suit[0]);  //variable to tell obj_test runner how many obj_tests there are
 
@@ -224,10 +224,10 @@ int obj_test6(){
      printf("obj_testing - icon assignment(): ");
      
     gamepiece * test_pieces[7];
-    piecetype types[7] = {SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, DOOR_TYPE};
-    Icon icons[7] = {SWORD_ICO_1, SHIELD_ICO_1, POTION_ICO_1, WALL_ICO, PLAYER_ICO_1, MONSTER_ICO_1, DOOR_ICO};
+    piecetype types[8] = {SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, KING_TYPE, DOOR_TYPE, LAST_TYPE};
+    Icon icons[8] = {SWORD_ICO_1, SHIELD_ICO_1, POTION_ICO_1, WALL_ICO, PLAYER_ICO_1, MONSTER_ICO_1, KING_ICO, DOOR_ICO};
      
-    for(int i = 0; i < 7; i++){
+    for(int i = 0; i < 8; i++){
         test_pieces[i] = create_piece(5, 5, "test", 100, types[i]);
     }
     for(int i = 0; i < 7; i++){
