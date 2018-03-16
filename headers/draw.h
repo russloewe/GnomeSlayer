@@ -23,5 +23,6 @@ int trim_message_queue(int n);
 int render_message_queue(int line, int x, int y);
 int render_player_stats(struct room * curroom);
 int render_text_line(char * text, int x, int y);
+int draw_loosing_screen();
 
 #endif

@@ -3,6 +3,29 @@
 int pickup_item();          // swap item on ground with item in player inventory 
 int proccess_arrow_key(enum direction dir);
 
+
+int get_i(void){
+    
+    SDL_Event event;    //event handler or something
+        
+    while(SDL_PollEvent(&event)){
+        switch(event.type){
+            case SDL_QUIT:
+                return 0;
+                break;
+                
+            case SDL_KEYDOWN:
+                switch(event.key.keysym.sym){
+                    case SDLK_ESCAPE:         //exit key
+                    return 0;
+                }
+            break;
+        }
+    }
+    
+    return 1;
+}
+
 int get_input(void){
     
     SDL_Event event;    //event handler or something

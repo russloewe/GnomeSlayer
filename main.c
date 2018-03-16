@@ -11,7 +11,7 @@
 #include "./headers/input.h"
 #include "./headers/maps.h"
 #include "./headers/ai.h"
-
+#include "./headers/checker.h"
 
 //room * current_room;  //this needs to be parked in the maps module eventually
 
@@ -45,13 +45,25 @@ int main(void){
         }else if(input_result == 2){
             ai();
         }
-
+        
         draw_all();
+        
+        //break the main loop if player is dead
+        if(is_player_dead(get_player())){
+            draw_loosing_screen();
+            break;
+        }
 
         //hold up a sec to not hog the cpu
         SDL_Delay(5);
     }
     
+    while(1){//loop until player hits exit
+        if(get_i() == 0){
+            break;
+        }
+    }
+        
     
     cleanup();
     
