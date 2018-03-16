@@ -362,7 +362,7 @@ int draw_loosing_screen(){
     return 0;
 }
 
-int draw_loosing_screen(){
+int draw_winning_screen(){
     
     // get the sreen width and height
     int x = 5 * get_gamesquare();
