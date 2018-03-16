@@ -32,6 +32,7 @@ int init_monster_iter(); //Set monster index to begining of monster array
 int create_map();   //generate some rooms and add them to the map
 
 /*****************GETTERS*******************/
+int on_last_room();
 
 room * get_current_room();   //return pointer to current room
 
