@@ -319,7 +319,7 @@ int load_items_from_file(char * file_name){
 
 int get_item_from_string(char * string){
     //parse a texxt line and create gamepice with attributes
-    printf("%s\n", string);
+    
     gamepiece * new;
     char * token;
     
