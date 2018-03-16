@@ -76,6 +76,7 @@ int load_images(){
     //load an array of images that are going to be used in game
     if( load_image_to_mem("./img/font2.bmp", FONT_ICO) ||
         load_image_to_mem("./img/background2.bmp", BACKGROUND_ICO) ||
+        load_image_to_mem("./img/dialog.bmp", DIALOG_ICO) ||
         load_image_to_mem("./img/wall.bmp",   WALL_ICO )           ||
         load_image_to_mem("./img/door.bmp",   DOOR_ICO )           ||
         load_image_to_mem("./img/sword.bmp" , SWORD_ICO_1)         ||
@@ -93,7 +94,6 @@ int load_images(){
         load_image_to_mem("./img/monster3.bmp",MONSTER_ICO_3 )      ||
         load_image_to_mem("./img/player1.bmp",PLAYER_ICO_1 )       ||
         load_image_to_mem("./img/player2.bmp",PLAYER_ICO_2 )       ||
-        
         load_image_to_mem("./img/player3.bmp",PLAYER_ICO_3 ) ){
         return 1;
     }
