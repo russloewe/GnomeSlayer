@@ -75,6 +75,13 @@ int init_monster_iter(){
 }
 
 /*****************GETTERS*******************/
+int on_last_room(){
+    if(current_room_index == _max_room){
+        return 1;
+    }else{
+        return 0;
+    }
+}
 room * get_current_room(){
     //interface to get room
     return _current_room;

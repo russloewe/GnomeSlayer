@@ -48,9 +48,13 @@ int main(void){
         
         draw_all();
         
-        //break the main loop if player is dead
+        //break the main loop if player is dead or win
         if(is_player_dead(get_player())){
             draw_loosing_screen();
+            break;
+        }
+        if(on_last_room() && !monster_alive()){
+            draw_winning_screen();
             break;
         }
 

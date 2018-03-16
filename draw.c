@@ -361,3 +361,16 @@ int draw_loosing_screen(){
     
     return 0;
 }
+
+int draw_loosing_screen(){
+    
+    // get the sreen width and height
+    int x = 5 * get_gamesquare();
+    int y = 10 * get_gamesquare();
+    int w = 20 * get_gamesquare();
+    int h = 10 * get_gamesquare();
+    render_object(DIALOG_ICO_W, x, y, w, h);
+    render_all();
+    
+    return 0;
+}
