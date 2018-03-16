@@ -330,21 +330,27 @@ int get_item_from_string(char * string){
     piecetype type;
     Icon icon;
     
-    token = strtok(string, ";"); //item
+    token = strtok(string, ";"); //item, test
+    if(strcmp(token, "item") != 0){
+        return 1;
+    }
    
+    token = strtok(NULL, ";");  // val, turn to int
+    if(token == NULL){
+        val = 40;
+    }else{
+        val = atoi(token);
+        }
     
-    token = strtok(NULL, ";");  // val
-    val = atoi(token);
-    
-    token = strtok(NULL, ";");  // name
+    token = strtok(NULL, ";");  // name, copy to name
     strncpy(name, token, 20 );
     
-    token = strtok(NULL, ";"); //type
+    token = strtok(NULL, ";"); //type, needs to test with if casacde
 
     if(strcmp(token, "potion") == 0){
-        type = POTION_TYPE;
-        token = strtok(NULL, ";");
-        printf("token icon:%s\n",token);
+        type = POTION_TYPE;  
+        
+        token = strtok(NULL, ";");      //icon , use switch
         switch(atoi(token)){
             case 1:
             icon = POTION_ICO_1;
@@ -356,6 +362,8 @@ int get_item_from_string(char * string){
             icon = POTION_ICO_3;
             break;
         }
+        
+        //create the piece and add it to the map
         gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
         set_piece_icon(new, icon);
         add_item_to_current_room(new);
@@ -363,7 +371,7 @@ int get_item_from_string(char * string){
     
         if(strcmp(token, "sword")== 0){
         type = SWORD_TYPE;
-        token = strtok(NULL, ";");
+        token = strtok(NULL, ";");      //icon , use switch
         switch(atoi(token)){
             case 1:
             icon = SWORD_ICO_1;
@@ -375,6 +383,7 @@ int get_item_from_string(char * string){
             icon = SWORD_ICO_3;
             break;
         }
+        //create the piece and add it to the map
         gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
         set_piece_icon(new, icon);
         add_item_to_current_room(new);
@@ -382,7 +391,7 @@ int get_item_from_string(char * string){
     
         if(strcmp(token, "shield")== 0){
         type = SHIELD_TYPE;
-        token = strtok(NULL, ";");
+        token = strtok(NULL, ";");    //icon , use switch
         switch(atoi(token)){
             case 1:
             icon = SHIELD_ICO_1;
@@ -394,6 +403,7 @@ int get_item_from_string(char * string){
             icon = SHIELD_ICO_3;
             break;
         }
+        //create the piece and add it to the map
         gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
         set_piece_icon(new, icon);
         add_item_to_current_room(new);
@@ -401,7 +411,7 @@ int get_item_from_string(char * string){
     
         if(strcmp(token, "monster")== 0){
         type = MONSTER_TYPE;
-        token = strtok(NULL, ";");
+        token = strtok(NULL, ";");        //icon , use switch
         switch(atoi(token)){
             case 1:
             icon = MONSTER_ICO_1;
@@ -413,22 +423,39 @@ int get_item_from_string(char * string){
             icon = MONSTER_ICO_3;
             break;
         }
+        //create monster
         gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
-        char * swordname =  strtok(NULL, ";");
+        
+        //monsters get a sword, get sword attributes
+        char * swordname =  strtok(NULL, ";");  
         int sword_val = atoi(strtok(NULL, ";"));
+        
+        //create the sword piece and add it to the monters
         gamepiece * sword = create_piece(1, 1,  swordname, sword_val, SWORD_TYPE);
         equip_item_to_player(new, sword);
+        
+        //change icon and add it to the room
         set_piece_icon(new, icon);
         add_monster_to_current_room(new);
-    }
+        }
     
         if(strcmp(token, "king")== 0){
-        type = KING_TYPE;
-        token = strtok(NULL, ";");
-        icon = KING_ICO;
-        gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
-        set_piece_icon(new, icon);
-        add_monster_to_current_room(new);
+            type = KING_TYPE;
+            token = strtok(NULL, ";");     //no need for switch statement for king, only one icon choice
+            icon = KING_ICO;
+            
+            //create monster
+            gamepiece * new = create_piece(random_x(), random_y(), name, val, type);
+            
+            //get sword attributes
+            char * swordname =  strtok(NULL, ";");
+            int sword_val = atoi(strtok(NULL, ";"));
+            
+            //create the sword and add it to the king
+            gamepiece * sword = create_piece(1, 1,  swordname, sword_val, SWORD_TYPE);
+            equip_item_to_player(new, sword);
+            set_piece_icon(new, icon);
+            add_monster_to_current_room(new);
     }
             
     
