@@ -83,9 +83,9 @@ int load_images(){
         load_image_to_mem("./img/sword1.bmp" , SWORD_ICO_1)         ||
         load_image_to_mem("./img/sword2.bmp",  SWORD_ICO_2)         ||
         load_image_to_mem("./img/sword3.bmp",  SWORD_ICO_3 )        ||
-        load_image_to_mem("./img/shield.bmp", SHIELD_ICO_1 )       ||
-        load_image_to_mem("./img/shield.bmp", SHIELD_ICO_2)        ||
-        load_image_to_mem("./img/shield.bmp", SHIELD_ICO_3 )       ||
+        load_image_to_mem("./img/shield1.bmp", SHIELD_ICO_1 )       ||
+        load_image_to_mem("./img/shield2.bmp", SHIELD_ICO_2)        ||
+        load_image_to_mem("./img/shield3.bmp", SHIELD_ICO_3 )       ||
         load_image_to_mem("./img/potion1.bmp", POTION_ICO_1)        ||
         load_image_to_mem("./img/potion2.bmp", POTION_ICO_2 )       ||
         load_image_to_mem("./img/potion3.bmp", POTION_ICO_3 )       ||
