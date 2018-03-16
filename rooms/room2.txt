@@ -1,5 +1,5 @@
 Room2;
-item;100;Steel Shield;shield;3
+item;100;Steel Shield;shield;1
 item;100;Full Potion;potion;1
 item;50;Half Potion;potion;2
 item;2;Goblin;monster;3;Goblin Sword;20

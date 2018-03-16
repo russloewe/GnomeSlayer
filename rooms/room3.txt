@@ -1,7 +1,7 @@
 Room3;
 item;50;Sword;sword;2
 item;100;Full Potion;potion;1
-item;50;Half Potion;potion;1
+item;50;Half Potion;potion;3
 item;2;Goblin;monster;3;Goblin Sword;20
 item;2;Goblin;monster;3;Goblin Sword;20
 item;2;Goblin;monster;3;Goblin Sword;20
