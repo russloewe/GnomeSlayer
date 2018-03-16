@@ -8,12 +8,12 @@
 
 enum attack_result{normal, blocked, critical};
 enum piecetype{SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, KING_TYPE, DOOR_TYPE, LAST_TYPE};
-enum Icon{BACKGROUND_ICO, WALL_ICO,   DOOR_ICO,  
+enum Icon{BACKGROUND_ICO, WALL_ICO,   DOOR_ICO, DIALOG_ICO_L, DIALOG_ICO_W, 
           SWORD_ICO_1,  SWORD_ICO_2,  SWORD_ICO_3, 
           SHIELD_ICO_1, SHIELD_ICO_2, SHIELD_ICO_3,  
           POTION_ICO_1, POTION_ICO_2, POTION_ICO_3,
           MONSTER_ICO_1, MONSTER_ICO_2, MONSTER_ICO_3,
-          PLAYER_ICO_1, PLAYER_ICO_2, PLAYER_ICO_3, KING_ICO, LAST_ICO,
+          PLAYER_ICO_1, KING_ICO, LAST_ICO,
           FONT_ICO };
           
 enum direction{UP, DOWN, LEFT, RIGHT, NONE};
@@ -63,7 +63,6 @@ gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item);
 
 //actions
 int move_piece(gamepiece * piece, enum direction direc);
-int animate(gamepiece * player);
 
 
 int attack(gamepiece *attacker, gamepiece *defender);

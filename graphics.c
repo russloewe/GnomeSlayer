@@ -8,7 +8,7 @@ SDL_Texture * load_image(char * filename);
 //pointers to stuff internal stuff
 static SDL_Window * Main_Screen = NULL;
 static SDL_Renderer * Main_Renderer  = NULL;
-static SDL_Texture * _images[21] = {NULL};
+static SDL_Texture * _images[28] = {NULL};
 static int _screen_width = 800;
 static int _screen_height = 600;
 static int _gamesquare = 25;
@@ -186,7 +186,7 @@ int render_letter(int icon, int x_dest, int y_dest, int w_dest, int h_dest,
 }
 
 int load_image_to_mem(char * filename, int index){
-    if( (index > 21) || (index < 0) ){  //check boundry
+    if( (index > 28) || (index < 0) ){  //check boundry
         return 1;
     }
     SDL_Texture * img = load_image(filename);

@@ -286,7 +286,6 @@ gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item){
 /************ACTION ***********************/
 
 int move_piece(gamepiece * piece, enum direction direc){
-    animate(piece);
     switch(direc){
         case UP:
             (piece->y) -= 1;
@@ -306,22 +305,6 @@ int move_piece(gamepiece * piece, enum direction direc){
     return 0;
 }
 
-int animate(gamepiece * player){
-    //animate the player icon with the  three difffernt icons
-    Icon current_ico = get_piece_icon(player);
-    switch(current_ico){
-        case PLAYER_ICO_1:
-            set_piece_icon(player, PLAYER_ICO_2);
-            break;
-        case PLAYER_ICO_2:
-            set_piece_icon(player, PLAYER_ICO_3);
-            break;
-        case PLAYER_ICO_3:
-            set_piece_icon(player, PLAYER_ICO_1);
-            break;
-    }
-    return 0;
-}
 
 int attack(gamepiece *attacker, gamepiece *defender){
     if( (attacker == NULL) || (defender == NULL)){

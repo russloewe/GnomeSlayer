@@ -76,6 +76,8 @@ int load_images(){
     //load an array of images that are going to be used in game
     if( load_image_to_mem("./img/font2.bmp", FONT_ICO) ||
         load_image_to_mem("./img/background2.bmp", BACKGROUND_ICO) ||
+        load_image_to_mem("./img/dialogloose.bmp", DIALOG_ICO_L) ||
+        load_image_to_mem("./img/dialogwin.bmp", DIALOG_ICO_W) ||
         load_image_to_mem("./img/wall.bmp",   WALL_ICO )           ||
         load_image_to_mem("./img/door.bmp",   DOOR_ICO )           ||
         load_image_to_mem("./img/sword.bmp" , SWORD_ICO_1)         ||
@@ -91,10 +93,7 @@ int load_images(){
         load_image_to_mem("./img/monster1.bmp",MONSTER_ICO_1 )      ||
         load_image_to_mem("./img/monster2.bmp",MONSTER_ICO_2)       ||
         load_image_to_mem("./img/monster3.bmp",MONSTER_ICO_3 )      ||
-        load_image_to_mem("./img/player1.bmp",PLAYER_ICO_1 )       ||
-        load_image_to_mem("./img/player2.bmp",PLAYER_ICO_2 )       ||
-        
-        load_image_to_mem("./img/player3.bmp",PLAYER_ICO_3 ) ){
+        load_image_to_mem("./img/player1.bmp",PLAYER_ICO_1 )  ){
         return 1;
     }
     
@@ -346,6 +345,19 @@ int render_text_line(char * text, int x_pos, int y_pos){
         }
         x_dest = x_dest + 8;  //move over 1 before looping to draw next char
     }  
+    
+    return 0;
+}
+
+int draw_loosing_screen(){
+    
+    // get the sreen width and height
+    int x = 5 * get_gamesquare();
+    int y = 10 * get_gamesquare();
+    int w = 20 * get_gamesquare();
+    int h = 10 * get_gamesquare();
+    render_object(DIALOG_ICO_L, x, y, w, h);
+    render_all();
     
     return 0;
 }

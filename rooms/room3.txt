@@ -1,4 +1,9 @@
-item;40;potion;2;9
-item;40;potion;2;9
-item;40;potion;2;9
-item;40;potion;2;9
+Room3;
+item;30;Sword;sword;2
+item;70;Full Potion;potion;1
+item;45;Full Potion;potion;1
+item;20;Goblin;monster;3;Goblin Sword;20
+item;20;Goblin;monster;3;Goblin Sword;20
+item;20;Goblin;monster;3;Goblin Sword;20
+item;40;Troll;monster;2;Goblin Sword;30
+item;40;Troll;monster;1;Goblin Sword;35

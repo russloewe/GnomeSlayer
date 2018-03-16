@@ -9,7 +9,7 @@ TESTS= test_graphics.o test_gameobjects.o test_checker.o test_ai.o test_input.o 
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 all: $(OBJ) main.o
-	gcc -o main $^ -g $(LIBS)
+	gcc -o TrollHunter $^ -g $(LIBS)
 	
 test: $(OBJ) $(TESTS)
 	gcc -o test $^ -g $(LIBS)

@@ -11,5 +11,6 @@
 #include "SDL2/SDL.h"
 
 int get_input(void);
+int get_i(void);
 
 #endif
