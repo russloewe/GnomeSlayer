@@ -8,7 +8,7 @@ SDL_Texture * load_image(char * filename);
 //pointers to stuff internal stuff
 static SDL_Window * Main_Screen = NULL;
 static SDL_Renderer * Main_Renderer  = NULL;
-static SDL_Texture * _images[21] = {NULL};
+static SDL_Texture * _images[25] = {NULL};
 static int _screen_width = 800;
 static int _screen_height = 600;
 static int _gamesquare = 25;
