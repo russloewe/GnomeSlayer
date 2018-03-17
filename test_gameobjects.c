@@ -224,10 +224,10 @@ int obj_test6(){
      printf("obj_testing - icon assignment(): ");
      
     gamepiece * test_pieces[7];
-    piecetype types[8] = {SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, KING_TYPE, DOOR_TYPE, LAST_TYPE};
-    Icon icons[8] = {SWORD_ICO_1, SHIELD_ICO_1, POTION_ICO_1, WALL_ICO, PLAYER_ICO_1, MONSTER_ICO_1, KING_ICO, DOOR_ICO};
+    piecetype types[9] = {SWORD_TYPE, SHIELD_TYPE, POTION_TYPE, WALL_TYPE, PLAYER_TYPE, MONSTER_TYPE, KING_TYPE, DOOR_TYPE, LAST_TYPE};
+    Icon icons[9] = {SWORD_ICO_1, SHIELD_ICO_1, POTION_ICO_1, WALL_ICO, PLAYER_ICO_1, MONSTER_ICO_1, KING_ICO, DOOR_ICO};
      
-    for(int i = 0; i < 8; i++){
+    for(int i = 0; i < 7; i++){
         test_pieces[i] = create_piece(5, 5, "test", 100, types[i]);
     }
     for(int i = 0; i < 7; i++){
