@@ -5,6 +5,50 @@ workflow instructions here: https://github.com/githubuser476/cs133u-project/blob
 
 official project channel: #pcc-c-project-2018 @ freenode.net (webchat.freenode.net for web interface)
 
+# install
+
+## PCC Server
+
+Get the source with git, 
+
+          git clone git@github.com:githubuser476/cs133u-project.git
+  
+  or download from: https://github.com/githubuser476/cs133u-project/archive/master.zip
+
+then build:
+
+          make all
+          
+  To run the game remotely, enable X11 forwarding. For Windows you'll need to install an X server, like Xming.
+  
+  Then run with: 
+  
+          ./TrollHunter
+          
+          
+  ## On a Local Linux machine
+  
+  Get the source with git:
+  
+          git clone git@github.com:githubuser476/cs133u-project.git
+          git checkout origin/local Makefile
+          
+or download source from: https://github.com/githubuser476/cs133u-project/archive/local.zip
+
+then build and run with:
+
+          make all
+          ./TrollHunter
+          
+       
+  ## Testing
+  
+  Build and run unit tests with:
+  
+          make test
+          ./test
+  
+          
 
 ## Proposal:
 
