@@ -111,12 +111,12 @@ int ai_test2(){
      set_piece_y(get_player(), 100);
      
      //run the ai a bunch of times
-     for(int i = 0; i< 10000; i++){
+     for(int i = 0; i< 100; i++){
          ai();
      }
      
      //very low chance that any pieces will be in the same spot anymore
-     for(int i = 1; i < 10; i++){
+     for(int i = 2; i < 9; i++){
          gamepiece * monster = room1->monsters[i];
         if( (get_piece_x(monster) == i) && (get_piece_x(monster) == i) ){
             printf("Fail 1 \n");

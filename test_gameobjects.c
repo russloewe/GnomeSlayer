@@ -267,9 +267,11 @@ int obj_test7(){
      equip_item_to_player(p1, sword);
      equip_item_to_player(p2, shield);
      
-     attack(p1, p2);
-     
-     if(get_piece_val(p2) != 75){
+     for(int i = 0; i < 15; i++){
+     attack(p1, p2);             //call this function a lot of times so there is a small chance of pure misses
+    }
+    
+     if(get_piece_val(p2) >= 75){
          printf("Fail 1\n");
          return -1;
      }
