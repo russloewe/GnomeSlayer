@@ -47,5 +47,5 @@ Use the arrow keys to move, attack or pass through doors. Space bar is used to p
 
 ## License
 
- This game is distributed with the MIT Lincense described in the file "LICENSE".
+ This game is distributed with the MIT License described in the file "LICENSE".
 
