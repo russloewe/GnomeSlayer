@@ -1,6 +1,6 @@
 CC=gcc
-CFLAGS= -g --std=c99 -O3 -I/home/student/russell.loewe/libs/include
-LIBS=   -L/home/student/russell.loewe/libs/lib64/ `/home/student/russell.loewe/libs/bin/sdl2-config --libs`  -l:libSDL2.a
+CFLAGS= -g --std=c99 -O3 
+LIBS=   `sdl2-config --libs`  
 
 
 OBJ=  input.o graphics.o gameobjects.o checker.o maps.o ai.o draw.o
@@ -10,7 +10,7 @@ TESTS= test_graphics.o test_gameobjects.o test_checker.o test_ai.o test_input.o 
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 all: $(OBJ) main.o
-	gcc -o TrollHunter $^ -g $(LIBS)
+	gcc -o GnomeSlayer $^ -g $(LIBS)
 	
 test: $(OBJ) $(TESTS)
 	gcc -o test $^ -g $(LIBS)
