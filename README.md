@@ -61,5 +61,7 @@ The object of this game is to move through rooms and slay monsters until you bea
 Use the arrow keys to move, attack or pass through doors. Space bar is used to pickup or swap items.
 
 
+## License
 
+ This game is distributed with the MIT Lincense described in the file "LICENSE".
 
