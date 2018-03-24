@@ -16,34 +16,16 @@ install SDL2 from a package manager or compile from source.
   
   Get the source with git:
   
-          git clone git@github.com:githubuser476/cs133u-project.git
+          git clone git@github.com:russloewe/GnomeSlayer.git
           git checkout origin/local Makefile
           
-or download source from: https://github.com/githubuser476/cs133u-project/archive/local.zip
+or download source from: https://github.com/russloewe/GnomeSlayer/archive/master.zip
 
 then build and run with:
 
           make all
-          ./TrollHunter
+          ./GnomeSlayer
           
-## PCC Server
-
-Get the source with git, 
-
-          git clone git@github.com:githubuser476/cs133u-project.git
-  
-  or download from: https://github.com/githubuser476/cs133u-project/archive/master.zip
-
-then build:
-
-          make all
-          
-  To run the game remotely, enable X11 forwarding. For Windows you'll need to install an X server, like Xming.
-  
-  Then run with: 
-  
-          ./TrollHunter
-  
        
   ## Testing
   
