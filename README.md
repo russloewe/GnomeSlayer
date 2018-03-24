@@ -1,9 +1,10 @@
 # cs133u-project
 This is for the final project in CS133U.
+Original fork for the CS133U project is located at https://github.com/githubuser476/cs133u-project
 
 workflow instructions here: https://github.com/russloewe/GnomeSlayer/blob/master/workflow.md
 
-official project channel: #GnomeSlayer @ freenode.net (webchat.freenode.net for web interface)
+official project IRC channel: #GnomeSlayer @ freenode.net (webchat.freenode.net for web interface)
 
 # install
 
