@@ -23,6 +23,7 @@ or download source from: https://github.com/russloewe/GnomeSlayer/archive/master
 
 then build and run with:
 
+          cd GnomeSlayer
           make all
           ./GnomeSlayer
           
