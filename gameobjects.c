@@ -47,6 +47,10 @@ gamepiece * create_piece(int x, int y, char * name, int val, piecetype type){
             newpiece->icon = POTION_ICO_1;
             break;
             
+        case KING_TYPE:
+            newpiece->icon = KING_ICO;
+            break;
+            
         case WALL_TYPE:
             newpiece->icon = WALL_ICO;
             break;
@@ -197,7 +201,9 @@ int set_player_health(gamepiece* player, int a){
     //set the health stat of a player or monster health
     
     //check for correct type first
-    if( (get_piece_type(player) != PLAYER_TYPE) && (get_piece_type(player) != MONSTER_TYPE) ){
+    if( (get_piece_type(player) != PLAYER_TYPE) && 
+        (get_piece_type(player) != MONSTER_TYPE) &&
+        (get_piece_type(player) != KING_TYPE) ){
         return -1;
     }
     if(a <= 100){
@@ -280,7 +286,6 @@ gamepiece * equip_item_to_player(gamepiece * player, gamepiece * item){
 /************ACTION ***********************/
 
 int move_piece(gamepiece * piece, enum direction direc){
-    animate(piece);
     switch(direc){
         case UP:
             (piece->y) -= 1;
@@ -300,32 +305,19 @@ int move_piece(gamepiece * piece, enum direction direc){
     return 0;
 }
 
-int animate(gamepiece * player){
-    //animate the player icon with the  three difffernt icons
-    Icon current_ico = get_piece_icon(player);
-    switch(current_ico){
-        case PLAYER_ICO_1:
-            set_piece_icon(player, PLAYER_ICO_2);
-            break;
-        case PLAYER_ICO_2:
-            set_piece_icon(player, PLAYER_ICO_3);
-            break;
-        case PLAYER_ICO_3:
-            set_piece_icon(player, PLAYER_ICO_1);
-            break;
-    }
-    return 0;
-}
 
 int attack(gamepiece *attacker, gamepiece *defender){
+    if( (attacker == NULL) || (defender == NULL)){
+        return -1234;
+    }
     int valS;   //sword
     int valSH;  //shield
     int damage;
     int healthD;    //defender health
     int healthA;    //attacker health
     int new_healthD;
-    srand(time(NULL));
     int r = (rand()% 100) + 1;      //Generates random numbers between 1 & 100
+    enum attack_result result = normal;
 
     gamepiece * sword = get_player_sword(attacker);
     if(sword == NULL){
@@ -341,14 +333,25 @@ int attack(gamepiece *attacker, gamepiece *defender){
         valSH = get_piece_val(shield);
     }
 
-    damage = valS - valSH;
-    if(damage < 0 ){
+    if(r < 15){ //15 % chance of critical strike
+        damage = valS;
+        result = critical;
+    }
+    if(r > 75){ // 25 % chance to block
         damage = 0;
+        result = blocked;
+    }
+    if( (r > 15) && (r < 75)){
+        damage = valS - valSH;
+        if(damage < 0 ){
+            damage = 0;
+        }
+        result = normal;
     }
 
     healthD = get_piece_val(defender);
     healthD = healthD - damage;
     new_healthD = set_player_health(defender, healthD);
 
-    return damage;
+    return result;
 }

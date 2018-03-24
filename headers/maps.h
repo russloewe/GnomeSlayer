@@ -3,9 +3,12 @@
 
 #include <stdio.h>
 #include "gameobjects.h"
-#include "graphics.h"
+#include <stdlib.h>
 
+//prototype for two functions that are needed here, but can't include te whole header
 
+int get_max_x();
+int get_max_y();
 
 struct room{
     char name[50];
@@ -22,13 +25,18 @@ typedef struct room room;
 
 /**************INIT************************/
 
-room * create_room(void); //RK: Adding prototype for create_room
+room * create_room(char * filename); //RK: Adding prototype for create_room
 
 int init_monster_iter(); //Set monster index to begining of monster array
 
+int create_map();   //generate some rooms and add them to the map
+
 /*****************GETTERS*******************/
+int on_last_room();
 
 room * get_current_room();   //return pointer to current room
+
+int get_room_index();
 
 int load_next_room();       //copy player from current room to next room, then point current_room pointer to next room
 
@@ -49,6 +57,10 @@ int random_y();   //return a y coord that is in the map boundry
 /**************SETTERS************************/
 
 int set_current_room(room * curroom);
+
+int load_next_room();
+
+int load_prev_room();
 
 int add_item_to_current_room(gamepiece * item);             //look for empty slot for item
 

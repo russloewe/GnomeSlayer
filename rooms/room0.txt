@@ -1,0 +1,7 @@
+Room0;
+item;60;Full Potion;potion;1
+item;30;Dagger;sword;3
+item;30;Bronze Shield;shield;3
+item;2;Goblin;monster;3;Goblin Sword;10
+item;2;Goblin;monster;3;Goblin Sword;10
+item;4;Troll;monster;2;Goblin Sword;15

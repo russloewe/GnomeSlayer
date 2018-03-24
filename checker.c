@@ -6,6 +6,19 @@
 
 #include "./headers/checker.h"
 
+int monster_alive(){
+    //return 1 if there is a monster alive in current room
+    init_monster_iter();
+    for(int i = 0; i <10; i++){
+        if(monster_iter() != NULL){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+
 int player_on_item(){
     
     room * curroom = get_current_room();
@@ -35,7 +48,9 @@ int is_player_dead(gamepiece * piece){
     /* check if player or monster is dead
      * return 1 if dead, 0 if not
      */
-     if( (get_piece_type(piece) == PLAYER_TYPE) || (get_piece_type(piece) == MONSTER_TYPE) ){
+     if( (get_piece_type(piece) == PLAYER_TYPE) || 
+         (get_piece_type(piece) == MONSTER_TYPE) || 
+         (get_piece_type(piece) == KING_TYPE) ){
           //get health   
          int health = get_piece_val(piece);         
          if(health <= 0){
@@ -59,6 +74,13 @@ int check_for_dead_monsters(){
         monster = room1->monsters[i];
         if(monster != NULL){
             if(is_player_dead(monster)){
+                if(rand()%10 > 5){
+                    gamepiece * sword = get_player_sword(monster);
+                    monster->sword = NULL;
+                    set_piece_x(sword, get_piece_x(monster));
+                    set_piece_y(sword, get_piece_y(monster));
+                    add_item_to_current_room(sword);
+                }
                 destroy_piece(monster);
                 room1->monsters[i] = NULL;
                 killcount++;

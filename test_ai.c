@@ -80,7 +80,7 @@ int ai_test1(){
      * test random move
      */
      printf("ai_testing move_monster_rand():");
-     
+     create_map();
      gamepiece * monster = create_piece(5, 5, "monster", 1, MONSTER_TYPE);
      
      for(int i = 0; i < 100; i++){
@@ -101,25 +101,24 @@ int ai_test2(){
      * test ai() function
      */
      printf("ai_testing  ai():  ");
-     
+     room * room1 = get_current_room();
      //make a bunch of monsters at the same space
      for(int i = 1; i < 10; i++){
-         get_current_room()->monsters[i] = create_piece(5, 5, "monster", 1, MONSTER_TYPE);
+         room1->monsters[i] = create_piece(i, i, "monster", 1, MONSTER_TYPE);
      }
-     
      //make sure player is not near
      set_piece_x(get_player(), 100);
      set_piece_y(get_player(), 100);
      
      //run the ai a bunch of times
-     for(int i = 0; i< 10000; i++){
+     for(int i = 0; i< 100; i++){
          ai();
      }
      
      //very low chance that any pieces will be in the same spot anymore
-     for(int i = 1; i < 10; i++){
-         gamepiece * monster = get_current_room()->monsters[i];
-        if( (get_piece_x(monster) == 5) && (get_piece_x(monster) == 5) ){
+     for(int i = 2; i < 9; i++){
+         gamepiece * monster = room1->monsters[i];
+        if( (get_piece_x(monster) == i) && (get_piece_x(monster) == i) ){
             printf("Fail 1 \n");
             return -1;
         }
