@@ -15,5 +15,13 @@ all: $(OBJ) main.o
 test: $(OBJ) $(TESTS)
 	gcc -o test $^ -g $(LIBS)
 	
+install:
+	mkdir -p /usr/share/GnomeSlayer
+	cp -r ./img /usr/share/GnomeSlayer/
+	cp -r ./rooms /usr/share/GnomeSlayer/
+	cp GnomeSlayer /usr/games/
+
 clean:
 	rm -rf *o
+	rm -rf GnomeSlayer
+	rm -rf test
