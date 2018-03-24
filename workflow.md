@@ -4,7 +4,7 @@ we are going to be doing our individual work on our own branches.
 
 #### Step 1
 First thing to do is pick a part of the project to work on. A good place to start is 
-by picking a task from the projects issue tracker: https://github.com/githubuser476/cs133u-project/issues
+by picking a task from the projects issue tracker: https://github.com/russloewe/GnomeSlayer/issues
 
 #### Step 2
 Second, go the the project's folder on the PCC server or you're local machine and update your master branch:
