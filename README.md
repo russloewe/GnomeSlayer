@@ -6,7 +6,7 @@ workflow instructions here: https://github.com/russloewe/GnomeSlayer/blob/master
 
 official project IRC channel: #GnomeSlayer @ freenode.net (webchat.freenode.net for web interface)
 
-[GAMEPLAY](https://russloewe.github.io/GnomeSlayer/pics/gameplay.jpg)
+[GAMEPLAY](https://raw.githubusercontent.com/russloewe/GnomeSlayer/master/img/gameplay.jpg)
 
 # install
 
