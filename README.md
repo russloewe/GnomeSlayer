@@ -6,14 +6,15 @@ workflow instructions here: https://github.com/russloewe/GnomeSlayer/blob/master
 
 official project IRC channel: #GnomeSlayer @ freenode.net (webchat.freenode.net for web interface)
 
-![GAMEPLAY](https://russloewe.github.io/GnomeSlayer/pics/gameslayer.gif)
+[GAMEPLAY](https://russloewe.github.io/GnomeSlayer/pics/gameplay.jpg)
 
 # install
 
 ## Dependencies
 
 Requries the SDL2 Library to compile and run. You can follow instructions here https://wiki.libsdl.org/Installation to 
-install SDL2 from a package manager or compile from source.
+install SDL2 from a package manager or compile from source. If you do not have sudo rights on your 
+workstation, put the SDL libs in your home directory and point the linker at them.
 
   ## On a Local Linux machine
   
